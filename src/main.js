@@ -1,11 +1,16 @@
 import { createApp } from 'vue'
+
 import App from './App.vue'
 import router from './router'
+import axios from 'axios'
+
 
 import './assets/main.css'
 
-const app = createApp(App)
+const peppermint = createApp(App)
 
-app.use(router)
+peppermint.use(router)
 
-app.mount('#app')
+peppermint.config.globalProperties.axios=axios
+
+peppermint.mount('#app')

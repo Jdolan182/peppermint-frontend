@@ -1,3 +1,4 @@
+
 <template>
   <div class="about">
     <h1>Api data is: </h1>
@@ -6,17 +7,21 @@
 </template>
 
 <script>
-    new Vue({
-    el: '#api-data',
-    data () {
-        return {
-        info: null
-        }
-    },
-    mounted () {
-        axios
-        .get('https://http://localhost/api/test')
-        .then(response => (this.info = response))
+
+ export default {
+  data() {
+    return {
+      apiData: []
     }
-    })
+  },
+  mounted() {
+    this.axios
+      .get('http://localhost/api/test')
+      .then((response) => {
+        this.apiData = response.data
+      })
+  }
+}
+
+
 </script>
