@@ -10,5 +10,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  configureWebpack: {
+    devtool: 'source-map'
   }
 }
