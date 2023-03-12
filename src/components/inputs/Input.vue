@@ -19,34 +19,34 @@
       :error="$attrs['error']"
       :error-message="$attrs['error-message']"
     />
-  </template>
+</template>
   
-  <script setup>
-  import { ref, watch, computed } from "vue";
-  //Vue Components
-  import InputErrorMessage from "@/components/inputs/InputErrorMessage.vue";
-  // eslint-disable-next-line no-undef
-  const props = defineProps({
-    defaultValue: {
-      type: [String, Number],
-      default: () => "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  });
-  // eslint-disable-next-line no-undef
-  const emits = defineEmits(["inputValue", "clearInput"]);
-  const value = ref(props.defaultValue ?? "");
-  const defaultValue = computed(() => props.defaultValue);
-  const inputValue = () => {
-    emits("inputValue", value.value);
-  };
-  watch(defaultValue, () => {
-    value.value = defaultValue.value;
-  });
-  </script>
-  <style scoped>
+<script setup>
+    import { ref, watch, computed } from "vue";
+    //Vue Components
+    import InputErrorMessage from "@/components/inputs/InputErrorMessage.vue";
+    // eslint-disable-next-line no-undef
+    const props = defineProps({
+      defaultValue: {
+        type: [String, Number],
+        default: () => "",
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    });
+    // eslint-disable-next-line no-undef
+    const emits = defineEmits(["inputValue", "clearInput"]);
+    const value = ref(props.defaultValue ?? "");
+    const defaultValue = computed(() => props.defaultValue);
+    const inputValue = () => {
+        emits("inputValue", value.value);
+    };
+    watch(defaultValue, () => {
+      value.value = defaultValue.value;
+    });
+</script>
+<style scoped>
 
-  </style>
+</style>

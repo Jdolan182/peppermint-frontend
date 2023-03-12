@@ -5,7 +5,9 @@ import SignInForm from '../../components/forms/SignInForm.vue'
 <template>
   <div class="h-full bg-gray-50">
     <div class="h-full">
-      <SignInForm />
+      <SignInForm 
+        title="Sign in to your admin panel"
+      />
     </div>
   </div>
 </template>
