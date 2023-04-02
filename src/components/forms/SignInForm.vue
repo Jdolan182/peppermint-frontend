@@ -26,10 +26,8 @@
   
         axios({
             method: 'post',
-            url: 'http://localhost/api/test',
-            data: {
-              data: params
-            }
+            url: 'http://localhost/api/auth/login',
+            data: params,
           }).then(function (response) {
             console.log(response);
           });
