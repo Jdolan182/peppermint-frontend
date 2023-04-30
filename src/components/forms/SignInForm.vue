@@ -7,7 +7,12 @@
     import Submit from '../buttons/Submit.vue'
     import { ref } from "@vue/reactivity";
     import axios from 'axios'
+    import { useUserStore } from "../../store/user";
+    import { useRouter } from "vue-router";
 
+
+    const userStore = useUserStore();
+    const router = useRouter();
 
     const props = defineProps({
       title: {
@@ -29,7 +34,11 @@
             url: 'http://localhost/api/auth/login',
             data: params,
           }).then(function (response) {
-            console.log(response);
+            //add user to store
+            userStore.setUser(response.data);
+            console.log(userStore.getName);
+            router.push({ name: "Dashboard" });
+
           });
       } catch (e) { 
 
