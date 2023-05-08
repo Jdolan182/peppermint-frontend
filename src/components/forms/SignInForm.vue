@@ -3,12 +3,13 @@
     import Input from '../inputs/Input.vue'
     import Checkbox from '../inputs/Checkbox.vue'
     import Label from '../labels/Label.vue'
+    import ErrorLabel from '../labels/ErrorLabel.vue'
     import HeaderTwo from '../labels/HeaderTwo.vue'
     import Submit from '../buttons/Submit.vue'
     import { ref } from "@vue/reactivity";
-    import axios from 'axios'
     import { useUserStore } from "../../store/user";
     import { useRouter } from "vue-router";
+    import { useAxios } from "@/composables/request.js";
 
 
     const userStore = useUserStore();
@@ -21,30 +22,6 @@
       }
     });
 
-    const submit = async () => {
-
-      try {
-        const params = {
-            email: form.value.email.value,
-            password: form.value.password.value,
-        };
-  
-        axios({
-            method: 'post',
-            url: 'http://localhost/api/auth/login',
-            data: params,
-          }).then(function (response) {
-            //add user to store
-            userStore.setUser(response.data);
-            console.log(userStore.getName);
-            router.push({ name: "Dashboard" });
-
-          });
-      } catch (e) { 
-
-      }
-    };
-
     const form = ref({
       email: {
         value: "",
@@ -55,9 +32,36 @@
         value: "",
         error: false,
         errorMessage: "",
+      },
+      login: {
+        value: "",
+        error: false,
+        errorMessage: "",
       }
     });
 
+    const submit = async () => {
+
+      try {
+        const params = {
+            email: form.value.email.value,
+            password: form.value.password.value,
+        };
+
+        const res = await useAxios.post('/auth/login', params, form)
+
+        if(res.status != 200 && res.response.status == 401)
+        {
+          form.value.login.error = true;
+          form.value.login.errorMessage = res.response.data.message;
+        }
+        if (res) {
+          userStore.setUser(res.data);
+          router.push({ name: "Dashboard" });
+        }
+      } catch (e) {
+      }
+    };
 </script>
 
 <template>
@@ -74,6 +78,13 @@
         <Form class="space-y-6"
         @submit="submit()"
         >
+            <div class="text-center">
+              <ErrorLabel
+                  :label="form.login.errorMessage"
+                  :error="form.login.error"
+
+              />
+            </div>
             <div>
                 <Label
                     for="email" 

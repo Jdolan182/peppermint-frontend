@@ -5,6 +5,10 @@ import router from './router'
 
 import './assets/main.css'
 
+//set api url
+import axios from "axios";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
 //store
 const pinia = createPinia()
 
