@@ -47,6 +47,3 @@
       value.value = defaultValue.value;
     });
 </script>
-<style scoped>
-
-</style>

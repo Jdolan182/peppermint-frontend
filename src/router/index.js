@@ -12,7 +12,7 @@ const router = createRouter({
     },
     {
       path: '/test',
-      name: 'Dashboard',
+      name: 'Test',
       component: () => import('../views/admin/Test.vue'),
       meta: { requiresAuth: true }
     },
@@ -21,7 +21,13 @@ const router = createRouter({
       name: 'Peppermint',
       component: () => import('../views/admin/Peppermint.vue'),
       meta: { skipIfAuth: true }
-    }
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('../views/admin/Dashboard.vue'),
+      meta: { requiresAuth: true }
+    },
   ]
 })
 
