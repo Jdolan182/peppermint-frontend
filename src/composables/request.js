@@ -14,11 +14,7 @@ const useAxios = {
       try {
         let res = [];
         if (data) {
-          res = await axios.get(url, {
-            params: {
-              ...data,
-            },
-          });
+          res = await axios.get(url, data);
         } else {
           res = await axios.get(url, {});
         }
@@ -43,8 +39,7 @@ const useAxios = {
       form = null,
     ) => {
       try {
-        const res = await axios.post(url, data);
-        return res;
+        return  await axios.post(url, data);
       } catch (error) {
         if (form) {
             displayFormErrors(form, error);
@@ -69,12 +64,7 @@ const useAxios = {
       form = null,
     ) => {
       try {
-        const res = await axios.delete(url, {
-          params: {
-            ...data,
-          },
-        });
-        return res;
+        return await axios.delete(url, data);
       } catch (error) {
         if (form) {
             displayFormErrors(form, error);

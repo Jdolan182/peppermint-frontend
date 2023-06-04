@@ -1,5 +1,5 @@
 /**
- * @param {ref|reactive|object} inputs
+ * @param {ref|reactive|object} form
  * @param {ref|reactive|object} errors
  * @returns
  */
