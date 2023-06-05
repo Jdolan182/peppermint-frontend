@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/frontend/HomeView.vue';
+import  HomeView  from '../views/frontend/HomeView.vue'
 import { useAuthStore } from '../store/auth';
 
 const router = createRouter({
@@ -11,10 +11,9 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: () => import('../views/admin/Test.vue'),
-      meta: { requiresAuth: true }
+      path: '/register',
+      name: 'Register',
+      component: () => import('../views/frontend/user/Register.vue'),
     },
     {
       path: '/peppermint',
@@ -23,11 +22,24 @@ const router = createRouter({
       meta: { skipIfAuth: true }
     },
     {
-      path: '/dashboard',
+      path: '/peppermint/dashboard',
       name: 'Dashboard',
       component: () => import('../views/admin/Dashboard.vue'),
-      meta: { requiresAuth: true }
+      meta: { 
+        requiresAuth: true,
+        adminSidebar: true
+       }
     },
+    {
+      path: '/peppermint/test',
+      name: 'Test',
+      component: () => import('../views/admin/Test.vue'),
+      meta: { 
+        requiresAuth: true,
+        adminSidebar: true 
+      }
+    },
+   
   ]
 })
 
