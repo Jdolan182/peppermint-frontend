@@ -1,16 +1,17 @@
 <template>
 
-    <div>
+    <div class="w-full">
         
         <adminSidebar />
 
-        <div class="lg:pl-72">
+        <div class="lg:pl-72 ">
             <adminHeader />
 
             <main class="py-10">
-            <div class="px-4 sm:px-6 lg:px-8">
-                <slot></slot>
-            </div>
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <RouterView  />
+
+                </div>
             </main>
         </div>
     </div>

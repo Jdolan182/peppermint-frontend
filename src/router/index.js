@@ -1,68 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import  HomeView  from '../views/frontend/HomeView.vue'
 import { useAuthStore } from '../store/auth';
-import {
-  ChartPieIcon,
-  FolderIcon,
-  HomeIcon,
-} from '@heroicons/vue/24/outline'
+
+//admin
+import { DashboardRoutes } from "./admin/dashboard.js";
+import { PeppermintRoutes } from "./admin/peppermint.js";
+import { TestRoutes } from "./admin/test.js";
+
+//frontend
+import { HomeRoutes } from "./frontend/home.js";
+import { RegisterRoutes } from "./frontend/register.js";
+
+
+let routes = [
+  //admin
+  ...DashboardRoutes,
+  ...PeppermintRoutes,
+  ...TestRoutes,
+
+  //frontend
+  ...HomeRoutes,
+  ...RegisterRoutes
+];
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/register',
-      name: 'Register',
-      component: () => import('../views/frontend/user/Register.vue'),
-    },
-    {
-      path: '/peppermint',
-      name: 'Peppermint',
-      component: () => import('../views/admin/Peppermint.vue'),
-      meta: { skipIfAuth: true }
-    },
-    {
-      path: '/peppermint/dashboard',
-      name: 'Dashboard',
-      component: () => import('../views/admin/Dashboard.vue'),
-      meta: { 
-        requiresAuth: true,
-        adminSidebar: true,
-        module: 'admin',
-        icon: HomeIcon
-       }
-    },
-    {
-      path: '/peppermint/test',
-      name: 'Test',
-      component: () => import('../views/admin/Test.vue'),
-      meta: { 
-        requiresAuth: true,
-        adminSidebar: true,
-        module: 'admin',
-        icon: FolderIcon,
-        parentNav: 'testNav'
-      }
-    },
-    {
-      path: '/peppermint/testchild',
-      name: 'TestChild',
-      component: () => import('../views/admin/TestChild.vue'),
-      meta: { 
-        requiresAuth: true,
-        adminSidebar: true,
-        module: 'admin',
-        icon: ChartPieIcon,
-        parentNav: 'testNav'
-      },
-    },
-   
-   
-  ]
+  routes
 })
 
 router.beforeEach((to, from) => {
