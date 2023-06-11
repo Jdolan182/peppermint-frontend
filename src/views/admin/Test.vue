@@ -7,16 +7,17 @@
 </template>
 
 <script>
+    import { useAxios } from "@/composables/request.js";
 
  export default {
+  
   data() {
     return {
       apiData: []
     }
   },
   mounted() {
-    this.axios
-      .get('http://localhost/api/test')
+    useAxios.post('/test')
       .then((response) => {
         this.apiData = response.data
       })

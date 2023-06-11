@@ -1,4 +1,4 @@
-<template>
+<template class="col-4">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-12">
       <div class="flex h-16 shrink-0 items-center">
         <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />

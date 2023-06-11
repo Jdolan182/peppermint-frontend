@@ -1,0 +1,10 @@
+
+<template>
+  <div class="about">
+    <h1>Test child</h1>
+  </div>
+</template>
+
+<script>
+
+</script>

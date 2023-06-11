@@ -6,7 +6,7 @@
 #app {
   display: flex;
   margin: 0 0;
-
+  width: 100%;
   font-weight: normal;
 }
 

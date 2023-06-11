@@ -1,8 +1,6 @@
-
-<script setup>
-
-</script>
-
 <template>
-    <h1> This is the dashbaord</h1>
+ <p> dashboard here</p>
 </template>
+  
+<script setup>
+</script>

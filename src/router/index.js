@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import  HomeView  from '../views/frontend/HomeView.vue'
 import { useAuthStore } from '../store/auth';
-
+import {
+  ChartPieIcon,
+  FolderIcon,
+  HomeIcon,
+} from '@heroicons/vue/24/outline'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,7 +31,9 @@ const router = createRouter({
       component: () => import('../views/admin/Dashboard.vue'),
       meta: { 
         requiresAuth: true,
-        adminSidebar: true
+        adminSidebar: true,
+        module: 'admin',
+        icon: HomeIcon
        }
     },
     {
@@ -36,9 +42,25 @@ const router = createRouter({
       component: () => import('../views/admin/Test.vue'),
       meta: { 
         requiresAuth: true,
-        adminSidebar: true 
+        adminSidebar: true,
+        module: 'admin',
+        icon: FolderIcon,
+        parentNav: 'testNav'
       }
     },
+    {
+      path: '/peppermint/testchild',
+      name: 'TestChild',
+      component: () => import('../views/admin/TestChild.vue'),
+      meta: { 
+        requiresAuth: true,
+        adminSidebar: true,
+        module: 'admin',
+        icon: ChartPieIcon,
+        parentNav: 'testNav'
+      },
+    },
+   
    
   ]
 })

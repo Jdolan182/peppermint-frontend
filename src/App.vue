@@ -1,12 +1,17 @@
 <script setup>
 import { RouterView, useRoute } from 'vue-router'
 
-import adminSidebar from './layouts/adminSidebar.vue'
+import adminLayout from './layouts/admin/adminLayout.vue'
 
 const route = useRoute()
 </script>
 
 <template>
-  <adminSidebar v-if="route.meta.adminSidebar"/>
-  <RouterView />
+  <!-- Admin layout -->
+  <adminLayout v-if="route.meta.adminSidebar" class="w-full">
+    <RouterView  />
+  </adminLayout>
+  <!-- Frontend layout -->
+  <!-- No layouts -->
+  <RouterView  v-else/>
 </template>
