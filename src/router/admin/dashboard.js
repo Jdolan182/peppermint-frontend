@@ -2,19 +2,20 @@ import { HomeIcon } from '@heroicons/vue/24/outline'
 
 export const DashboardRoutes = [
   {
-    path: '/peppermint/dashboard',
-    meta: { requiresAuth: true },
+    path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/dashboard',
+    name: 'Dashboard',
+    meta: { 
+      requiresAuth: true,
+      module: 'admin',
+      adminSidebar: true,
+      icon: HomeIcon,
+      nav: 'Dashboard'
+    },
     children: [
       {
         path: '',
-        name: 'Dashbord',
+        name: 'Dashboard',
         component: () => import('../../views/admin/Dashboard.vue'),
-        meta: { 
-            requiresAuth: true,
-            adminSidebar: true,
-            module: 'admin',
-            icon: HomeIcon
-        }
       },
     ],
   },

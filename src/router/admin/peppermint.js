@@ -1,7 +1,7 @@
 
 export const PeppermintRoutes = [
     {
-        path: '/peppermint',
+        path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME,
         name: 'Peppermint',
         component: () => import('../../views/admin/Peppermint.vue'),
         meta: { skipIfAuth: true }

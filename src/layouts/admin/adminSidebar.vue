@@ -10,10 +10,10 @@
           <li>
             <ul role="list" class="-mx-2 space-y-1">
               <li v-for="item in navigation" :key="item.name">
-                <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                <router-link :to="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                   <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                   {{ item.name }}
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
@@ -32,23 +32,14 @@
 
 <script setup>
   import { useRouter } from 'vue-router'
+  import { useNavigationStore } from "@/store/navigation";
+  import { computed } from 'vue';
+
+
   const router = useRouter();
 
-    let navigation = []   
+  const navigationStore = useNavigationStore();
+  const navigation = computed(() => navigationStore.getNavigation);
 
-    console.log(router.getRoutes())
-
-    router.getRoutes().map(function(route) {
-      if(route.meta.module == 'admin')
-      {
-        const link = {
-          name: route.name,
-          href: route.path,
-          icon: route.meta.icon,
-          current: router.currentRoute.value.name == route.name ? true : false,
-        }
-
-        navigation.push(link)
-      }
-   });
+  
 </script>

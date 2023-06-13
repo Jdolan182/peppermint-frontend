@@ -6,7 +6,7 @@ import router from './router'
 import './assets/main.css'
 
 //set api url
-import axios, { all } from "axios";
+import axios from "axios";
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 //store
@@ -16,5 +16,6 @@ const peppermint = createApp(Admin)
 
 peppermint.use(pinia)
 peppermint.use(router)
+
 
 peppermint.mount('#app')

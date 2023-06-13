@@ -2,6 +2,8 @@
 export const RegisterRoutes = [
   {
     path: '/register',
+    name: 'Register',
+    meta: {},
     children: [
       {
         path: '',

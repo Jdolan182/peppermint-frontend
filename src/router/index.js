@@ -10,40 +10,66 @@ import { TestRoutes } from "./admin/test.js";
 import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
 
+import { createBreadcrumbs, createNavigation } from "@/composables/navigation";
+import { useBreadcrumbStore } from "@/store/breadcrumbs";
+import { useNavigationStore } from "@/store/navigation";
 
-let routes = [
+
+
   //admin
-  ...DashboardRoutes,
-  ...PeppermintRoutes,
-  ...TestRoutes,
+  let adminRoutes = []
+
+  if(import.meta.env.VITE_MODULE_ADMIN  === 'true'){
+    adminRoutes = [
+      ...DashboardRoutes,
+      ...PeppermintRoutes,
+      ...TestRoutes,
+    ]
+  }
 
   //frontend
-  ...HomeRoutes,
-  ...RegisterRoutes
-];
+  let frontendRoutes = []
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-})
-
-router.beforeEach((to, from) => {
-
-  const authState = useAuthStore();
-  // redirect if not logged in
-  if (to.meta.requiresAuth && !authState.getIsLoggedIn) {
-    return {
-      name: 'Peppermint',
-      // save the location we were at to come back later
-      query: { redirect: to.fullPath },
-    }
+  if(import.meta.env.VITE_MODULE_FRONTEND === 'true'){
+    frontendRoutes = [
+      ...HomeRoutes,
+      ...RegisterRoutes
+    ]
   }
 
-  if (to.meta.skipIfAuth && authState.getIsLoggedIn) {
-    return {
-      name: 'Dashboard',
-    }
-  }
-})
+  const routes = adminRoutes.concat(frontendRoutes);
 
-export default router
+  const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes,
+  })
+
+  router.beforeEach((to, from) => {
+
+    const authState = useAuthStore();
+    // redirect if not logged in
+    if (to.meta.requiresAuth && !authState.getIsLoggedIn) {
+      return {
+        name: 'Peppermint',
+        // save the location we were at to come back later
+        query: { redirect: to.fullPath },
+      }
+    }
+
+    if (to.meta.skipIfAuth && authState.getIsLoggedIn) {
+      return {
+        name: 'Dashboard',
+      }
+    }
+  })
+
+  router.afterEach((to, from) => {
+
+    const breadcrumbStore = useBreadcrumbStore();
+    const navigationStore = useNavigationStore();
+
+    breadcrumbStore.setCrumbs(createBreadcrumbs(to))
+    navigationStore.setNav(createNavigation(to, routes))
+  })
+
+  export default router
