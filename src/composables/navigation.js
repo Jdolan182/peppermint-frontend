@@ -44,7 +44,7 @@ export const createNavigation = (currentRoute, routes) => {
         {
 
             const link = {
-                name: route.name,
+                name: route.meta.nav,
                 href: route.path,
                 icon: route.meta.icon,
                 current: currentRoute.meta.nav == route.meta.nav ? true : false,

@@ -11,7 +11,8 @@
             <ol role="list" class="flex items-center space-x-4">
             <li>
                 <div class="flex">
-                    <router-link :to="{ name: 'Dashboard' }" class="text-sm font-medium text-gray-400 hover:text-gray-200">Dashboard</router-link>
+                    <router-link v-if="title!='Dashboard'" :to="{ name: 'Dashboard' }" class="text-sm font-medium text-gray-400 hover:text-gray-200">Dashboard</router-link>
+                    <span v-else class="text-sm font-medium text-white">Dashboard</span>
                 </div>
             </li>
             <li v-for="crumb in breadcrumbs">

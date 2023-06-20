@@ -14,8 +14,6 @@ import { createBreadcrumbs, createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
 import { useNavigationStore } from "@/store/navigation";
 
-
-
   //admin
   let adminRoutes = []
 

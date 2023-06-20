@@ -3,7 +3,6 @@ import { FolderIcon } from '@heroicons/vue/24/outline'
 export const TestRoutes = [
   {
     path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/test',
-    name: 'Test',
     meta: { 
       requiresAuth: true,
       adminSidebar: true,

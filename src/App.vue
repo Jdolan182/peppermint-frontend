@@ -9,7 +9,6 @@ const route = useRoute()
 <template>
   <!-- Admin layout -->
   <adminLayout v-if="route.meta.adminSidebar" class="w-full">
-    <RouterView  />
   </adminLayout>
   <!-- Frontend layout -->
   <!-- No layouts -->

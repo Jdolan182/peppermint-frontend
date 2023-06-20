@@ -18,6 +18,7 @@
 </template>
   
 <script setup>
-  import adminHeader from './adminHeader.vue'
-  import adminSidebar from './adminSidebar.vue'
+    import { RouterView } from 'vue-router'
+    import adminHeader from './adminHeader.vue'
+    import adminSidebar from './adminSidebar.vue'
 </script>
