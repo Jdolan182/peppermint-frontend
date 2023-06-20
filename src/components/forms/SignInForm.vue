@@ -130,17 +130,20 @@
             password: form.value.password.value,
         };
 
-        const res = await useAxios.post('/auth/login', params, form)
+        useAxios.get('sanctum/csrf-cookie').then(async response => {
 
-        if(res.status != 200 && res.response.status == 401)
-        {
-          form.value.login.error = true;
-          form.value.login.errorMessage = res.response.data.message;
-        }
-        if (res) {
-          userStore.setUser(res.data);
-          router.push({ name: "Dashboard" });
-        }
+          const res = await useAxios.post('/api/auth/login', params, form)
+
+          if(res.status != 200 && res.response.status == 401)
+          {
+            form.value.login.error = true;
+            form.value.login.errorMessage = res.response.data.message;
+          }
+          if (res) {
+            userStore.setUser(res.data);
+            router.push({ name: "Dashboard" });
+          }
+        })
       } catch (e) {
       }
     };

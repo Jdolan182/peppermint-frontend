@@ -17,7 +17,7 @@
     }
   },
   mounted() {
-    useAxios.post('/test')
+    useAxios.post('/api/test')
       .then((response) => {
         this.apiData = response.data
       })

@@ -31,15 +31,14 @@
 </template>
 
 <script setup>
-  import { useRouter } from 'vue-router'
   import { useNavigationStore } from "@/store/navigation";
   import { computed } from 'vue';
-
-
-  const router = useRouter();
+  import { useUserStore } from "@/store/user";
 
   const navigationStore = useNavigationStore();
   const navigation = computed(() => navigationStore.getNavigation);
 
-  
+  //user
+  const userStore = useUserStore();
+  userStore.getUser()
 </script>

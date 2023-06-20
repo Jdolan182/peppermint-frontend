@@ -37,7 +37,7 @@
     import { computed } from 'vue';
     import { useRouter } from 'vue-router'
     import { useBreadcrumbStore } from "@/store/breadcrumbs";
-    
+
     const router = useRouter();
 
     const title = computed(() => router.currentRoute.value.name)
