@@ -29,15 +29,32 @@
             <div class="min-w-0 flex-1">
                 <h2 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight"> {{ title }}  </h2>
             </div>
+
+            <DropdownMenu 
+                :title=userName
+                :options=menuOptions
+            >
+                <MenuItem>
+                    <a href="#" @click="logout(router)" class="block px-3 py-1 text-sm leading-6 text-gray-900">Sign Out</a>
+                </MenuItem>
+            </DropdownMenu>
+            
+
+           
         </div>
     </div>
 </template>
       
 <script setup>
     import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
-    import { computed } from 'vue';
+    import { computed, ref } from 'vue';
     import { useRouter } from 'vue-router'
-    import { useBreadcrumbStore } from "@/store/breadcrumbs";
+    import { useBreadcrumbStore } from '@/store/breadcrumbs';
+    import { useUserStore } from '@/store/user';
+    import  DropdownMenu  from '@/components/menus/DropdownMenu.vue'
+    import { logout } from "@/composables/logout";
+    import { MenuItem } from '@headlessui/vue'
+
 
     const router = useRouter();
 
@@ -45,4 +62,12 @@
 
     const breadcrumbStore = useBreadcrumbStore();
     const breadcrumbs = computed(() => breadcrumbStore.getBreadcrumbs);
+
+    const menuOptions = [
+        { name: 'Your profile', href: '#' },
+    ]
+
+    //user
+    const userStore = useUserStore();
+    const userName =  ref(userStore.getName);
 </script>

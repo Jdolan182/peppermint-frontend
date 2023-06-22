@@ -36,6 +36,17 @@ export const useUserStore = defineStore('user', {
         this.name = res.data.name
         localStorage.setItem("userEmail", data.email)
         this.email = res.data.email
+    },
+    removeUser() {
+      const authStore = useAuthStore();
+      authStore.removeToken()
+      
+      localStorage.removeItem("userId")
+      this.id = null
+      localStorage.removeItem("userName")
+      this.name = null
+      localStorage.removeItem("userEmail")
+      this.email = null
     }
   }
 })

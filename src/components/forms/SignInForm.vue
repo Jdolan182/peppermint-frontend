@@ -10,7 +10,7 @@
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <Form class="space-y-6"
-        @submit="submit()"
+          @submit="submit()"
         >
             <div class="text-center">
               <ErrorLabel
@@ -136,12 +136,12 @@
 
           if(res.status != 200 && res.response.status == 401)
           {
-            form.value.login.error = true;
-            form.value.login.errorMessage = res.response.data.message;
+            form.value.login.error = true
+            form.value.login.errorMessage = res.response.data.message
           }
           if (res) {
-            userStore.setUser(res.data);
-            router.push({ name: "Dashboard" });
+            userStore.setUser(res.data)
+            router.push({ name: "Dashboard" })
           }
         })
       } catch (e) {

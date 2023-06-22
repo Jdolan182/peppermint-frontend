@@ -18,5 +18,9 @@ export const useAuthStore = defineStore('auth', {
         this.isLoggedIn = val;
         //this.token = token
     },
+    removeToken() { 
+      localStorage.removeItem("isLoggedIn");
+      this.isLoggedIn = null;
+    }
   }
 })

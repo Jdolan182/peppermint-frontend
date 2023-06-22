@@ -17,11 +17,10 @@
               </li>
             </ul>
           </li>
-          <li class="-mx-6 mt-auto">
-            <a href="#" class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-400 hover:text-white hover:bg-gray-800">
-              <img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-              <span class="sr-only">Your profile</span>
-              <span aria-hidden="true"> {{ userName }}</span>
+          <li class="mx-2 mt-auto mb-10">
+            <a href="#" class="group -mx-4 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:text-white hover:bg-gray-800">
+              <Cog6ToothIcon class="h-6 w-6 shrink-0" aria-hidden="true" />
+              Settings
             </a>
           </li>
         </ul>
@@ -32,13 +31,10 @@
 
 <script setup>
   import { useNavigationStore } from "@/store/navigation";
-  import { computed, ref } from 'vue';
-  import { useUserStore } from "@/store/user";
+  import { computed } from 'vue';
+  import { Cog6ToothIcon } from '@heroicons/vue/24/outline'
 
   const navigationStore = useNavigationStore();
   const navigation = computed(() => navigationStore.getNavigation);
 
-  //user
-  const userStore = useUserStore();
-  const userName =  ref(userStore.getName);
 </script>
