@@ -1,5 +1,5 @@
 import { useAxios } from "@/composables/request.js"
-import { useUserStore } from "@/store/user"
+import { useUserStore } from "@/store/admin/user"
 
 export const logout = async (router) => {
 

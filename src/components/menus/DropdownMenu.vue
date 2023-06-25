@@ -5,7 +5,7 @@
             <img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
             <span class="hidden lg:flex lg:items-center">
                 <span class="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">{{ props.title }}</span>
-                <ChevronDownIcon class="ml-2 h-5 w-5 text-white" aria-hidden="true" />
+                <ChevronDownIcon v-if="arrow" class="ml-2 h-5 w-5 text-white" aria-hidden="true" />
             </span>
         </MenuButton>
         <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -33,6 +33,10 @@
         options: {
             type: [Array],
             default: () => ""
+        },
+        arrow: {
+            type: [Boolean],
+            default: () => true
         }
     });
 </script>

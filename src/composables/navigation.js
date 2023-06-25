@@ -34,13 +34,13 @@ export const createBreadcrumbs = (route) => {
  * @param { vue-routes } routes
  * @returns { array }
  */
-export const createNavigation = (currentRoute, routes) => {
+export const createNavigation = (currentRoute, routes, module) => {
 
 
     let navigation = []   
 
     routes.map(function(route) {
-        if(route.meta.module == 'admin')
+        if(route.meta.module == module && !(route.meta.excludeFromNav))
         {
 
             const link = {

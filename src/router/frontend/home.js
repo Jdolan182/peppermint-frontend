@@ -2,8 +2,11 @@
 export const HomeRoutes = [
   {
     path: '/',
-    name: 'Home',
-    meta: {},
+    meta: {
+      module: 'frontend',
+      frontendLayout: true,
+      nav: 'Home'
+    },
     children: [
       {
         path: '',

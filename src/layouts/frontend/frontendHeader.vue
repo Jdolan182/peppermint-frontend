@@ -1,46 +1,132 @@
 <template>
-    <div class="bg-gray-900 p-4 h-24">
-        <div>
-        <nav class="sm:hidden" aria-label="Back">
-            <a href="#" class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-200">
-            <ChevronLeftIcon class="-ml-1 mr-1 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-            Back
-            </a>
-        </nav>
-        <nav class="hidden sm:flex" aria-label="Breadcrumb">
-            <ol role="list" class="flex items-center space-x-4">
-            <li>
-                <div class="flex">
-                <a href="#" class="text-sm font-medium text-gray-400 hover:text-gray-200">Jobs</a>
-                </div>
-            </li>
-            <li>
-                <div class="flex items-center">
-                <ChevronRightIcon class="h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-                <a href="#" class="ml-4 text-sm font-medium text-gray-400 hover:text-gray-200">Engineering</a>
-                </div>
-            </li>
-            <li>
-                <div class="flex items-center">
-                <ChevronRightIcon class="h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-                <a href="#" aria-current="page" class="ml-4 text-sm font-medium text-gray-400 hover:text-gray-200">Back End Developer</a>
-                </div>
-            </li>
-            </ol>
-        </nav>
+
+    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+      <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <router-link v-for="item in navigation" :key="item.name"  :to="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</router-link>
+              </div>
+            </div>
+          </div>
+          <div v-if="login == 'true'" class="hidden md:block">
+            <div v-if="loggedIn">
+              <div class="ml-4 flex items-center md:ml-6">
+                <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <span class="sr-only">View notifications</span>
+                  <BellIcon class="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                <!-- Profile dropdown -->
+                  <DropdownMenu 
+                  :arrow=false
+                  :options=menuOptions
+                  class="relative ml-3"
+              >
+                  <MenuItem>
+                      <a href="#" @click="logout(router)" class="block px-3 py-1 text-sm leading-6 text-gray-900">Sign Out</a>
+                  </MenuItem>
+              </DropdownMenu>      
+              </div>
+            </div>
+            <div v-else>
+              <div class="ml-10 flex items-baseline space-x-4">
+                <router-link to="Register" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+              </div>
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <!-- Mobile menu button -->
+            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+              <span class="sr-only">Open main menu</span>
+              <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
+              <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
+            </DisclosureButton>
+          </div>
         </div>
-        <div class="mt-2 md:flex md:items-center md:justify-between">
-        <div class="min-w-0 flex-1">
-            <h2 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">Back End Developer</h2>
+      </div>
+
+      <DisclosurePanel class="md:hidden">
+        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+          <router-link v-for="item in navigation" :key="item.name" :to="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</router-link>
         </div>
-        <div class="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
-            <button type="button" class="inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">Edit</button>
-            <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Publish</button>
+        <div v-if="login == 'true'" class="border-t border-gray-700 pb-3 pt-4">
+          <div v-if="loggedIn">
+            <div class="flex items-center px-5">
+              <div class="flex-shrink-0">
+                <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+              </div>
+              <div class="ml-3">
+                <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
+                <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
+              </div>
+              <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <span class="sr-only">View notifications</span>
+                <BellIcon class="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div class="mt-3 space-y-1 px-2">
+              <div class="mt-3 space-y-1 px-2">
+                <DisclosureButton v-for="item in menuOptions" :key="item.name" as="a" :href="item.href" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">{{ item.name }}</DisclosureButton>
+                <a href="#" @click="logout(router)" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign Out</a>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="ml-3 flex items-baseline space-x-4">
+                <router-link to="Register" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+              </div>
+          </div>          
         </div>
-        </div>
-    </div>
+      </DisclosurePanel>
+    </Disclosure>
 </template>
       
 <script setup>
-    import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
+  import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+  import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+  import { computed } from 'vue';
+
+  import  DropdownMenu  from '@/components/menus/DropdownMenu.vue'
+  import { useRouter } from 'vue-router'
+  import { logout } from "@/composables/logout";
+  import { useNavigationStore } from '@/store/navigation';
+  import { useUserStore } from '@/store/frontend/user';
+  import { useAuthStore } from '@/store/frontend/auth';
+
+
+  const router = useRouter();
+
+  const title = computed(() => router.currentRoute.value.name)
+
+  const login = import.meta.env.VITE_MODULE_CUSTOMER_LOGIN;
+
+
+const user = {
+  name: 'Tom Cook',
+  email: 'tom@example.com',
+  imageUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+}
+
+  const authState = useAuthStore();
+  const loggedIn = authState.getIsCustomerLoggedIn
+  if(loggedIn){
+    //user
+    const userStore = useUserStore();
+    const userName =  ref(userStore.getName);
+  }
+
+  const navigationStore = useNavigationStore();
+  const navigation = computed(() => navigationStore.getNavigation);
+
+
+
+  const menuOptions = [
+      { name: 'Your profile', href: '#' },
+  ]
 </script>

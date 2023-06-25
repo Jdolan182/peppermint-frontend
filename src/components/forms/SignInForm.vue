@@ -89,7 +89,7 @@
     import HeaderTwo from '../labels/HeaderTwo.vue'
     import Submit from '../buttons/Submit.vue'
     import { ref } from "@vue/reactivity";
-    import { useUserStore } from "../../store/user";
+    import { useUserStore } from "@/store/admin/user";
     import { useRouter } from "vue-router";
     import { useAxios } from "@/composables/request.js";
 

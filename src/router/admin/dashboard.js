@@ -6,7 +6,7 @@ export const DashboardRoutes = [
     meta: { 
       requiresAuth: true,
       module: 'admin',
-      adminSidebar: true,
+      adminLayout: true,
       icon: HomeIcon,
       nav: 'Dashboard'
     },

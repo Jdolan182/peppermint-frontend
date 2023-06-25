@@ -1,22 +1,21 @@
 <template>
 
-    <div>
-        
-        <adminSidebar />
+    <div class="min-h-full">
+    
+        <frontendHeader />
 
-        <div class="lg:pl-72">
-            <adminHeader />
+        <main>
+            <div class="mx-auto max-w-screen-2xl py-6 sm:px-6 lg:px-8">
+                <RouterView  />
 
-            <main class="py-10">
-            <div class="px-4 sm:px-6 lg:px-8">
-                <router-view />
             </div>
-            </main>
-        </div>
+        </main>
+            
     </div>
 </template>
   
 <script setup>
-  import adminHeader from './frontendHeader.vue'
-  import adminSidebar from './frontendSidebar.vue'
+  import frontendHeader from './frontendHeader.vue'
+  import { RouterView } from 'vue-router'
+
 </script>

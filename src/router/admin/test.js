@@ -5,7 +5,7 @@ export const TestRoutes = [
     path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/test',
     meta: { 
       requiresAuth: true,
-      adminSidebar: true,
+      adminLayout: true,
       module: 'admin',
       icon: FolderIcon,
       nav: 'Test'

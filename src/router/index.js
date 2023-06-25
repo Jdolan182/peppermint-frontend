@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '@/store/admin/auth';
 
 //admin
 import { DashboardRoutes } from "./admin/dashboard.js";
@@ -46,18 +46,23 @@ import { useNavigationStore } from "@/store/navigation";
 
     const authState = useAuthStore();
     // redirect if not logged in
-    if (to.meta.requiresAuth && !authState.getIsLoggedIn) {
-      return {
-        name: 'Peppermint',
-        // save the location we were at to come back later
-        query: { redirect: to.fullPath },
+    if(to.meta.module == 'admin') {
+      if (to.meta.requiresAuth && !authState.getIsLoggedIn) {
+        return {
+          name: 'Peppermint',
+          // save the location we were at to come back later
+          query: { redirect: to.fullPath },
+        }
+      }
+
+      if (to.meta.skipIfAuth && authState.getIsLoggedIn) {
+        return {
+          name: 'Dashboard',
+        }
       }
     }
-
-    if (to.meta.skipIfAuth && authState.getIsLoggedIn) {
-      return {
-        name: 'Dashboard',
-      }
+    else if(to.meta.module == 'frontend'){
+     
     }
   })
 
@@ -67,7 +72,7 @@ import { useNavigationStore } from "@/store/navigation";
     const navigationStore = useNavigationStore();
 
     breadcrumbStore.setCrumbs(createBreadcrumbs(to))
-    navigationStore.setNav(createNavigation(to, routes))
+    navigationStore.setNav(createNavigation(to, routes, to.meta.module))
   })
 
   export default router

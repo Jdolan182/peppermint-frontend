@@ -3,7 +3,11 @@ export const RegisterRoutes = [
   {
     path: '/register',
     name: 'Register',
-    meta: {},
+    meta: {
+      module: 'frontend',
+      frontendLayout: true,
+      excludeFromNav: true
+    },
     children: [
       {
         path: '',

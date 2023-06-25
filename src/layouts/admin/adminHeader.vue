@@ -50,7 +50,7 @@
     import { computed, ref } from 'vue';
     import { useRouter } from 'vue-router'
     import { useBreadcrumbStore } from '@/store/breadcrumbs';
-    import { useUserStore } from '@/store/user';
+    import { useUserStore } from '@/store/admin/user';
     import  DropdownMenu  from '@/components/menus/DropdownMenu.vue'
     import { logout } from "@/composables/logout";
     import { MenuItem } from '@headlessui/vue'
