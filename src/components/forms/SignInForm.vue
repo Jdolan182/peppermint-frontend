@@ -89,13 +89,6 @@
     import HeaderTwo from '../labels/HeaderTwo.vue'
     import Submit from '../buttons/Submit.vue'
     import { ref } from "@vue/reactivity";
-    import { useUserStore } from "@/store/admin/user";
-    import { useRouter } from "vue-router";
-    import { useAxios } from "@/composables/request.js";
-
-
-    const userStore = useUserStore();
-    const router = useRouter();
 
     const props = defineProps({
       title: {
@@ -122,7 +115,9 @@
       }
     });
 
-    const submit = async () => {
+    const emit = defineEmits(['login'])
+
+    const submit = () => {
 
       try {
         const params = {
@@ -130,20 +125,8 @@
             password: form.value.password.value,
         };
 
-        useAxios.get('sanctum/csrf-cookie').then(async response => {
-
-          const res = await useAxios.post('/api/auth/login', params, form)
-
-          if(res.status != 200 && res.response.status == 401)
-          {
-            form.value.login.error = true
-            form.value.login.errorMessage = res.response.data.message
-          }
-          if (res) {
-            userStore.setUser(res.data)
-            router.push({ name: "Dashboard" })
-          }
-        })
+        emit('login', {params, form});
+        
       } catch (e) {
       }
     };

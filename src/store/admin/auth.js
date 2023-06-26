@@ -10,11 +10,11 @@ export const useAuthStore = defineStore('auth', {
     getIsLoggedIn: (state) => state.isLoggedIn,
   }, 
   actions: {
-    setToken(val,) {
+    setLoggedIn(val) {
         localStorage.setItem("isLoggedIn", val);
         this.isLoggedIn = val;
     },
-    removeToken() { 
+    logout() { 
       localStorage.removeItem("isLoggedIn");
       this.isLoggedIn = false;
     }

@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
         this.name = data.name;
 
         const authStore = useAuthStore();
-        authStore.setToken(true, data.token)
+        authStore.setLoggedIn(true)
         this.getUser();
         //TODO - in the future they would go here?
         // set user role
@@ -39,7 +39,7 @@ export const useUserStore = defineStore('user', {
     },
     removeUser() {
       const authStore = useAuthStore();
-      authStore.removeToken()
+      authStore.logout()
       
       localStorage.removeItem("userId")
       this.id = null

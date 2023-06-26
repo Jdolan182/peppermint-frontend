@@ -9,6 +9,7 @@ import { TestRoutes } from "./admin/test.js";
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
+import { LoginRoutes } from "./frontend/login.js";
 
 import { createBreadcrumbs, createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
@@ -31,7 +32,8 @@ import { useNavigationStore } from "@/store/navigation";
   if(import.meta.env.VITE_MODULE_FRONTEND === 'true'){
     frontendRoutes = [
       ...HomeRoutes,
-      ...RegisterRoutes
+      ...RegisterRoutes,
+      ...LoginRoutes
     ]
   }
 

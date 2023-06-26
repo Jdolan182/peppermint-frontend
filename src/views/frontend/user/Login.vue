@@ -1,10 +1,10 @@
 <script setup>
   import SignInForm from '@/components/forms/SignInForm.vue'
   import { useAxios } from "@/composables/request.js";
-  import { useUserStore } from "@/store/admin/user";
+  import { useConsumerStore } from "@/store/frontend/consumer";
   import { useRouter } from "vue-router";
 
-  const userStore = useUserStore();
+  const consumerStore = useConsumerStore();
   const router = useRouter();
 
   const login = async ({params, form}) => {
@@ -12,7 +12,7 @@
     try {
       useAxios.get('sanctum/csrf-cookie').then(async response => {
 
-        const res = await useAxios.post('/api/auth/login', params, form)
+        const res = await useAxios.post('/api/consumer/login', params, form)
 
         if(res.status != 200 && res.response.status == 401)
         {
@@ -20,8 +20,8 @@
           form.value.login.errorMessage = res.response.data.message
         }
         if (res) {
-          userStore.setUser(res.data)
-          router.push({ name: "Dashboard" })
+          consumerStore.setUser(res.data)
+          router.push({ name: "Home" })
         }
       })
     } catch (e) {
@@ -33,7 +33,7 @@
   <div class="h-full w-full bg-gray-50">
     <div class="h-full">
       <SignInForm 
-        title="Sign in to your admin panel"
+        title="Sign in"
         @login="login"
       />
     </div>

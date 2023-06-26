@@ -28,14 +28,14 @@
                   class="relative ml-3"
               >
                   <MenuItem>
-                      <a href="#" @click="logout(router)" class="block px-3 py-1 text-sm leading-6 text-gray-900">Sign Out</a>
+                      <a href="#" @click="logoutConsumer(router)" class="block px-3 py-1 text-sm leading-6 text-gray-900">Sign Out</a>
                   </MenuItem>
               </DropdownMenu>      
               </div>
             </div>
             <div v-else>
               <div class="ml-10 flex items-baseline space-x-4">
-                <router-link to="Register" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+                <router-link to="Login" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
               </div>
             </div>
           </div>
@@ -72,13 +72,13 @@
             <div class="mt-3 space-y-1 px-2">
               <div class="mt-3 space-y-1 px-2">
                 <DisclosureButton v-for="item in menuOptions" :key="item.name" as="a" :href="item.href" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">{{ item.name }}</DisclosureButton>
-                <a href="#" @click="logout(router)" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign Out</a>
+                <a href="#" @click="logoutConsumer(router)" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign Out</a>
               </div>
             </div>
           </div>
           <div v-else>
             <div class="ml-3 flex items-baseline space-x-4">
-                <router-link to="Register" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+                <router-link to="Login" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
               </div>
           </div>          
         </div>
@@ -89,14 +89,14 @@
 <script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   import  DropdownMenu  from '@/components/menus/DropdownMenu.vue'
   import { useRouter } from 'vue-router'
-  import { logout } from "@/composables/logout";
+  import { logoutConsumer } from "@/composables/logout";
   import { useNavigationStore } from '@/store/navigation';
-  import { useUserStore } from '@/store/frontend/user';
-  import { useAuthStore } from '@/store/frontend/auth';
+  import { useConsumerStore } from '@/store/frontend/consumer';
+  import { useConsumerAuthStore } from '@/store/frontend/consumerAuth';
 
 
   const router = useRouter();
@@ -113,12 +113,12 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 
-  const authState = useAuthStore();
-  const loggedIn = authState.getIsCustomerLoggedIn
+  const consumerAuthStore = useConsumerAuthStore();
+  const loggedIn =  computed( () => consumerAuthStore.getIsConsumerLoggedIn);
   if(loggedIn){
     //user
-    const userStore = useUserStore();
-    const userName =  ref(userStore.getName);
+    const consumerStore = useConsumerStore();
+    const userName =  computed( () => consumerStore.getName);
   }
 
   const navigationStore = useNavigationStore();
