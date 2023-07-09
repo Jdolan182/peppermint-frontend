@@ -1,20 +1,20 @@
-import { FolderIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon } from '@heroicons/vue/24/outline'
 
-export const TestRoutes = [
+export const ConsumerRoutes = [
   {
-    path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/test',
+    path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/consumers',
     meta: { 
       requiresAuth: true,
       adminLayout: true,
       module: 'admin',
-      icon: FolderIcon,
-      nav: 'Test'
+      icon: UserCircleIcon,
+      nav: 'Consumers'
     },
     children: [
       {
         path: '',
-        name: 'Test',
-        component: () => import('../../views/admin/Test.vue'),
+        name: 'Consumers',
+        component: () => import('../../views/admin/Consumer.vue'),
       },
       {
         path: '/peppermint/test/child',

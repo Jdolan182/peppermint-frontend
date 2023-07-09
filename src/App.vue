@@ -9,11 +9,11 @@ const route = useRoute()
 
 <template>
   <!-- Admin layout -->
-  <adminLayout v-if="route.meta.adminLayout" class="w-full">
+  <adminLayout v-if="route.meta.adminLayout" class="w-full bg-gray-100">
   </adminLayout>
     <!-- Frontend layout -->
-  <frontendLayout v-else-if="route.meta.frontendLayout" class="w-full">
+  <frontendLayout v-else-if="route.meta.frontendLayout" class="w-full bg-gray-100">
   </frontendLayout>
   <!-- No layouts -->
-  <RouterView  v-else/>
+  <RouterView  v-else class="w-full bg-gray-100"/>
 </template>

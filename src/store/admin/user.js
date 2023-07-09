@@ -27,7 +27,7 @@ export const useUserStore = defineStore('user', {
         // set user permissions
     },
     async getUser() {
-        const res = await useAxios.get('api/user')
+        const res = await useAxios.get('api/user/getUser')
         let data = res.data.data
 
         localStorage.setItem("userId", data.id)

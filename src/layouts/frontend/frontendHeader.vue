@@ -35,7 +35,7 @@
             </div>
             <div v-else>
               <div class="ml-10 flex items-baseline space-x-4">
-                <router-link to="Login" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+                <router-link to="login" :class="[title == 'register' || title == 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@
           </div>
           <div v-else>
             <div class="ml-3 flex items-baseline space-x-4">
-                <router-link to="Login" :class="[title == 'Register' || title == 'Login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+                <router-link to="login" :class="[title == 'register' || title == 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
               </div>
           </div>          
         </div>

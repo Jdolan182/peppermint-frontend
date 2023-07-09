@@ -30,12 +30,15 @@
 </script>
 
 <template>
-  <div class="h-full w-full bg-gray-50">
+  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="h-full">
       <SignInForm 
         title="Sign in"
         @login="login"
+        :register=true
       />
+
+
     </div>
   </div>
 </template>

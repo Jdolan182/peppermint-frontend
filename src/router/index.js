@@ -4,7 +4,8 @@ import { useAuthStore } from '@/store/admin/auth';
 //admin
 import { DashboardRoutes } from "./admin/dashboard.js";
 import { PeppermintRoutes } from "./admin/peppermint.js";
-import { TestRoutes } from "./admin/test.js";
+import { ConsumerRoutes } from "./admin/consumer.js";
+import { AdminRoutes } from "./admin/admin.js";
 
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
@@ -16,28 +17,29 @@ import { useBreadcrumbStore } from "@/store/breadcrumbs";
 import { useNavigationStore } from "@/store/navigation";
 
   //admin
-  let adminRoutes = []
+  let adminRoutesArr = []
 
   if(import.meta.env.VITE_MODULE_ADMIN  === 'true'){
-    adminRoutes = [
+    adminRoutesArr = [
       ...DashboardRoutes,
       ...PeppermintRoutes,
-      ...TestRoutes,
+      ...ConsumerRoutes,
+      ...AdminRoutes
     ]
   }
 
   //frontend
-  let frontendRoutes = []
+  let frontendRoutesArr = []
 
   if(import.meta.env.VITE_MODULE_FRONTEND === 'true'){
-    frontendRoutes = [
+    frontendRoutesArr = [
       ...HomeRoutes,
       ...RegisterRoutes,
       ...LoginRoutes
     ]
   }
 
-  const routes = adminRoutes.concat(frontendRoutes);
+  const routes = adminRoutesArr.concat(frontendRoutesArr);
 
   const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

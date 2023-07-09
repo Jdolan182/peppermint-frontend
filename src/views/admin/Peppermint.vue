@@ -30,8 +30,8 @@
 </script>
 
 <template>
-  <div class="h-full w-full bg-gray-50">
-    <div class="h-full">
+  <div class="h-full w-full">
+    <div class="h-full overflow-hidden bg-white shadow sm:rounded-lg">
       <SignInForm 
         title="Sign in to your admin panel"
         @login="login"
