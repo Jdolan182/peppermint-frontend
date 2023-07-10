@@ -9,7 +9,10 @@
           : 'border-gray-300  placeholder-gray-500 ',
         props.disabled
           ? 'text-gray-500'
-          : 'text-gray-900']
+          : 'text-gray-900',
+        props.icon
+          ? 'pl-10' 
+          : '']
       "
       v-bind="$attrs"
       @input="inputValue"
@@ -32,6 +35,10 @@
         default: () => "",
       },
       disabled: {
+        type: Boolean,
+        default: false,
+      },
+      icon: {
         type: Boolean,
         default: false,
       },

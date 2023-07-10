@@ -11,7 +11,7 @@
         :headers="headers"
         :data="paginationData"
         :dataCount="tableData.length"
-        @changePage="changePage"
+        @getData="getData"
       >
         <tr v-for="data in tableData" :key="data.id">
           <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
@@ -47,13 +47,19 @@
   
 
   onMounted(async () => {
-    changePage(1)
+    getData(1)
   })
  
 
-  const changePage = async (page) => {
+  const getData = async (page, keyword = '') => {
     try {
-      const res = await useAxios.get(`/api/consumer?page=${page}`)
+      let res = [];
+      if(keyword && keyword.value != null &&  keyword.value != ''){
+        res = await useAxios.get(`/api/consumer?page=${page}&keyword=${keyword.value}`)
+      }
+      else{
+        res = await useAxios.get(`/api/consumer?page=${page}`)
+      }
 
       if(res.status == 200){
         tableData.value = res.data.data
@@ -63,6 +69,8 @@
     } catch (e) {
     }
   }
+
+
   const addConsumers = async () => {
 
     //add consumers here
