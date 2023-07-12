@@ -11,6 +11,7 @@
         :headers="headers"
         :data="paginationData"
         :dataCount="tableData.length"
+        :pageLimit="pageLimit"
         @getData="getData"
       >
         <tr v-for="data in tableData" :key="data.id">
@@ -37,6 +38,7 @@
 
   const tableData = ref({});
   const paginationData = ref({});
+  const pageLimit = 30
 
   let headers = reactive([
     { id: 1, name: "ID" },
@@ -51,14 +53,15 @@
   })
  
 
-  const getData = async (page, keyword = '') => {
+  const getData = async (page, keyword = '', limit = pageLimit) => {
     try {
       let res = [];
-      if(keyword && keyword.value != null &&  keyword.value != ''){
-        res = await useAxios.get(`/api/consumer?page=${page}&keyword=${keyword.value}`)
+
+      if(keyword && keyword.value != null && keyword.value != ''){
+        res = await useAxios.get(`/api/consumer?page=${page}&keyword=${keyword.value}`, { params: { "limit": limit } })
       }
       else{
-        res = await useAxios.get(`/api/consumer?page=${page}`)
+        res = await useAxios.get(`/api/consumer?page=${page}`, { params: { "limit": limit } })
       }
 
       if(res.status == 200){
