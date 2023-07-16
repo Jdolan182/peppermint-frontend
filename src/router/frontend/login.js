@@ -12,7 +12,7 @@ export const LoginRoutes = [
       {
         path: '',
         name: 'Login',
-        component: () => import('../../views/frontend/user/Login.vue'),
+        component: () => import('@/views/frontend/user/Login.vue'),
       },
     ],
   },

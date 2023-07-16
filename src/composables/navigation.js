@@ -1,35 +1,3 @@
-import { capitalizeFirstLetter } from "@/composables/helpers";
-
-/**
- * @param { vue-route } route
- * @returns { array }
- */
-export const createBreadcrumbs = (route) => {
-
-
-    if(route.name != import.meta.env.VITE_MODULE_ADMIN_DASHBOARD_NAME){
-
-        let breadcrumbs = [];
-
-        const pathArr = route.fullPath.split("/").filter(Boolean)
-
-        pathArr.map(function(str){
-            if(str != import.meta.env.VITE_MODULE_ADMIN_NAME){
-                
-                const title = capitalizeFirstLetter(str)
-
-                const crumb = {
-                    title: title,
-                    current: route.name == title ? true : false,
-                }
-                
-                breadcrumbs.push(crumb)
-            }
-        })
-        return breadcrumbs
-    }
-}
-
 /**
  * @param { vue-routes } routes
  * @returns { array }

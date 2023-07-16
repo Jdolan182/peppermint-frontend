@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import Admin from './App.vue'
+import Peppermint from './App.vue'
 import router from './router'
 
 import './assets/main.css'
@@ -14,10 +14,8 @@ axios.defaults.headers.common['Access-Control-Allow-Origin', '*#']
 //store
 const pinia = createPinia()
 
-const peppermint = createApp(Admin)
+const peppermint = createApp(Peppermint)
 
 peppermint.use(pinia)
-peppermint.use(router)
-
-
-peppermint.mount('#app')
+        .use(router)
+        .mount('#app')

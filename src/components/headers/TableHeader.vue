@@ -29,5 +29,4 @@
     });
 
 
-    //const emit = defineEmits([props.emitFunction])
 </script>

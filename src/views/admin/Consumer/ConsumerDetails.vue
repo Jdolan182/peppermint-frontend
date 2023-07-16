@@ -1,0 +1,208 @@
+
+<template>
+  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+    show details
+
+    <Modal 
+      :show="showeEditConsumer" 
+      @hideModal="showAddConsumer = false"
+      title="Add Consumer"
+    >
+      <template v-slot:content>
+
+        <Form class="space-y-6"
+        >
+            <div class="text-center">
+              <ErrorLabel
+                  :label="form.add.errorMessage"
+                  :error="form.add.error"
+
+              />
+            </div>
+            <div>
+                <Label
+                    for="name" 
+                    label="Name"
+                />
+              <div class="mt-1">
+                <Input 
+                    name="name"
+                    placeholder="Name"
+                    @input-value="(value) => (form.name.value = value)"
+                    :error="form.name.error"
+                    :error-message="form.name.errorMessage"
+                />
+              </div>
+            </div>
+
+            <div>
+                <Label
+                    for="email" 
+                    label="Email Address"
+                />
+              <div class="mt-1">
+                <Input 
+                    name="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    @input-value="(value) => (form.email.value = value)"
+                    :error="form.email.error"
+                    :error-message="form.email.errorMessage"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label
+                  for="password" 
+                  label="Password"
+              />
+              <div class="mt-1">
+                <Input 
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    @input-value="(value) => (form.password.value = value)"
+                    :error="form.password.error"
+                    :error-message="form.password.errorMessage"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label
+                  for="confirmPassword" 
+                  label="Confirm Password"
+              />
+              <div class="mt-1">
+                <Input 
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    type="password"
+                    @input-value="(value) => (form.confirmPassword.value = value)"
+                    :error="form.confirmPassword.error"
+                    :error-message="form.confirmPassword.errorMessage"
+                />
+              </div>
+            </div>
+        </Form>
+      </template>
+
+      <template v-slot:button>
+        <div>
+          <Submit 
+            label="Add"
+            @click="submit()"
+          />
+        </div>
+      </template>
+
+    </Modal>
+
+  </div>
+</template>
+
+<script setup>
+  import { useAxios } from "@/composables/request.js";
+  import { ref, onMounted, reactive } from 'vue'
+  import Modal from '@/components/modals/Modal.vue'
+  import Form from '@/components/forms/Form.vue'
+  import Input from '@/components/inputs/Input.vue'
+  import Label from '@/components/labels/Label.vue'
+  import ErrorLabel from '@/components/labels/ErrorLabel.vue'
+  import Submit from '@/components/buttons/Submit.vue'
+
+  const tableData = ref({});
+  const paginationData = ref({});
+  const pageLimit = 30
+
+  const showeEditConsumer = ref(false);
+
+  const form = ref({
+    name: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    },
+    email: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    },
+    password: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    },
+    confirmPassword: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    },
+    add: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    }
+  });
+
+  const submit = async () => {
+
+    console.log('f')
+    try {
+
+      const params = {
+        name: form.value.name.value,
+        email: form.value.email.value,
+        password: form.value.password.value,
+        password_confirmation: form.value.confirmPassword.value
+      };
+
+      const res = await useAxios.post('/api/consumer/signup', params, form)
+
+      if(res.status != 200 && res.response.status == 401)
+      {
+        form.value.register.error = true
+        form.value.register.errorMessage = res.response.data.message
+      }
+      if (res.status == 200) {
+        console.log(res)
+      }
+    
+    } catch (e) {
+    }
+  };
+  
+
+  onMounted(async () => {
+    getData(1)
+  })
+ 
+
+  const getData = async (page, keyword = '', limit = pageLimit) => {
+    try {
+      let res = [];
+
+      if(keyword && keyword.value != null && keyword.value != ''){
+        res = await useAxios.get(`/api/consumer?page=${page}&keyword=${keyword.value}`, { params: { "limit": limit } })
+      }
+      else{
+        res = await useAxios.get(`/api/consumer?page=${page}`, { params: { "limit": limit } })
+      }
+
+      if(res.status == 200){
+        tableData.value = res.data.data
+        paginationData.value = res.data
+      }
+
+    } catch (e) {
+    }
+  }
+
+
+  const showModal = async () => {
+    showeEditConsumer.value = true
+  };
+
+
+</script>

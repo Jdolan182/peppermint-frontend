@@ -12,7 +12,7 @@ import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
 import { LoginRoutes } from "./frontend/login.js";
 
-import { createBreadcrumbs, createNavigation } from "@/composables/navigation";
+import { createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
 import { useNavigationStore } from "@/store/navigation";
 
@@ -38,6 +38,7 @@ import { useNavigationStore } from "@/store/navigation";
       ...LoginRoutes
     ]
   }
+
 
   const routes = adminRoutesArr.concat(frontendRoutesArr);
 
@@ -75,8 +76,14 @@ import { useNavigationStore } from "@/store/navigation";
     const breadcrumbStore = useBreadcrumbStore();
     const navigationStore = useNavigationStore();
 
-    breadcrumbStore.setCrumbs(createBreadcrumbs(to))
+    if(to.meta.breadcrumb){
+      breadcrumbStore.setCrumbs(to.meta.breadcrumbs(to))
+    }
+    else {
+      breadcrumbStore.setCrumbs({})
+    }
     navigationStore.setNav(createNavigation(to, routes, to.meta.module))
+
   })
 
   export default router

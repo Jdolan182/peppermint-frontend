@@ -8,18 +8,25 @@ export const AdminRoutes = [
       adminLayout: true,
       module: 'admin',
       icon: Cog6ToothIcon,
-      nav: 'Admin'
+      nav: 'Admin',
+      breadcrumb: false
     },
     children: [
       {
         path: '',
         name: 'Admin',
-        component: () => import('../../views/admin/Admin.vue'),
+        component: () => import('@/views/admin/Admin/Admin.vue'),
+        meta: {
+          breadcrumbs: (route) => ([
+              {title: 'Dashboard', to: {name: 'Dashboard'}},
+              {title: 'Admin Settings', current: true},
+          ])
+        }
       },
       {
-        path: '/peppermint/test/child',
+        path: 'child',
         name: 'Child',
-        component: () => import('../../views/admin/TestChild.vue'),
+        component: () => import('@/views/admin/TestChild.vue'),
       },
     ],
   },

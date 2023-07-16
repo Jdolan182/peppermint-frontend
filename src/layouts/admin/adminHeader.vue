@@ -9,17 +9,12 @@
         </nav>
         <nav class="hidden sm:flex" aria-label="Breadcrumb">
             <ol role="list" class="flex items-center space-x-4">
-            <li>
-                <div class="flex">
-                    <router-link v-if="title!='Dashboard'" :to="{ name: 'Dashboard' }" class="text-sm font-medium text-gray-400 hover:text-gray-200">Dashboard</router-link>
-                    <span v-else class="text-sm font-medium text-white">Dashboard</span>
-                </div>
-            </li>
             <li v-for="crumb in breadcrumbs">
                 <div class="flex items-center">
-                    <ChevronRightIcon class="h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-                    <router-link v-if="!crumb.current" :to="{ name: crumb.title }" class="ml-4 text-sm font-medium text-gray-400 hover:text-gray-200">{{  crumb.title }}</router-link>
-                    <span v-else class="ml-4 text-sm font-medium text-white">{{  crumb.title }}</span>
+                    <router-link v-if="!crumb.current" :to="{ name: crumb.to.name }" class="mr-4 text-sm font-medium text-gray-400 hover:text-gray-200">{{  crumb.title }}</router-link>
+                    <span v-else class="mr-4 text-sm font-medium text-white">{{  crumb.title }}</span>
+                    <ChevronRightIcon v-if="!crumb.current" class="h-5 w-5  flex-shrink-0 text-gray-500" aria-hidden="true" />
+
                 </div>
             </li>
             </ol>
@@ -58,7 +53,7 @@
 
     const router = useRouter();
 
-    const title = computed(() => router.currentRoute.value.name)
+    const title = computed(() => router.currentRoute.value.meta.headerTitle ? router.currentRoute.value.meta.headerTitle : router.currentRoute.value.name)
 
     const breadcrumbStore = useBreadcrumbStore();
     const breadcrumbs = computed(() => breadcrumbStore.getBreadcrumbs);

@@ -12,7 +12,7 @@ export const RegisterRoutes = [
       {
         path: '',
         name: 'Register',
-        component: () => import('../../views/frontend/user/Register.vue'),
+        component: () => import('@/views/frontend/user/Register.vue'),
       },
     ],
   },

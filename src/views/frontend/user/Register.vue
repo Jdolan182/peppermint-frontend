@@ -108,7 +108,6 @@
 <script setup>
     import Form from '@/components/forms/Form.vue'
     import Input from '@/components/inputs/Input.vue'
-    import Checkbox from '@/components/inputs/Checkbox.vue'
     import Label from '@/components/labels/Label.vue'
     import ErrorLabel from '@/components/labels/ErrorLabel.vue'
     import HeaderTwo from '@/components/labels/HeaderTwo.vue'

@@ -8,13 +8,19 @@ export const DashboardRoutes = [
       module: 'admin',
       adminLayout: true,
       icon: HomeIcon,
-      nav: 'Dashboard'
+      nav: 'Dashboard',
+      breadcrumb: true
     },
     children: [
       {
         path: '',
         name: 'Dashboard',
-        component: () => import('../../views/admin/Dashboard.vue'),
+        component: () => import('@/views/admin/Dashboard/Dashboard.vue'),
+        meta: {
+          breadcrumbs: (route) => ([
+              {title: 'Dashboard', current: true},
+          ])
+        }
       },
     ],
   },

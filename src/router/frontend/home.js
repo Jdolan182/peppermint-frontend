@@ -11,7 +11,7 @@ export const HomeRoutes = [
       {
         path: '',
         name: 'Home',
-        component: () => import('../../views/frontend/HomeView.vue'),
+        component: () => import('@/views/frontend/HomeView.vue'),
       },
     ],
   },
