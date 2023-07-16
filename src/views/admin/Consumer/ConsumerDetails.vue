@@ -1,12 +1,32 @@
 
 <template>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-    show details
+    <TableHeader 
+      :title="data.name"
+      subtitle="Consumer Details"
+      buttonText="Edit"
+      emitFunction="editConsumer"
+      @editConsumer="showEditConsumerModal()"
+    />
+  <DataDisplay>
+      <div class="border-t border-gray-100">
+          <dl class="divide-y divide-gray-100">
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-900">Name</dt>
+              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.name}}</dd>
+            </div>
+            <div class=" bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-900">Email</dt>
+              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.email }}</dd>
+            </div>
+          </dl>
+        </div>
+    </DataDisplay>
 
     <Modal 
-      :show="showeEditConsumer" 
-      @hideModal="showAddConsumer = false"
-      title="Add Consumer"
+      :show="showEditConsumer" 
+      @hideModal="showEditConsumer = false"
+      title="Edit Consumer"
     >
       <template v-slot:content>
 
@@ -91,7 +111,7 @@
       <template v-slot:button>
         <div>
           <Submit 
-            label="Add"
+            label="Save"
             @click="submit()"
           />
         </div>
@@ -104,21 +124,30 @@
 
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted, reactive } from 'vue'
+  import { ref, onMounted } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
+  import DataDisplay from '@/components/dataDisplay/DataDisplay.vue'
+  import TableHeader from '@/components/headers/TableHeader.vue'
+  import { populateForm } from "@/composables/helpers";
 
-  const tableData = ref({});
-  const paginationData = ref({});
-  const pageLimit = 30
+  import { useRouter } from "vue-router";
 
-  const showeEditConsumer = ref(false);
+  const router = useRouter();
+  const data = ref({});
+
+  const showEditConsumer = ref(false);
 
   const form = ref({
+    id: {
+      value: "",
+      error: false,
+      errorMessage: "",
+    },
     name: {
       value: "",
       error: false,
@@ -148,7 +177,6 @@
 
   const submit = async () => {
 
-    console.log('f')
     try {
 
       const params = {
@@ -158,7 +186,7 @@
         password_confirmation: form.value.confirmPassword.value
       };
 
-      const res = await useAxios.post('/api/consumer/signup', params, form)
+      const res = await useAxios.patch(`/api/consumer/edit/${router.currentRoute.value.params.id}`, params, form)
 
       if(res.status != 200 && res.response.status == 401)
       {
@@ -166,7 +194,9 @@
         form.value.register.errorMessage = res.response.data.message
       }
       if (res.status == 200) {
-        console.log(res)
+        showEditConsumer.value = false
+        data.value = res.data.data
+        populateForm(form, res.data.data)
       }
     
     } catch (e) {
@@ -175,24 +205,18 @@
   
 
   onMounted(async () => {
-    getData(1)
+    getData()
   })
  
 
-  const getData = async (page, keyword = '', limit = pageLimit) => {
+  const getData = async () => {
     try {
-      let res = [];
 
-      if(keyword && keyword.value != null && keyword.value != ''){
-        res = await useAxios.get(`/api/consumer?page=${page}&keyword=${keyword.value}`, { params: { "limit": limit } })
-      }
-      else{
-        res = await useAxios.get(`/api/consumer?page=${page}`, { params: { "limit": limit } })
-      }
+      const res = await useAxios.get(`/api/consumer/${router.currentRoute.value.params.id}`)
 
       if(res.status == 200){
-        tableData.value = res.data.data
-        paginationData.value = res.data
+        data.value = res.data.data
+        populateForm(form, res.data.data)
       }
 
     } catch (e) {
@@ -200,8 +224,8 @@
   }
 
 
-  const showModal = async () => {
-    showeEditConsumer.value = true
+  const showEditConsumerModal = async () => {
+    showEditConsumer.value = true
   };
 
 

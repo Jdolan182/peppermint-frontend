@@ -2,9 +2,9 @@
 <template>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <TableHeader 
-      title="Consumer"
-      emitFunction="addConsumers"
-      @addConsumers="showAddConsumers()"
+      title="Consumers"
+      emitFunction="addConsumer"
+      @addConsumer="showAddConsumerModal()"
     />
     <div class="flex p-4">
       <Table
@@ -14,7 +14,7 @@
         :pageLimit="pageLimit"
         @getData="getData"
       >
-        <tr v-for="data in tableData" :key="data.id">
+        <tr v-for="data in tableData" :key="data.id" class="even:bg-gray-100">
           <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.name }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.email }}</td>
@@ -180,7 +180,6 @@
 
   const submit = async () => {
 
-    console.log('f')
     try {
 
       const params = {
@@ -232,7 +231,7 @@
   }
 
 
-  const showAddConsumers = async () => {
+  const showAddConsumerModal = async () => {
     showAddConsumer.value = true
   };
 

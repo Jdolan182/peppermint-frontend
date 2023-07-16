@@ -24,7 +24,7 @@ export const useConsumerStore = defineStore('consumer', {
         this.getUser();
     },
     async getUser() {
-        const res = await useAxios.get('api/consumer/getUser')
+        const res = await useAxios.get('api/consumer/auth')
         let data = res.data.data
 
         localStorage.setItem("consumerId", data.id)
