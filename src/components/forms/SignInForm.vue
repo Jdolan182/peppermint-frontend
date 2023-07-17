@@ -92,7 +92,7 @@
     import ErrorLabel from '../labels/ErrorLabel.vue'
     import HeaderTwo from '../labels/HeaderTwo.vue'
     import Submit from '../buttons/Submit.vue'
-    import { ref } from "@vue/reactivity";
+    import { createForm } from "@/composables/forms";
 
     const props = defineProps({
       title: {
@@ -109,23 +109,11 @@
       }
     });
 
-    const form = ref({
-      email: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      password: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      login: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      }
-    });
+    const form = createForm([
+      'email', 
+      'password', 
+      'login', 
+    ])
 
     const emit = defineEmits(['login'])
 

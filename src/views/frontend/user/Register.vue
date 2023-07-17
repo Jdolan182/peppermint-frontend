@@ -112,40 +112,20 @@
     import ErrorLabel from '@/components/labels/ErrorLabel.vue'
     import HeaderTwo from '@/components/labels/HeaderTwo.vue'
     import Submit from '@/components/buttons/Submit.vue'
-    import { ref } from "@vue/reactivity";
     import { useAxios } from "@/composables/request.js";
     import { useRouter } from "vue-router";
+    import { createForm } from "@/composables/forms";
 
     const router = useRouter();
 
-    const form = ref({
-      name: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      email: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      password: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      confirmPassword: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      },
-      register: {
-        value: "",
-        error: false,
-        errorMessage: "",
-      }
-    });
-
+    const form = createForm([
+      'name', 
+      'email', 
+      'password', 
+      'confirmPassword', 
+      'register'
+    ])
+    
     const submit = async () => {
 
       try {

@@ -1,5 +1,8 @@
 
 <template>
+  <router-link :to="{ name: 'Consumers' }" class="text-sm  font-medium text-gray-400 hover:text-gray-200">
+     <p class="mb-5 flex text-gray-900"> <ChevronLeftIcon class="-ml-1 h-5 w-5 flex-shrink-0 " /> Back</p>
+  </router-link>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <TableHeader 
       :title="data.name"
@@ -34,8 +37,8 @@
         >
             <div class="text-center">
               <ErrorLabel
-                  :label="form.add.errorMessage"
-                  :error="form.add.error"
+                  :label="form.edit.errorMessage"
+                  :error="form.edit.error"
 
               />
             </div>
@@ -48,6 +51,7 @@
                 <Input 
                     name="name"
                     placeholder="Name"
+                    :default-value="form.name.value"
                     @input-value="(value) => (form.name.value = value)"
                     :error="form.name.error"
                     :error-message="form.name.errorMessage"
@@ -65,6 +69,7 @@
                     name="email"
                     placeholder="Email"
                     autocomplete="email"
+                    :default-value="form.email.value"
                     @input-value="(value) => (form.email.value = value)"
                     :error="form.email.error"
                     :error-message="form.email.errorMessage"
@@ -133,8 +138,8 @@
   import Submit from '@/components/buttons/Submit.vue'
   import DataDisplay from '@/components/dataDisplay/DataDisplay.vue'
   import TableHeader from '@/components/headers/TableHeader.vue'
-  import { populateForm } from "@/composables/helpers";
-
+  import { populateForm, createForm } from "@/composables/forms";
+  import { ChevronLeftIcon } from '@heroicons/vue/20/solid'
   import { useRouter } from "vue-router";
 
   const router = useRouter();
@@ -142,38 +147,13 @@
 
   const showEditConsumer = ref(false);
 
-  const form = ref({
-    id: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    name: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    email: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    password: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    confirmPassword: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    add: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    }
-  });
+  const form = createForm([
+    'name', 
+    'email', 
+    'password', 
+    'confirmPassword', 
+    'edit'
+  ])
 
   const submit = async () => {
 

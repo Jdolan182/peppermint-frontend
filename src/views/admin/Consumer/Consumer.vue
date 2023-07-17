@@ -16,10 +16,14 @@
       >
         <tr v-for="data in tableData" :key="data.id" class="even:bg-gray-100">
           <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
-          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.name }}</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+            <router-link :to="{ name: 'Consumer Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.name }}</router-link>
+          </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.email }}</td>
-          <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-            <router-link :to="{ name: 'Consumer Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">Edit</router-link>
+          <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">
+            <router-link :to="{ name: 'Consumer Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
+              <PencilSquareIcon class="-ml-1 h-5 w-5 flex-shrink-0 text-gray-500" />
+            </router-link>
           </td>
         </tr>
       </Table>
@@ -135,6 +139,9 @@
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
+  import { createForm } from "@/composables/forms";
+  import { PencilSquareIcon } from '@heroicons/vue/20/solid'
+
 
   const tableData = ref({});
   const paginationData = ref({});
@@ -150,33 +157,13 @@
     { id: 4, name: "" },
   ]);
 
-  const form = ref({
-    name: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    email: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    password: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    confirmPassword: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    },
-    add: {
-      value: "",
-      error: false,
-      errorMessage: "",
-    }
-  });
+  const form = createForm([
+    'name', 
+    'email', 
+    'password', 
+    'confirmPassword', 
+    'add'
+  ])
 
   const submit = async () => {
 
