@@ -12,27 +12,26 @@
 </template>
 
 <script setup>
-    const props = defineProps({
-      title: {
-        type: [String, Number],
-        default: 'Table',
-      },
-      subtitle: {
-        type: [String, Number],
-        required: false
-      },
-      buttonText: {
-        type: [String, Number],
-        default: 'Add',
-      },
-      button: {
-        type: Boolean,
-        default: true
-      },
-      emitFunction : {
-        type: String,
-      }
-    });
-
-
+  const props = defineProps({
+    title: {
+      type: [String, Number],
+      default: 'Table',
+    },
+    subtitle: {
+      type: [String, Number],
+      required: false
+    },
+    buttonText: {
+      type: [String, Number],
+      default: 'Add',
+    },
+    button: {
+      type: Boolean,
+      default: true
+    },
+    emitFunction : {
+      type: String,
+      required: false
+    }
+  });
 </script>

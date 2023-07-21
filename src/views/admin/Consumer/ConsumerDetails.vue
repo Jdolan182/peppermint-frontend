@@ -11,25 +11,26 @@
       emitFunction="editConsumer"
       @editConsumer="showEditConsumerModal()"
     />
-  <DataDisplay>
+    <DataDisplay>
       <div class="border-t border-gray-100">
-          <dl class="divide-y divide-gray-100">
-            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-900">Name</dt>
-              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.name}}</dd>
-            </div>
-            <div class=" bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-900">Email</dt>
-              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.email }}</dd>
-            </div>
-          </dl>
-        </div>
+        <dl class="divide-y divide-gray-100">
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-900">Name</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.name }}</dd>
+          </div>
+          <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-900">Email</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.email }}</dd>
+          </div>
+        </dl>
+      </div>
     </DataDisplay>
 
     <Modal 
       :show="showEditConsumer" 
       @hideModal="showEditConsumer = false"
       title="Edit Consumer"
+      @keyup.enter="submit()"
     >
       <template v-slot:content>
 
@@ -39,7 +40,6 @@
               <ErrorLabel
                   :label="form.edit.errorMessage"
                   :error="form.edit.error"
-
               />
             </div>
             <div>
@@ -141,6 +141,7 @@
   import { populateForm, createForm } from "@/composables/forms";
   import { ChevronLeftIcon } from '@heroicons/vue/20/solid'
   import { useRouter } from "vue-router";
+  import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
 
   const router = useRouter();
   const data = ref({});
@@ -156,7 +157,6 @@
   ])
 
   const submit = async () => {
-
     try {
 
       const params = {
@@ -177,18 +177,22 @@
         showEditConsumer.value = false
         data.value = res.data.data
         populateForm(form, res.data.data)
+        showSuccessBanner("Edited Successfully", "This consumer has been edited");
+      }
+      else if(res.status == 404) {
+        showErrorBanner("Error", "Error");
       }
     
     } catch (e) {
+      showErrorBanner("Error", "Error");
+
     }
   };
   
-
   onMounted(async () => {
     getData()
   })
  
-
   const getData = async () => {
     try {
 
@@ -203,10 +207,7 @@
     }
   }
 
-
   const showEditConsumerModal = async () => {
     showEditConsumer.value = true
   };
-
-
 </script>

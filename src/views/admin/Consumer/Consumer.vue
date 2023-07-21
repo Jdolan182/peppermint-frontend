@@ -141,14 +141,13 @@
   import Submit from '@/components/buttons/Submit.vue'
   import { createForm } from "@/composables/forms";
   import { PencilSquareIcon } from '@heroicons/vue/20/solid'
-
+  import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
 
   const tableData = ref({});
   const paginationData = ref({});
   const pageLimit = 30
 
   const showAddConsumer = ref(false);
-
 
   let headers = reactive([
     { id: 1, name: "ID" },
@@ -184,19 +183,22 @@
         form.value.register.errorMessage = res.response.data.message
       }
       if (res.status == 200) {
-        console.log(res)
+        showAddConsumer.value = false
+        showSuccessBanner("Saved Successfully", "A new consumer has been added");
+      }
+      else if(res.status == 404) {
+        showErrorBanner("Error", "Error");
       }
     
     } catch (e) {
+      showErrorBanner(true, 404, "Error", "Error");
     }
   };
   
-
   onMounted(async () => {
     getData(1)
   })
  
-
   const getData = async (page, keyword = '', limit = pageLimit) => {
     try {
       let res = [];
@@ -217,10 +219,7 @@
     }
   }
 
-
   const showAddConsumerModal = async () => {
     showAddConsumer.value = true
   };
-
-
 </script>

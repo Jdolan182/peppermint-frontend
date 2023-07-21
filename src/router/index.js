@@ -50,6 +50,7 @@ import { useNavigationStore } from "@/store/navigation";
   router.beforeEach((to, from) => {
 
     const authState = useAuthStore();
+
     // redirect if not logged in
     if(to.meta.module == 'admin') {
       if (to.meta.requiresAuth && !authState.getIsLoggedIn) {

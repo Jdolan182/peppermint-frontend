@@ -3,6 +3,7 @@ import { RouterView, useRoute } from 'vue-router'
 
 import adminLayout from './layouts/admin/adminLayout.vue'
 import frontendLayout from './layouts/frontend/frontendLayout.vue'
+import Banner from "@/components/banners/Banner.vue";
 
 const route = useRoute()
 </script>
@@ -16,4 +17,6 @@ const route = useRoute()
   </frontendLayout>
   <!-- No layouts -->
   <RouterView  v-else class="w-full bg-gray-100"/>
+  <Banner class="z-50"/>
+
 </template>
