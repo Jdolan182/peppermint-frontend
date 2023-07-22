@@ -15,7 +15,7 @@ export const DashboardRoutes = [
       {
         path: '',
         name: 'Dashboard',
-        component: () => import('@/views/admin/Dashboard/Dashboard.vue'),
+        component: () => import('@/views/admin/dashboard/Dashboard.vue'),
         meta: {
           breadcrumbs: (route) => ([
               {title: 'Dashboard', current: true},

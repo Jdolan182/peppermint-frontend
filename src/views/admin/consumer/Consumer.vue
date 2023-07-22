@@ -33,6 +33,7 @@
       :show="showAddConsumer" 
       @hideModal="showAddConsumer = false"
       title="Add Consumer"
+      @keyup.enter="submit()"
     >
       <template v-slot:content>
 
@@ -185,6 +186,7 @@
       if (res.status == 200) {
         showAddConsumer.value = false
         showSuccessBanner("Saved Successfully", "A new consumer has been added");
+        getData(1)
       }
       else if(res.status == 404) {
         showErrorBanner("Error", "Error");

@@ -15,15 +15,8 @@ export const setBanner = (show = false, status = 404, title="Error", message = "
 
 export const showSuccessBanner = (title, message) => {
   bannerStore.setBanner(true, 200, title, message);
-  setTimeout(()=>{      
-    this.setBanner()
-  }, 2000);
 }
 
 export const showErrorBanner = (title, message) => {
-  bannerStore.setBanner(true, 500, title,  message);
-  setTimeout(()=>{      
-    this.setBanner()
-  }, 2000);
-  
+  bannerStore.setBanner(true, 500, title,  message);  
 }

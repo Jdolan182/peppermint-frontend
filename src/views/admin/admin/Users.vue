@@ -1,35 +1,39 @@
 
 <template>
-  <router-link :to="{ name: 'Consumers' }" class="text-sm  font-medium text-gray-400 hover:text-gray-200">
-     <p class="mb-5 flex text-gray-900"> <ChevronLeftIcon class="-ml-1 h-5 w-5 flex-shrink-0 " /> Back</p>
-  </router-link>
-  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-    <TableHeader 
-      :title="data.name"
-      subtitle="Consumer Details"
-      buttonText="Edit"
-      emitFunction="editConsumer"
-      @editConsumer="showEditConsumerModal()"
-    />
-    <DataDisplay>
-      <div class="border-t border-gray-100">
-        <dl class="divide-y divide-gray-100">
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Name</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.name }}</dd>
-          </div>
-          <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Email</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.email }}</dd>
-          </div>
-        </dl>
-      </div>
-    </DataDisplay>
+    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="inline-flex flex items-center px-3 py-2 text-sm font-semibold text-black hover:bg-white/70">
+      <Button 
+        label="Add"
+        @click="showAddUser = true"
+      />
+    </div>
+    <div class="flex p-4">
+      <Table
+        :headers="headers"
+        :data="paginationData"
+        :dataCount="tableData.length"
+        :pageLimit="pageLimit"
+        @getData="getData"
+      >
+        <tr v-for="data in tableData" :key="data.id" class="even:bg-gray-100">
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+            <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.name }}</router-link>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.email }}</td>
+          <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">
+            <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
+              <PencilSquareIcon class="-ml-1 h-5 w-5 flex-shrink-0 text-gray-500" />
+            </router-link>
+          </td>
+        </tr>
+      </Table>
+    </div>
 
     <Modal 
-      :show="showEditConsumer" 
-      @hideModal="showEditConsumer = false"
-      title="Edit Consumer"
+      :show="showAddUser" 
+      @hideModal="showAddUser = false"
+      title="Add User"
       @keyup.enter="submit()"
     >
       <template v-slot:content>
@@ -38,8 +42,9 @@
         >
             <div class="text-center">
               <ErrorLabel
-                  :label="form.edit.errorMessage"
-                  :error="form.edit.error"
+                  :label="form.add.errorMessage"
+                  :error="form.add.error"
+
               />
             </div>
             <div>
@@ -51,7 +56,6 @@
                 <Input 
                     name="name"
                     placeholder="Name"
-                    :default-value="form.name.value"
                     @input-value="(value) => (form.name.value = value)"
                     :error="form.name.error"
                     :error-message="form.name.errorMessage"
@@ -69,7 +73,6 @@
                     name="email"
                     placeholder="Email"
                     autocomplete="email"
-                    :default-value="form.email.value"
                     @input-value="(value) => (form.email.value = value)"
                     :error="form.email.error"
                     :error-message="form.email.errorMessage"
@@ -116,7 +119,7 @@
       <template v-slot:button>
         <div>
           <Submit 
-            label="Save"
+            label="Add"
             @click="submit()"
           />
         </div>
@@ -126,37 +129,45 @@
 
   </div>
 </template>
-
+  
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted } from 'vue'
+  import Table from '@/components/tables/Table.vue'
+  import { ref, onMounted, reactive } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
-  import DataDisplay from '@/components/dataDisplay/DataDisplay.vue'
-  import TableHeader from '@/components/headers/TableHeader.vue'
-  import { populateForm, createForm } from "@/composables/forms";
-  import { ChevronLeftIcon } from '@heroicons/vue/20/solid'
-  import { useRouter } from "vue-router";
+  import Button from '@/components/buttons/Button.vue'
+  import { createForm } from "@/composables/forms";
+  import { PencilSquareIcon } from '@heroicons/vue/20/solid'
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
 
-  const router = useRouter();
-  const data = ref({});
+  const tableData = ref({});
+  const paginationData = ref({});
+  const pageLimit = 30
 
-  const showEditConsumer = ref(false);
+  const showAddUser = ref(false);
+
+  let headers = reactive([
+    { id: 1, name: "ID" },
+    { id: 2, name: "Name" },
+    { id: 3, name: "Email" },
+    { id: 4, name: "" },
+  ]);
 
   const form = createForm([
     'name', 
     'email', 
     'password', 
     'confirmPassword', 
-    'edit'
+    'add'
   ])
 
   const submit = async () => {
+
     try {
 
       const params = {
@@ -166,7 +177,7 @@
         password_confirmation: form.value.confirmPassword.value
       };
 
-      const res = await useAxios.patch(`/api/consumer/edit/${router.currentRoute.value.params.id}`, params, form)
+      const res = await useAxios.post('/api/user/create', params, form)
 
       if(res.status != 200 && res.response.status == 401)
       {
@@ -174,40 +185,40 @@
         form.value.register.errorMessage = res.response.data.message
       }
       if (res.status == 200) {
-        showEditConsumer.value = false
-        data.value = res.data.data
-        populateForm(form, res.data.data)
-        showSuccessBanner("Edited Successfully", "This consumer has been edited");
+        showAddUser.value = false
+        showSuccessBanner("Saved Successfully", "A new user has been added");
+        getData(1)
       }
       else if(res.status == 404) {
         showErrorBanner("Error", "Error");
       }
     
     } catch (e) {
-      showErrorBanner("Error", "Error");
-
+      showErrorBanner(true, 404, "Error", "Error");
     }
   };
   
   onMounted(async () => {
-    getData()
+    getData(1)
   })
  
-  const getData = async () => {
+  const getData = async (page, keyword = '', limit = pageLimit) => {
     try {
+      let res = [];
 
-      const res = await useAxios.get(`/api/consumer/${router.currentRoute.value.params.id}`)
+      if(keyword && keyword.value != null && keyword.value != ''){
+        res = await useAxios.get(`/api/user?page=${page}&keyword=${keyword.value}`, { params: { "limit": limit } })
+      }
+      else{
+        res = await useAxios.get(`/api/user?page=${page}`, { params: { "limit": limit } })
+      }
 
       if(res.status == 200){
-        data.value = res.data.data
-        populateForm(form, res.data.data)
+        tableData.value = res.data.data
+        paginationData.value = res.data
       }
 
     } catch (e) {
     }
   }
-
-  const showEditConsumerModal = async () => {
-    showEditConsumer.value = true
-  };
 </script>

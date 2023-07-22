@@ -21,6 +21,15 @@ export const useBannerStore = defineStore('banners', {
             this.status = status;
             this.title = title;
             this.message = message;
+            setTimeout(()=>{      
+                this.hideBanner()
+            }, 2000);
+        },
+        hideBanner() {
+            this.show = false;
+            this.status = 404;
+            this.title = "";
+            this.message = "";
         }
     }
   })
