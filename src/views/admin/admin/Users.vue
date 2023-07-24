@@ -25,6 +25,8 @@
             <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
               <PencilSquareIcon class="-ml-1 h-5 w-5 flex-shrink-0 text-gray-500" />
             </router-link>
+            <XMarkIcon @click="showDeleteUserModel(data.id)" class="-ml-1 h-5 w-5 flex-shrink-0 text-red-500 cursor-pointer" />
+
           </td>
         </tr>
       </Table>
@@ -127,6 +129,28 @@
 
     </Modal>
 
+    <Modal 
+      :show="showDeleteUser" 
+      @hideModal="showDeleteUser = false"
+      title="Delete User"
+      :warning=true   
+    >
+      <template v-slot:content>
+        <div class="mt-2">
+          <p class="text-sm text-gray-500">Are you sure you want to delete this user? This action cannot be undone.</p>
+        </div>
+      </template>
+
+      <template v-slot:button>
+        <div>
+          <Error 
+            label="Delete"
+            @click="deleteUser()"
+          />
+        </div>
+      </template>
+    </Modal>
+
   </div>
 </template>
   
@@ -140,23 +164,26 @@
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
+  import Error from '@/components/buttons/Error.vue'
   import Button from '@/components/buttons/Button.vue'
   import { createForm } from "@/composables/forms";
-  import { PencilSquareIcon } from '@heroicons/vue/20/solid'
+  import { PencilSquareIcon, XMarkIcon } from '@heroicons/vue/20/solid'
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
 
-  const tableData = ref({});
-  const paginationData = ref({});
+  const tableData = ref({})
+  const paginationData = ref({})
   const pageLimit = 30
 
-  const showAddUser = ref(false);
+  const showAddUser = ref(false)
+  const showDeleteUser = ref(false)
+  const deleteUserID = ref({})
 
   let headers = reactive([
     { id: 1, name: "ID" },
     { id: 2, name: "Name" },
     { id: 3, name: "Email" },
     { id: 4, name: "" },
-  ]);
+  ])
 
   const form = createForm([
     'name', 
@@ -194,7 +221,6 @@
       }
     
     } catch (e) {
-      showErrorBanner(true, 404, "Error", "Error");
     }
   };
   
@@ -218,6 +244,28 @@
         paginationData.value = res.data
       }
 
+    } catch (e) {
+    }
+  }
+
+  const showDeleteUserModel = (id) => {
+    deleteUserID.value = id
+    showDeleteUser.value = true
+  }
+
+  const deleteUser = async() => {
+    try {
+    
+      const res = await useAxios.delete(`/api/user/delete/${deleteUserID.value}`)
+      
+      if(res.status == 200){
+        showDeleteUser.value = false
+        showSuccessBanner("Delete Successful", "User has been deleted");
+        getData(1)
+      }
+      else if(res.status == 404) {
+        showErrorBanner("Error", "Error");
+      }
     } catch (e) {
     }
   }

@@ -11,6 +11,9 @@
                 <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div class="bg-white px-4 pb-6 pt-5 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
+                        <div v-if="warning" class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
+                        </div>
                         <div class="mt-3 w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">{{ props.title }}</DialogTitle>
                             <slot name="content"></slot>
@@ -36,6 +39,8 @@
 <script setup>
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
     import Close from "@/components/buttons/Close.vue";
+    import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+
 
     const props = defineProps({
         show: {
@@ -45,6 +50,10 @@
         title: {
             type: [String, Number],
             default: ''
+        },
+        warning: {
+            type: Boolean,
+            default: false
         }
     })
 

@@ -25,6 +25,7 @@
                   <DropdownMenu 
                   :arrow=false
                   :options=menuOptions
+                  :title=userName
                   class="relative ml-3"
               >
                   <MenuItem>
@@ -103,7 +104,7 @@
 
   const title = computed(() => router.currentRoute.value.name)
 
-  const login = import.meta.env.VITE_MODULE_CUSTOMER_LOGIN;
+  const login = import.meta.env.VITE_MODULE_CONSUMER_LOGIN;
 
 
 const user = {
@@ -114,11 +115,12 @@ const user = {
 }
 
   const consumerAuthStore = useConsumerAuthStore();
-  const loggedIn =  computed( () => consumerAuthStore.getIsConsumerLoggedIn);
-  if(loggedIn){
+  const loggedIn =  computed(() => consumerAuthStore.getIsConsumerLoggedIn);
+  
+  if(loggedIn.value == true){
     //user
     const consumerStore = useConsumerStore();
-    const userName =  computed( () => consumerStore.getName);
+    const userName =  ref(consumerStore.getName);
   }
 
   const navigationStore = useNavigationStore();

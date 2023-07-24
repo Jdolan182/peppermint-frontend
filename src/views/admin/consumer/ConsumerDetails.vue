@@ -193,7 +193,7 @@
   const getData = async () => {
     try {
 
-      const res = await useAxios.get(`/api/consumer/${router.currentRoute.value.params.id}`)
+      const res = await useAxios.get(`/api/consumer/show/${router.currentRoute.value.params.id}`)
 
       if(res.status == 200){
         data.value = res.data.data

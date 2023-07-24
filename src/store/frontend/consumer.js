@@ -24,15 +24,16 @@ export const useConsumerStore = defineStore('consumer', {
         this.getUser();
     },
     async getUser() {
-        const res = await useAxios.get('api/consumer/auth')
+      
+        const res = await useAxios.get('api/consumer/getUser')
         let data = res.data.data
 
         localStorage.setItem("consumerId", data.id)
-        this.id = res.data.id
+        this.id = data.id
         localStorage.setItem("consumerName", data.name)
-        this.name = res.data.name
+        this.name = data.name
         localStorage.setItem("consumerEmail", data.email)
-        this.email = res.data.email
+        this.email = data.email
     },
     removeUser() {
       const consumerAuthStore = useConsumerAuthStore();

@@ -22,6 +22,7 @@
         if (res) {
           consumerStore.setUser(res.data)
           router.push({ name: "Home" })
+        
         }
       })
     } catch (e) {
