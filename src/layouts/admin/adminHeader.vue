@@ -58,11 +58,13 @@
     const breadcrumbStore = useBreadcrumbStore();
     const breadcrumbs = computed(() => breadcrumbStore.getBreadcrumbs);
 
-    const menuOptions = [
-        { name: 'Your profile', href: '#' },
-    ]
-
     //user
     const userStore = useUserStore();
     const userName =  ref(userStore.getName);
+    const userId =  ref(userStore.getId);
+
+    const menuOptions = [
+        { name: 'Your profile', route: 'User Details', params: { id: userId.value }},
+    ]
+
 </script>

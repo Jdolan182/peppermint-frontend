@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     setUser(data) {
         this.name = data.name;
+        this.id = data.id;
 
         const authStore = useAuthStore();
         authStore.setLoggedIn(true)
