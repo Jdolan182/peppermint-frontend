@@ -35,10 +35,7 @@ export const useConsumerStore = defineStore('consumer', {
         localStorage.setItem("consumerEmail", data.email)
         this.email = data.email
     },
-    removeUser() {
-      const consumerAuthStore = useConsumerAuthStore();
-      consumerAuthStore.logout()
-      
+    removeUser() {      
       localStorage.removeItem("consumerId")
       this.id = null
       localStorage.removeItem("consumerName")

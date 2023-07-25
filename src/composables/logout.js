@@ -1,6 +1,6 @@
 import { useAxios } from "@/composables/request.js"
-import { useUserStore } from "@/store/admin/user"
-import { useConsumerStore } from "@/store/frontend/consumer"
+import { useAuthStore } from "@/store/admin/auth"
+import { useConsumerAuthStore } from "@/store/frontend/consumerAuth"
 
 export const logout = async (router) => {
 
@@ -8,8 +8,8 @@ export const logout = async (router) => {
 
     if(res.status == 200){
     
-        const userStore = useUserStore()
-        userStore.removeUser()
+        const authStore = useAuthStore()
+        authStore.logout()
 
         router.push({ name: "Peppermint" })
     }
@@ -21,8 +21,8 @@ export const logoutConsumer = async (router) => {
 
     if(res.status == 200){
     
-        const consumerStore = useConsumerStore()
-        consumerStore.removeUser()
+        const consumerAuthStore = useConsumerAuthStore()
+        consumerAuthStore.logout()
 
         router.push({ name: "Home", replace: true })
     }

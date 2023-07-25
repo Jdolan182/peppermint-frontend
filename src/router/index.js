@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/store/admin/auth';
+import { useConsumerAuthStore } from '@/store/frontend/consumerAuth';
 
 //admin
 import { DashboardRoutes } from "./admin/dashboard.js";
@@ -52,7 +53,8 @@ import { useNavigationStore } from "@/store/navigation";
   router.beforeEach((to, from) => {
 
     const authState = useAuthStore();
-
+    const consumerAuthState = useConsumerAuthStore();
+    
     // redirect if not logged in
     if(to.meta.module == 'admin') {
       if (to.meta.requiresAuth && !authState.getIsLoggedIn) {
@@ -70,7 +72,13 @@ import { useNavigationStore } from "@/store/navigation";
       }
     }
     else if(to.meta.module == 'frontend'){
-     
+      if (to.meta.requiresAuth && !consumerAuthState.getIsLoggedIn) {
+        return {
+          name: 'Login',
+          // save the location we were at to come back later
+          query: { redirect: to.fullPath },
+        }
+      }
     }
   })
 

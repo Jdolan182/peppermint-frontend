@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { useUserStore } from "./user";
+import router from '@/router/index.js'
 
 export const useAuthStore = defineStore('auth', {
   state: () => {
@@ -11,12 +13,15 @@ export const useAuthStore = defineStore('auth', {
   }, 
   actions: {
     setLoggedIn(val) {
-        localStorage.setItem("isLoggedIn", val);
-        this.isLoggedIn = val;
+      localStorage.setItem("isLoggedIn", val);
+      this.isLoggedIn = val;
     },
     logout() { 
+      const userStore = useUserStore();
+      userStore.removeUser()
       localStorage.removeItem("isLoggedIn");
       this.isLoggedIn = false;
+      router.push({ name: "Peppermint" })
     }
   }
 })

@@ -1,8 +1,12 @@
 import axios from 'axios'
 import { displayFormErrors } from "@/composables/errors";
+import { useAuthStore } from "@/store/admin/auth";
+import { useConsumerAuthStore } from "@/store/frontend/consumerAuth";
+
 
 // Axios requests
 const useAxios = {
+
     /**
      *
      * @param {string} url
@@ -20,6 +24,7 @@ const useAxios = {
         }
         return res;
       } catch (error) {
+        useAxios.processError(error)
         return error;
       }
     },
@@ -44,7 +49,7 @@ const useAxios = {
         if (form) {
             displayFormErrors(form, error);
         }
-
+        useAxios.processError(error)
         return error
       }
     },
@@ -69,7 +74,7 @@ const useAxios = {
         if (form) {
             displayFormErrors(form, error);
         }
-        
+        useAxios.processError(error)
         return error
       }
     },
@@ -95,9 +100,27 @@ const useAxios = {
           displayFormErrors(form, error);
         }
       }
-
+      useAxios.processError(error)
       return error
     },
+
+    processError: async (
+      error
+    ) => {
+
+      if(error.response.request.status == 401){
+        const authStore = useAuthStore();
+        const consumerAuthStore = useConsumerAuthStore();
+
+        if(authStore.getIsLoggedIn){
+          authStore.logout()
+        }
+        else if(consumerAuthStore.getIsLoggedIn){
+          consumerAuthStore.logoutConsumer()
+        }
+      }
+
+    }
   };
   
   export {
