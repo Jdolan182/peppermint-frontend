@@ -1,7 +1,3 @@
-<script setup>
-import TheWelcome from '../../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
     <div class="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -12,3 +8,7 @@ import TheWelcome from '../../components/TheWelcome.vue'
   </div>
   </main>
 </template>
+
+<script setup>
+</script>
+

@@ -13,6 +13,7 @@ import { UserRoutes } from "./admin/user.js";
 import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
 import { LoginRoutes } from "./frontend/login.js";
+import { ProfileRoutes } from "./frontend/profile.js";
 
 import { createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
@@ -38,7 +39,8 @@ import { useNavigationStore } from "@/store/navigation";
     frontendRoutesArr = [
       ...HomeRoutes,
       ...RegisterRoutes,
-      ...LoginRoutes
+      ...LoginRoutes,
+      ...ProfileRoutes
     ]
   }
 

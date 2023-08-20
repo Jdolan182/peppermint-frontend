@@ -21,7 +21,7 @@
                       :label="form.register.errorMessage"
                       :error="form.register.error"
 
-                  />
+                />
                 </div>
                 <div>
                     <Label

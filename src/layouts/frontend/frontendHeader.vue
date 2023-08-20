@@ -19,7 +19,7 @@
               <div class="ml-4 flex items-center md:ml-6">
                 <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">View notifications</span>
-                  <BellIcon class="h-6 w-6" aria-hidden="true" />
+                  <!-- <BellIcon class="h-6 w-6" aria-hidden="true" /> -->
                 </button>
 
                 <!-- Profile dropdown -->
@@ -67,7 +67,7 @@
               </div>
               <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span class="sr-only">View notifications</span>
-                <BellIcon class="h-6 w-6" aria-hidden="true" />
+                <!-- <BellIcon class="h-6 w-6" aria-hidden="true" /> -->
               </button>
             </div>
             <div class="mt-3 space-y-1 px-2">
@@ -108,6 +108,7 @@
 
   const consumerStore = useConsumerStore()
   const userName = computed(() => consumerStore.getName)
+  const userId = computed(() => consumerStore.getId)
 
   const consumerAuthStore = useConsumerAuthStore();
   const loggedIn =  computed(() => consumerAuthStore.getIsConsumerLoggedIn)
@@ -116,6 +117,7 @@
   const navigation = computed(() => navigationStore.getNavigation)
 
   const menuOptions = [
-      { name: 'Your profile', href: '#' },
+    { name: 'Your profile', route: 'Profile', params: { id: userId.value }},
   ]
+
 </script>
