@@ -1,7 +1,8 @@
 <template>
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+        <!-- TODO logo -->
+        <!-- <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" /> -->
         <HeaderTwo
           :header=props.title 
         />
@@ -54,7 +55,7 @@
               </div>
     
               <div class="flex items-center justify-between">
-                <div class="flex items-center">
+                <!-- <div class="flex items-center">
                   <Checkbox 
                       name="remember-me"
                   />
@@ -62,11 +63,7 @@
                       for="remember-me" 
                       label="Remember Me"
                   />
-                </div>
-    
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
-                </div>
+                </div> -->
               </div>
     
               <div>

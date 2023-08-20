@@ -4,8 +4,9 @@
       <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
+            <!-- TODO logo -->
             <div class="flex-shrink-0">
-              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+              <!-- <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> -->
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
@@ -59,11 +60,10 @@
           <div v-if="loggedIn">
             <div class="flex items-center px-5">
               <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+                <!-- <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" /> -->
               </div>
               <div class="ml-3">
-                <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
-                <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
+                <div class="text-base font-medium leading-none text-white">{{ userName }}</div>
               </div>
               <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span class="sr-only">View notifications</span>
@@ -104,29 +104,16 @@
 
   const title = computed(() => router.currentRoute.value.name)
 
-  const login = import.meta.env.VITE_MODULE_CONSUMER_LOGIN;
+  const login = import.meta.env.VITE_MODULE_CONSUMER_LOGIN
 
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+  const consumerStore = useConsumerStore()
+  const userName = computed(() => consumerStore.getName)
 
   const consumerAuthStore = useConsumerAuthStore();
-  const loggedIn =  computed(() => consumerAuthStore.getIsConsumerLoggedIn);
+  const loggedIn =  computed(() => consumerAuthStore.getIsConsumerLoggedIn)
   
-  if(loggedIn.value == true){
-    //user
-    const consumerStore = useConsumerStore();
-    const userName =  ref(consumerStore.getName);
-  }
-
   const navigationStore = useNavigationStore();
-  const navigation = computed(() => navigationStore.getNavigation);
-
-
+  const navigation = computed(() => navigationStore.getNavigation)
 
   const menuOptions = [
       { name: 'Your profile', href: '#' },

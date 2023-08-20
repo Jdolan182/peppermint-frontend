@@ -31,7 +31,7 @@
 
 <template>
   <div class="h-full w-full">
-    <div class="h-full overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="h-full overflow-hidden shadow sm:rounded-lg">
       <SignInForm 
         title="Sign in to your admin panel"
         @login="login"
