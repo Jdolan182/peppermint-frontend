@@ -74,39 +74,51 @@
               </div>
             </div>
 
-            <div>
-              <Label
-                  for="password" 
-                  label="Password"
-              />
-              <div class="mt-1">
-                <Input 
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                    @input-value="(value) => (form.password.value = value)"
-                    :error="form.password.error"
-                    :error-message="form.password.errorMessage"
+            <!-- TODO make component one day -->
+            <Disclosure  v-slot="{ open }">
+              <DisclosureButton  class="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-grey-900 hover:bg-grey-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                <span class="font-semibold">Edit Password</span>
+                <ChevronUpIcon
+                  :class="open ? 'rotate-180 transform' : ''"
+                  class="h-5 w-5 text-grey-500"
                 />
-              </div>
-            </div>
+              </DisclosureButton>
+              <DisclosurePanel>
+                <div>
+                  <Label
+                      for="password" 
+                      label="Password"
+                  />
+                  <div class="mt-1">
+                    <Input 
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                        @input-value="(value) => (form.password.value = value)"
+                        :error="form.password.error"
+                        :error-message="form.password.errorMessage"
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <Label
-                  for="confirmPassword" 
-                  label="Confirm Password"
-              />
-              <div class="mt-1">
-                <Input 
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    type="password"
-                    @input-value="(value) => (form.confirmPassword.value = value)"
-                    :error="form.confirmPassword.error"
-                    :error-message="form.confirmPassword.errorMessage"
-                />
-              </div>
-            </div>
+                <div>
+                  <Label
+                      for="confirmPassword" 
+                      label="Confirm Password"
+                  />
+                  <div class="mt-1">
+                    <Input 
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        type="password"
+                        @input-value="(value) => (form.confirmPassword.value = value)"
+                        :error="form.confirmPassword.error"
+                        :error-message="form.confirmPassword.errorMessage"
+                    />
+                  </div>
+                </div>
+              </DisclosurePanel>
+            </Disclosure>
         </Form>
       </template>
 
@@ -138,7 +150,8 @@
   import { populateForm, createForm } from "@/composables/forms";
   import { useRouter } from "vue-router";
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
-
+  import { Disclosure, DisclosureButton, DisclosurePanel, } from '@headlessui/vue'
+  import { ChevronUpIcon } from '@heroicons/vue/20/solid'
 
   const router = useRouter();
   const data = ref({});
