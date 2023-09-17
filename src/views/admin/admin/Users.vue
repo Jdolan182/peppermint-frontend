@@ -209,12 +209,12 @@
 
       const res = await useAxios.post('/api/user/create', params, form)
 
-      if(res.status != 200 && res.response.status == 401)
+      if(res.status != 201 && res.response.status == 401)
       {
         form.value.register.error = true
         form.value.register.errorMessage = res.response.data.message
       }
-      if (res.status == 200) {
+      if (res.status == 201) {
         showAddUser.value = false
         showSuccessBanner("Saved Successfully", "A new user has been added");
         getData(1)
