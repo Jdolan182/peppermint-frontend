@@ -74,15 +74,9 @@
               </div>
             </div>
 
-            <Disclosure  v-slot="{ open }">
-              <DisclosureButton  class="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-grey-900 hover:bg-grey-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                <span class="font-semibold">Edit Password</span>
-                <ChevronUpIcon
-                  :class="open ? 'rotate-180 transform' : ''"
-                  class="h-5 w-5 text-grey-500"
-                />
-              </DisclosureButton>
-              <DisclosurePanel>
+            <Accordion 
+              title='Edit Password'
+            >
                 <div>
                   <Label
                       for="password" 
@@ -116,8 +110,7 @@
                     />
                   </div>
                 </div>
-              </DisclosurePanel>
-            </Disclosure>
+            </Accordion>
         </Form>
       </template>
 
@@ -149,8 +142,8 @@
   import { populateForm, createForm } from "@/composables/forms";
   import { useRouter } from "vue-router";
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
-  import { Disclosure, DisclosureButton, DisclosurePanel, } from '@headlessui/vue'
-  import { ChevronUpIcon } from '@heroicons/vue/20/solid'
+  import Accordion from '@/components/dataDisplay/Accordion.vue'
+
 
 
   const router = useRouter();
