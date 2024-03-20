@@ -8,6 +8,7 @@ import { PeppermintRoutes } from "./admin/peppermint.js";
 import { ConsumerRoutes } from "./admin/consumer.js";
 import { AdminRoutes } from "./admin/admin.js";
 import { UserRoutes } from "./admin/user.js";
+import { BlogRoutes } from "./admin/blog.js";
 
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
@@ -27,8 +28,9 @@ import { useNavigationStore } from "@/store/navigation";
       ...DashboardRoutes,
       ...PeppermintRoutes,
       ...ConsumerRoutes,
+      ...BlogRoutes,
       ...AdminRoutes,
-      ...UserRoutes
+      ...UserRoutes,
     ]
   }
 
