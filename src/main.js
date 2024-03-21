@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Peppermint from './App.vue'
 import router from './router'
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
 
 import './assets/main.css'
 
@@ -15,6 +16,8 @@ axios.defaults.headers.common['Access-Control-Allow-Origin', '*#']
 const pinia = createPinia()
 
 const peppermint = createApp(Peppermint)
+
+peppermint.component('menu-icon', MenuIcon);
 
 peppermint.use(pinia)
         .use(router)

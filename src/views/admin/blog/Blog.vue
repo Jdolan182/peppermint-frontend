@@ -107,9 +107,9 @@
               />
               <div class="mt-1">
                 <Input 
-                    name="password"
-                    placeholder="Password"
-                    type="password"
+                    name="live_date"
+                    placeholder="Live Date"
+                    type="date"
                     @input-value="(value) => (form.live_date.value = value)"
                     :error="form.live_date.error"
                     :error-message="form.live_date.errorMessage"
@@ -124,10 +124,10 @@
               />
               <div class="mt-1">
                 <Checkbox 
-                    name="active"
-                    @input-value="(value) => (form.active.value = value)"
-                    :error="form.active.error"
-                    :error-message="form.active.errorMessage"
+                    name="is_active"
+                    @input-value="(value) => (form.is_active.value = value)"
+                    :error="form.is_active.error"
+                    :error-message="form.is_active.errorMessage"
                 />
               </div>
             </div>
@@ -137,15 +137,9 @@
                   for="content" 
                   label="Content"
               />
-              <div class="mt-1">
-                <Checkbox 
-                    name="content"
-                    @input-value="(value) => (form.content.value = value)"
-                    :error="form.content.error"
-                    :error-message="form.content.errorMessage"
-                />
-              </div>
-            </div>
+            <tiptap v-model="form.content.value"/>
+          </div>
+
         </Form>
       </template>
 
@@ -202,6 +196,7 @@
   import { createForm } from "@/composables/forms";
   import { PencilSquareIcon, XMarkIcon} from '@heroicons/vue/20/solid'
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
+  import Tiptap from '@/components/inputs/TipTap.vue'
 
   const tableData = ref({});
   const paginationData = ref({});
