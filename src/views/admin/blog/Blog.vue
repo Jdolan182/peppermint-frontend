@@ -238,6 +238,8 @@
         content: form.value.content.value
       };
 
+      console.log(params)
+
       const res = await useAxios.post('/api/blog/create', params, form)
 
       if(res.status != 201 && res.response.status == 401)

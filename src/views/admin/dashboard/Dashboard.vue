@@ -32,7 +32,7 @@
         stats.value = [
             { name: 'Total Consumers', stat: res.data.data.consumers },
             { name: 'Admin Users', stat: res.data.data.users },
-            { name: 'More data ', stat: 'Data' },
+            { name: 'Published Blogs', stat: res.data.data.blogs },
         ]
       }
 

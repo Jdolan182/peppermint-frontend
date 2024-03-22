@@ -20,32 +20,34 @@
     </div>
 </template>
   
-<script>
-    import { ref } from "vue";
-    export default {
-        name: "Checkbox",
-        props: {
-            checked: {
-                type: Boolean,
-                required: false,
-                default: false,
-            },
-        },
-        emits: ["inputValue"],
-            setup(props, ctx) {
-            const isChecked = ref(props.checked);
-            const updateCheckAll = (value) => {
-                isChecked.value = value;
-            };
-            const inputValue = () => {
-                ctx.emit("inputValue", props.name, isChecked.value);
-            };
-            return {
-                props,
-                isChecked,
-                inputValue,
-                updateCheckAll,
-            };
-        },
+<script setup>
+    import { ref, watch, computed } from "vue";
+    //Vue Components
+    import InputErrorMessage from "@/components/inputs/InputErrorMessage.vue";
+    // eslint-disable-next-line no-undef
+    const props = defineProps({
+      name: "Checkbox",
+      props: {
+          checked: {
+              type: Boolean,
+              required: false,
+              default: false,
+          },
+      },
+    })
+    // eslint-disable-next-line no-undef
+
+    const emits = defineEmits(["inputValue", "updateCheckAll"]);
+    const isChecked = ref(props.checked ?? 0);
+    const defaultValue = computed(() => isChecked.value);
+    const inputValue = () => {
+        emits("inputValue", isChecked.value);
     };
+    const updateCheckAll = (value) => {
+        isChecked.value = value;
+    };
+    watch(defaultValue, () => {
+      isChecked.value = defaultValue.value;
+    });
+       
 </script>
