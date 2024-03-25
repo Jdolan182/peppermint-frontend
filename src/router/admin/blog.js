@@ -24,7 +24,7 @@ export const BlogRoutes = [
         }
       },
       {
-        path: ':id',
+        path: ':slug',
         name: 'Blog Details',
         component: () => import('@/views/admin/blog/BlogDetails.vue'),
         meta: {

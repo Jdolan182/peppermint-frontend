@@ -17,13 +17,13 @@
         <tr v-for="data in tableData" :key="data.id" class="even:bg-gray-100">
           <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            <router-link :to="{ name: 'Blog Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.title }}</router-link>
+            <router-link :to="{ name: 'Blog Details', params: {slug: data.slug } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.title }}</router-link>
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.is_active }}</td>
-          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.date_created }}</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ formatDate(data.created_at) }}</td>
           <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">
             <div class="inline-flex mr-4">
-              <router-link :to="{ name: 'Blog Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
+              <router-link :to="{ name: 'Blog Details', params: {slug: data.slug } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
                 <PencilSquareIcon class="-ml-1 h-5 w-5 flex-shrink-0 text-gray-500" />
               </router-link>
             </div>
@@ -194,6 +194,7 @@
   import Submit from '@/components/buttons/Submit.vue'
   import Error from '@/components/buttons/Error.vue'
   import { createForm } from "@/composables/forms";
+  import { formatDate } from "@/composables/date";
   import { PencilSquareIcon, XMarkIcon} from '@heroicons/vue/20/solid'
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
   import Tiptap from '@/components/inputs/TipTap.vue'

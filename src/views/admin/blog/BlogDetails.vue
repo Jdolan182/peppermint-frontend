@@ -2,125 +2,140 @@
 <template>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <TableHeader 
-      :title="data.name"
-      subtitle="Consumer Details"
+      :title="data.title"
+      subtitle="Blog Preview"
       buttonText="Edit"
-      emitFunction="editConsumer"
-      @editConsumer="showEditConsumerModal()"
+      emitFunction="editBlog"
+      @editBlog="showEditBlogModal()"
     />
-    <DataDisplay>
-      <div class="border-t border-gray-100">
-        <dl class="divide-y divide-gray-100">
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Name</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.name }}</dd>
-          </div>
-          <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Email</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.email }}</dd>
-          </div>
-        </dl>
-      </div>
-    </DataDisplay>
+
+    <Blog
+      :title="data.title"
+      :subtitle="data.subtitle"
+      :content="data.content"
+      :publishDate="data.live_date ? data.live_date : data.created_at"
+    />
 
     <Modal 
-      :show="showEditConsumer" 
-      @hideModal="showEditConsumer = false"
-      title="Edit Consumer"
+      :show="showEditBlog" 
+      @hideModal="showEditBlog = false"
+      title="Edit Blog"
       @keyup.enter="submit()"
     >
-      <template v-slot:content>
+    <template v-slot:content>
 
-        <Form class="space-y-6"
-        >
-            <div class="text-center">
-              <ErrorLabel
-                  :label="form.edit.errorMessage"
-                  :error="form.edit.error"
+      <Form class="space-y-6"
+      >
+          <div class="text-center">
+            <ErrorLabel
+                :label="form.edit.errorMessage"
+                :error="form.edit.error"
+
+            />
+          </div>
+          <div>
+              <Label
+                  for="title" 
+                  label="Title"
+              />
+            <div class="mt-1">
+              <Input 
+                  name="title"
+                  placeholder="Title"
+                  :default-value="form.title.value"
+                  @input-value="(value) => (form.title.value = value)"
+                  :error="form.title.error"
+                  :error-message="form.title.errorMessage"
               />
             </div>
-            <div>
-                <Label
-                    for="name" 
-                    label="Name"
-                />
-              <div class="mt-1">
-                <Input 
-                    name="name"
-                    placeholder="Name"
-                    :default-value="form.name.value"
-                    @input-value="(value) => (form.name.value = value)"
-                    :error="form.name.error"
-                    :error-message="form.name.errorMessage"
-                />
-              </div>
+          </div>
+
+          <div>
+              <Label
+                  for="subtitle" 
+                  label="Subtitle"
+              />
+            <div class="mt-1">
+              <Input 
+                  name="subtitle"
+                  placeholder="Subtitle"
+                  :default-value="form.subtitle.value"
+                  @input-value="(value) => (form.subtitle.value = value)"
+                  :error="form.subtitle.error"
+                  :error-message="form.subtitle.errorMessage"
+              />
             </div>
+          </div>
 
-            <div>
-                <Label
-                    for="email" 
-                    label="Email Address"
-                />
-              <div class="mt-1">
-                <Input 
-                    name="email"
-                    placeholder="Email"
-                    autocomplete="email"
-                    :default-value="form.email.value"
-                    @input-value="(value) => (form.email.value = value)"
-                    :error="form.email.error"
-                    :error-message="form.email.errorMessage"
-                />
-              </div>
+          <div>
+              <Label
+                  for="slug" 
+                  label="Slug"
+              />
+            <div class="mt-1">
+              <Input 
+                  name="slug"
+                  placeholder="Slug"
+                  :default-value="form.slug.value"
+                  @input-value="(value) => (form.slug.value = value)"
+                  :error="form.slug.error"
+                  :error-message="form.slug.errorMessage"
+              />
             </div>
+          </div>
 
-            <Accordion 
-              title='Edit Password'
-            >
-                <div>
-                  <Label
-                      for="password" 
-                      label="Password"
-                  />
-                  <div class="mt-1">
-                    <Input 
-                        name="password"
-                        placeholder="Password"
-                        type="password"
-                        @input-value="(value) => (form.password.value = value)"
-                        :error="form.password.error"
-                        :error-message="form.password.errorMessage"
-                    />
-                  </div>
-                </div>
+          <div>
+            <Label
+                for="live_date" 
+                label="Go Live Date"
+            />
+            <div class="mt-1">
+              <Input 
+                  name="live_date"
+                  placeholder="Live Date"
+                  type="date"
+                  :default-value="form.live_date.value"
+                  @input-value="(value) => (form.live_date.value = value)"
+                  :error="form.live_date.error"
+                  :error-message="form.live_date.errorMessage"
+              />
+            </div>
+          </div>
 
-                <div class="pt-7">
-                  <Label
-                      for="confirmPassword" 
-                      label="Confirm Password"
-                  />
-                  <div class="mt-1">
-                    <Input 
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        type="password"
-                        @input-value="(value) => (form.confirmPassword.value = value)"
-                        :error="form.confirmPassword.error"
-                        :error-message="form.confirmPassword.errorMessage"
-                    />
-                  </div>
-                </div>
-            </Accordion>
-        </Form>
+          <div>
+            <Label
+                for="is_active" 
+                label="Active"
+            />
+            <div class="mt-1">
+              <Checkbox 
+                  name="is_active"
+                  :default-value="form.is_active.value"
+                  @input-value="(value) => (form.is_active.value = value)"
+                  :error="form.is_active.error"
+                  :error-message="form.is_active.errorMessage"
+              />
+            </div>
+          </div>
+
+          <div>
+            <Label
+                for="content" 
+                label="Content"
+            />
+          <tiptap v-model="form.content.value"/>
+        </div>
+
+      </Form>
       </template>
 
       <template v-slot:button>
-        <div>
-          <Submit 
-            label="Save"
-            @click="submit()"
-          />
-        </div>
+      <div>
+        <Submit 
+          label="Save"
+          @click="submit()"
+        />
+      </div>
       </template>
 
     </Modal>
@@ -137,25 +152,27 @@
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
-  import DataDisplay from '@/components/dataDisplay/DataDisplay.vue'
+  import Blog from '@/components/dataDisplay/Blog.vue'
   import TableHeader from '@/components/headers/TableHeader.vue'
   import { populateForm, createForm } from "@/composables/forms";
   import { useRouter } from "vue-router";
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
-  import Accordion from '@/components/dataDisplay/Accordion.vue'
-
+  import Checkbox from '@/components/inputs/Checkbox.vue'
+  import Tiptap from '@/components/inputs/TipTap.vue'
 
 
   const router = useRouter();
   const data = ref({});
 
-  const showEditConsumer = ref(false);
+  const showEditBlog = ref(false);
 
   const form = createForm([
-    'name', 
-    'email', 
-    'password', 
-    'confirmPassword', 
+    'title', 
+    'subtitle', 
+    'slug', 
+    'live_date',
+    'is_active',
+    'content', 
     'edit'
   ])
 
@@ -163,13 +180,16 @@
     try {
 
       const params = {
-        name: form.value.name.value,
-        email: form.value.email.value,
-        password: form.value.password.value,
-        password_confirmation: form.value.confirmPassword.value
+        title: form.value.title.value,
+        subtitle: form.value.subtitle.value,
+        slug: form.value.slug.value,
+        content: form.value.content.value,
+        live_date: form.value.live_date.value,
+        is_active: form.value.is_active.value,
+        content: form.value.content.value
       };
 
-      const res = await useAxios.patch(`/api/consumer/edit/${router.currentRoute.value.params.id}`, params, form)
+      const res = await useAxios.patch(`/api/blog/edit/${router.currentRoute.value.params.slug}`, params, form)
 
       if(res.status != 200 && res.response.status == 401)
       {
@@ -177,10 +197,10 @@
         form.value.register.errorMessage = res.response.data.message
       }
       if (res.status == 200) {
-        showEditConsumer.value = false
+        showEditBlog.value = false
         data.value = res.data.data
         populateForm(form, res.data.data)
-        showSuccessBanner("Edited Successfully", "This consumer has been edited");
+        showSuccessBanner("Edited Successfully", "This blog has been edited");
       }
       else if(res.status == 404) {
         showErrorBanner("Error", "Error");
@@ -199,7 +219,7 @@
   const getData = async () => {
     try {
 
-      const res = await useAxios.get(`/api/consumer/show/${router.currentRoute.value.params.id}`)
+      const res = await useAxios.get(`/api/blog/show/${router.currentRoute.value.params.slug}`)
 
       if(res.status == 200){
         data.value = res.data.data
@@ -210,7 +230,7 @@
     }
   }
 
-  const showEditConsumerModal = async () => {
-    showEditConsumer.value = true
+  const showEditBlogModal = async () => {
+    showEditBlog.value = true
   };
 </script>
