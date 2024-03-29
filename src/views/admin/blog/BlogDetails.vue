@@ -119,6 +119,44 @@
           </div>
 
           <div>
+              <Label
+                  for="description" 
+                  label="Description"
+              />
+              <div class="mt-1">
+                <Textarea 
+                    name="description"
+                    type="textarea"
+                    :defaultValue="form.description.value"
+                    @input-value="(value) => (form.description.value = value)"
+                    :error="form.description.error"
+                    :error-message="form.description.errorMessage"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label
+                  for="category" 
+                  label="Category"
+              />
+              <div class="mt-1">
+                <Select 
+                  width="w-20"
+                  name="category"
+                  :defaultValue="form.category_id.value"
+                  :error="form.category_id.error"
+                  @input-value="(value) => (form.category_id.value = value)"
+                  :error-message="form.category_id.errorMessage"
+                >   
+                  <option v-for="option in blogCategories" :key="option.id" :value="option.id"> {{ option.category }}</option>
+                </Select>     
+
+              </div>
+            </div>
+
+
+          <div>
             <Label
                 for="content" 
                 label="Content"
@@ -149,6 +187,8 @@
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
+  import Select from "@/components/inputs/Select.vue";
+  import Textarea from '@/components/inputs/Textarea.vue'
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
   import Submit from '@/components/buttons/Submit.vue'
@@ -164,12 +204,15 @@
   const router = useRouter();
   const data = ref({});
 
+  const blogCategories = ref({});
   const showEditBlog = ref(false);
 
   const form = createForm([
     'title', 
     'subtitle', 
     'slug', 
+    'description', 
+    'category_id', 
     'live_date',
     'is_active',
     'content', 
@@ -183,7 +226,8 @@
         title: form.value.title.value,
         subtitle: form.value.subtitle.value,
         slug: form.value.slug.value,
-        content: form.value.content.value,
+        description: form.value.description.value,
+        category_id: form.value.category_id.value,
         live_date: form.value.live_date.value,
         is_active: form.value.is_active.value,
         content: form.value.content.value
@@ -193,8 +237,8 @@
 
       if(res.status != 200 && res.response.status == 401)
       {
-        form.value.register.error = true
-        form.value.register.errorMessage = res.response.data.message
+        form.value.edit.error = true
+        form.value.edit.errorMessage = res.response.data.message
       }
       if (res.status == 200) {
         showEditBlog.value = false
@@ -214,6 +258,7 @@
   
   onMounted(async () => {
     getData()
+    getCategories()
   })
  
   const getData = async () => {
@@ -224,6 +269,20 @@
       if(res.status == 200){
         data.value = res.data.data
         populateForm(form, res.data.data)
+      }
+
+    } catch (e) {
+    }
+  }
+
+  const getCategories = async () => {
+    try {
+      let res = [];
+
+      res = await useAxios.get(`/api/blogCategories`)
+  
+      if(res.status == 200){
+        blogCategories.value = res.data.data
       }
 
     } catch (e) {

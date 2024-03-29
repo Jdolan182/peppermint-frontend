@@ -4,7 +4,7 @@
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div v-if="props.limit && dataCount > 0" class="mb-6 inline-flex">
-              <Select 
+              <TableSelect 
                 :options="options"
                 :selected="1"
                 @updatePageLength="updatePageLength"
@@ -59,7 +59,7 @@
 <script setup>
 import Pagination from "@/components/navigation/Pagination.vue";
 import Input from "@/components/inputs/Input.vue";
-import Select from "@/components/inputs/Select.vue";
+import TableSelect from "@/components/inputs/TableSelect.vue";
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 import { ref } from "@vue/reactivity";
 import { debounce } from "@/composables/debounce"

@@ -19,6 +19,7 @@
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
             <router-link :to="{ name: 'Blog Details', params: {slug: data.slug } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.title }}</router-link>
           </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.category.category }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.is_active }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ formatDate(data.created_at) }}</td>
           <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">
@@ -28,7 +29,7 @@
               </router-link>
             </div>
             <div class="inline-flex mr-12">
-              <XMarkIcon @click="showDeleteBlogModel(data.id)" class="-ml-1 h-5 w-5 flex-shrink-0 text-red-500 cursor-pointer" />
+              <XMarkIcon @click="showDeleteBlogModel(data.slug)" class="-ml-1 h-5 w-5 flex-shrink-0 text-red-500 cursor-pointer" />
             </div>
           </td>
         </tr>
@@ -125,10 +126,47 @@
               <div class="mt-1">
                 <Checkbox 
                     name="is_active"
+                    :defaultValue="0"
                     @input-value="(value) => (form.is_active.value = value)"
                     :error="form.is_active.error"
                     :error-message="form.is_active.errorMessage"
                 />
+              </div>
+            </div>
+
+            <div>
+              <Label
+                  for="description" 
+                  label="Description"
+              />
+              <div class="mt-1">
+                <Textarea 
+                    name="description"
+                    type="textarea"
+                    @input-value="(value) => (form.description.value = value)"
+                    :error="form.description.error"
+                    :error-message="form.description.errorMessage"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label
+                  for="category" 
+                  label="Category"
+              />
+              <div class="mt-1">
+                <Select 
+                  width="w-20"
+                  name="category"
+                  :defaultValue="blogCategories[0]['id']"
+                  :error="form.category_id.error"
+                  @input-value="(value) => (form.category_id.value = value)"
+                  :error-message="form.category_id.errorMessage"
+                >   
+                  <option v-for="option in blogCategories" :key="option.id" :value="option.id"> {{ option.category }}</option>
+                </Select>     
+
               </div>
             </div>
 
@@ -184,10 +222,12 @@
   import { useAxios } from "@/composables/request.js";
   import TableHeader from '@/components/headers/TableHeader.vue'
   import Table from '@/components/tables/Table.vue'
+  import Select from "@/components/inputs/Select.vue";
   import { ref, onMounted, reactive } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
+  import Textarea from '@/components/inputs/Textarea.vue'
   import Checkbox from '@/components/inputs/Checkbox.vue'
   import Label from '@/components/labels/Label.vue'
   import ErrorLabel from '@/components/labels/ErrorLabel.vue'
@@ -198,8 +238,10 @@
   import { PencilSquareIcon, XMarkIcon} from '@heroicons/vue/20/solid'
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
   import Tiptap from '@/components/inputs/TipTap.vue'
+  import { useUserStore } from '@/store/admin/user';
 
   const tableData = ref({});
+  const blogCategories = ref({});
   const paginationData = ref({});
   const pageLimit = 30
 
@@ -207,9 +249,13 @@
   const showDeleteBlog = ref(false)
   const deleteBlogID = ref({})
 
+  const userStore = useUserStore();
+
+
   let headers = reactive([
     { id: 1, name: "ID" },
     { id: 2, name: "Title" },
+    { id: 2, name: "Category" },
     { id: 2, name: "Active" },
     { id: 3, name: "Date Created" },
     { id: 4, name: "" },
@@ -219,6 +265,8 @@
     'title', 
     'subtitle', 
     'slug', 
+    'description', 
+    'category_id', 
     'live_date',
     'is_active',
     'content', 
@@ -233,7 +281,9 @@
         title: form.value.title.value,
         subtitle: form.value.subtitle.value,
         slug: form.value.slug.value,
-        content: form.value.content.value,
+        description: form.value.description.value,
+        category_id: form.value.category_id.value,
+        author_id: userStore.getId,
         live_date: form.value.live_date.value,
         is_active: form.value.is_active.value,
         content: form.value.content.value
@@ -245,8 +295,8 @@
 
       if(res.status != 201 && res.response.status == 401)
       {
-        form.value.register.error = true
-        form.value.register.errorMessage = res.response.data.message
+        form.value.add.error = true
+        form.value.add.errorMessage = res.response.data.message
       }
       if (res.status == 201) {
         showAddBlog.value = false
@@ -258,12 +308,14 @@
       }
     
     } catch (e) {
+      console.log(e)
       showErrorBanner(true, 404, "Error", "Error");
     }
   };
   
   onMounted(async () => {
     getData(1)
+    getCategories()
   })
  
   const getData = async (page, keyword = '', limit = pageLimit) => {
@@ -286,12 +338,26 @@
     }
   }
 
+  const getCategories = async () => {
+    try {
+      let res = [];
+
+      res = await useAxios.get(`/api/blogCategories`)
+  
+      if(res.status == 200){
+        blogCategories.value = res.data.data
+      }
+
+    } catch (e) {
+    }
+  }
+
   const showAddBlogModal = async () => {
     showAddBlog.value = true
   };
 
-  const showDeleteBlogModel = (id) => {
-    deleteBlogID.value = id
+  const showDeleteBlogModel = (slug) => {
+    deleteBlogID.value = slug
     showDeleteBlog.value = true
   }
 

@@ -2,7 +2,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline'
 
 export const BlogRoutes = [
   {
-    path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/blogs/',
+    path: '/' + import.meta.env.VITE_MODULE_ADMIN_NAME + '/blog-list/',
     meta: { 
       requiresAuth: true,
       adminLayout: true,
@@ -14,8 +14,8 @@ export const BlogRoutes = [
     children: [
       {
         path: '',
-        name: 'Blogs',
-        component: () => import('@/views/admin/blog/Blog.vue'),
+        name: 'Blogs List',
+        component: () => import('@/views/admin/blog/BlogList.vue'),
         meta: {
           breadcrumbs: (route) => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},

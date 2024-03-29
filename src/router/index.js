@@ -15,6 +15,7 @@ import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
 import { LoginRoutes } from "./frontend/login.js";
 import { ProfileRoutes } from "./frontend/profile.js";
+import { BlogFrontendRoutes } from "./frontend/blog.js";
 
 import { createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
@@ -42,7 +43,9 @@ import { useNavigationStore } from "@/store/navigation";
       ...HomeRoutes,
       ...RegisterRoutes,
       ...LoginRoutes,
-      ...ProfileRoutes
+      ...ProfileRoutes,
+      ...BlogFrontendRoutes
+
     ]
   }
 

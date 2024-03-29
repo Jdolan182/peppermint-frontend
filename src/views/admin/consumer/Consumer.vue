@@ -211,8 +211,8 @@
 
       if(res.status != 201 && res.response.status == 401)
       {
-        form.value.register.error = true
-        form.value.register.errorMessage = res.response.data.message
+        form.value.add.error = true
+        form.value.add.errorMessage = res.response.data.message
       }
       if (res.status == 201) {
         showAddConsumer.value = false
