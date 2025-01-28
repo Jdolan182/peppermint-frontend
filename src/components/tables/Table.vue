@@ -23,7 +23,7 @@
                 @input-value="(value) => (keyword.value = value)"
               />            
           </div>
-          <div v-if="dataCount > 0" class="w-full overflow-hidden shadow ring-1 ring-black ring-opacity-5  sm:rounded-lg">
+          <div v-if="dataCount > 0" class="w-full overflow-hidden shadow-sm ring-1 ring-black ring-opacity-5  sm:rounded-lg">
             <table  class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
@@ -47,7 +47,7 @@
               @getData="getData"
             />             
           </div>
-          <div v-else class="w-full p-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+          <div v-else class="w-full p-4 overflow-hidden shadow-sm ring-1 ring-black ring-opacity-5 sm:rounded-lg">
               No data to show
           </div>
         </div>

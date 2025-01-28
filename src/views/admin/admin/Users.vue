@@ -1,6 +1,6 @@
 
 <template>
-    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <div class="inline-flex flex items-center px-3 py-2 text-sm font-semibold text-black hover:bg-white/70">
       <Button 
         label="Add"
@@ -24,11 +24,11 @@
           <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">
             <div class="inline-flex mr-4">
               <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">
-                <PencilSquareIcon class="-ml-1 h-5 w-5 flex-shrink-0 text-gray-500" />
+                <PencilSquareIcon class="-ml-1 h-5 w-5 shrink-0 text-gray-500" />
               </router-link>
             </div>
             <div class="inline-flex mr-12">
-              <XMarkIcon @click="showDeleteUserModel(data.id)" class="-ml-1 h-5 w-5 flex-shrink-0 text-red-500 cursor-pointer" />
+              <XMarkIcon @click="showDeleteUserModel(data.id)" class="-ml-1 h-5 w-5 shrink-0 text-red-500 cursor-pointer" />
             </div>
           </td>
         </tr>

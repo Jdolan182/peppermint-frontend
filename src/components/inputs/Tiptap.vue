@@ -13,7 +13,7 @@
         ],
         editorProps: {
             attributes: {
-            class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+            class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-hidden',
             },
             transformPastedText(text) {
             return text.toUpperCase()

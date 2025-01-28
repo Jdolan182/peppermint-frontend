@@ -1,6 +1,6 @@
 
 <template>
-  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <Tabs 
       :tabs="tabs"
     />

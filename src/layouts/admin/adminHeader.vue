@@ -3,7 +3,7 @@
         <div>
         <nav class="sm:hidden" aria-label="Back">
             <a href="#" class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-200">
-            <ChevronLeftIcon class="-ml-1 mr-1 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+            <ChevronLeftIcon class="-ml-1 mr-1 h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
             Back
             </a>
         </nav>
@@ -13,7 +13,7 @@
                 <div class="flex items-center">
                     <router-link v-if="!crumb.current" :to="{ name: crumb.to.name }" class="mr-4 text-sm font-medium text-gray-400 hover:text-gray-200">{{  crumb.title }}</router-link>
                     <span v-else class="mr-4 text-sm font-medium text-white">{{  crumb.title }}</span>
-                    <ChevronRightIcon v-if="!crumb.current" class="h-5 w-5  flex-shrink-0 text-gray-500" aria-hidden="true" />
+                    <ChevronRightIcon v-if="!crumb.current" class="h-5 w-5  shrink-0 text-gray-500" aria-hidden="true" />
 
                 </div>
             </li>

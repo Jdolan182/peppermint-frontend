@@ -1,6 +1,6 @@
 <template>
     <Disclosure  v-slot="{ open }">
-        <DisclosureButton  class="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-grey-900 hover:bg-grey-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+        <DisclosureButton  class="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-grey-900 hover:bg-grey-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
         <span class="font-semibold"> {{ props.title }} </span>
         <ChevronUpIcon
             :class="open ? 'rotate-180 transform' : ''"

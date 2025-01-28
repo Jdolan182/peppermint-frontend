@@ -23,7 +23,7 @@
         </p>
       </div>
       <div>
-        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <nav class="isolate inline-flex -space-x-px rounded-md shadow-xs" aria-label="Pagination">
           <TailwindPagination
             :data="props.data"
             :limit="1"

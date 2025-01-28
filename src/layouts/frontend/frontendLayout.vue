@@ -5,7 +5,7 @@
         <frontendHeader />
 
         <main class="py-10">
-            <div class="mx-auto max-w-screen-2xl py-6 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-(--breakpoint-2xl) py-6 sm:px-6 lg:px-8">
                 <RouterView  />
 
             </div>

@@ -1,11 +1,11 @@
 <template>
 
     <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
-      <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <!-- TODO logo -->
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
               <!-- <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> -->
             </div>
             <div class="hidden md:block">
@@ -17,7 +17,7 @@
           <div v-if="login == 'true'" class="hidden md:block">
             <div v-if="loggedIn">
               <div class="ml-4 flex items-center md:ml-6">
-                <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">View notifications</span>
                   <!-- <BellIcon class="h-6 w-6" aria-hidden="true" /> -->
                 </button>
@@ -43,7 +43,7 @@
           </div>
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
-            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="sr-only">Open main menu</span>
               <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
               <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
@@ -59,13 +59,13 @@
         <div v-if="login == 'true'" class="border-t border-gray-700 pb-3 pt-4">
           <div v-if="loggedIn">
             <div class="flex items-center px-5">
-              <div class="flex-shrink-0">
+              <div class="shrink-0">
                 <!-- <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" /> -->
               </div>
               <div class="ml-3">
                 <div class="text-base font-medium leading-none text-white">{{ userName }}</div>
               </div>
-              <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+              <button type="button" class="ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span class="sr-only">View notifications</span>
                 <!-- <BellIcon class="h-6 w-6" aria-hidden="true" /> -->
               </button>

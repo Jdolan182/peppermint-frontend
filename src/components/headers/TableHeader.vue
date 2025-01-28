@@ -6,7 +6,7 @@
 
         </div>
         <div v-if="props.button" class="mt-4 flex md:ml-4 md:mt-0">
-            <button v-on:click="$emit(props.emitFunction)" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-white/70">{{ props.buttonText }}</button>
+            <button v-on:click="$emit(props.emitFunction)" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-xs hover:bg-white/70">{{ props.buttonText }}</button>
         </div>
     </div>
 </template>

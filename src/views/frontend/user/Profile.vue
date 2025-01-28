@@ -1,6 +1,6 @@
 <template>
     <!-- Settings forms -->
-    <div class="divide-y overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="divide-y overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
       <div>
         <h2 class="text-base font-semibold leading-7">Personal Information</h2>

@@ -13,7 +13,7 @@
           v-model="isChecked"
           type="checkbox"
           :required="false"
-          class="h-4 w-4 rounded-sm text-[#79A2D6] first-line:appearance-none focus:ring-[#79A2D6] focus:border-[#79A2D6] block px-1 py-1 border-1 shadow-sm sm:text-sm border-[#79A2D6]"
+          class="h-4 w-4 rounded-xs text-[#79A2D6] first-line:appearance-none focus:ring-[#79A2D6] focus:border-[#79A2D6] block px-1 py-1 border-1 shadow-xs sm:text-sm border-[#79A2D6]"
           @change="inputValue"
         />
       </div>

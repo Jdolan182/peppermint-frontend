@@ -1,12 +1,12 @@
 <template>
     <section
       v-if="editor"
-      class="buttons text-gray-700 flex items-center flex-wrap gap-x-3 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900"
+      class="buttons text-gray-700 flex items-center flex-wrap gap-x-3 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900"
     >
       <button
         type="button"
         @click="editor.chain().focus().toggleBold().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('bold') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('bold') }"
         class="p-1"
       >
         <BoldIcon title="Bold" />
@@ -14,7 +14,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleItalic().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('italic') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('italic') }"
         class="p-1"
       >
         <ItalicIcon title="Italic" />
@@ -22,7 +22,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleUnderline().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('underline') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('underline') }"
         class="p-1"
       >
         <UnderlineIcon title="Underline" />
@@ -31,7 +31,7 @@
         type="button"
         @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
         :class="{
-          'bg-gray-200 rounded': editor.isActive('heading', { level: 1 }),
+          'bg-gray-200 rounded-sm': editor.isActive('heading', { level: 1 }),
         }"
         class="p-1"
       >
@@ -41,7 +41,7 @@
         type="button"
         @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
         :class="{
-          'bg-gray-200 rounded': editor.isActive('heading', { level: 2 }),
+          'bg-gray-200 rounded-sm': editor.isActive('heading', { level: 2 }),
         }"
         class="p-1"
       >
@@ -50,7 +50,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleBulletList().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('bulletList') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('bulletList') }"
         class="p-1"
       >
         <ListIcon title="Bullet List" />
@@ -58,7 +58,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleOrderedList().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('orderedList') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('orderedList') }"
         class="p-1"
       >
         <OrderedListIcon title="Ordered List" />
@@ -66,7 +66,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleBlockquote().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('blockquote') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('blockquote') }"
         class="p-1"
       >
         <BlockquoteIcon title="Blockquote" />
@@ -74,7 +74,7 @@
       <button
         type="button"
         @click="editor.chain().focus().toggleCodeBlock().run()"
-        :class="{ 'bg-gray-200 rounded': editor.isActive('codeBlock') }"
+        :class="{ 'bg-gray-200 rounded-sm': editor.isActive('codeBlock') }"
         class="p-1"
       >
         <CodeIcon title="Code" />
@@ -147,7 +147,7 @@
         ],
         editorProps: {
             attributes: {
-                class: 'prose content-none block w-full min-h-[12rem] max-h-[20rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
+                class: 'prose content-none block w-full min-h-[12rem] max-h-[20rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
             },
             transformPastedText(text) {
                 return text.toUpperCase()

@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <div class="h-full">
       <SignInForm 
         title="Sign in"
