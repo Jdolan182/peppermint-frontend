@@ -5,20 +5,20 @@ import { useAxios } from "@/composables/request.js";
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-        id: localStorage.getItem("userId") ?? null,
+      userId: localStorage.getItem("userId") ?? null,
         name: localStorage.getItem("userName") ?? null,
         email: localStorage.getItem("userEmail") ?? null,
     }
   },
   getters: {
-    getId: (state) => state.id,
+    getId: (state) => state.userId,
     getName: (state) => state.name,
     getEmail: (state) => state.email,
   }, 
   actions: {
     setUser(data) {
         this.name = data.name;
-        this.id = data.id;
+        this.userId = data.userId;
 
         const authStore = useAuthStore();
         authStore.setLoggedIn(true)
@@ -31,8 +31,10 @@ export const useUserStore = defineStore('user', {
         const res = await useAxios.get('api/user/getUser')
         let data = res.data.data
 
+        console.log(data)
+
         localStorage.setItem("userId", data.id)
-        this.id = res.data.id
+        this.userId = res.data.id
         localStorage.setItem("userName", data.name)
         this.name = res.data.name
         localStorage.setItem("userEmail", data.email)
@@ -46,5 +48,6 @@ export const useUserStore = defineStore('user', {
       localStorage.removeItem("userEmail")
       this.email = null
     }
+   
   }
 })

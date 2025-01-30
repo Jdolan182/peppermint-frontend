@@ -18,7 +18,7 @@
         <tr v-for="data in tableData" :key="data.id" class="even:bg-gray-100">
           <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ data.id }}</td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-400 hover:text-gray-200">{{ data.name }}</router-link>
+            <router-link :to="{ name: 'User Details', params: {id: data.id } }" class="text-sm font-medium text-gray-700 hover:text-gray-400">{{ data.name }}</router-link>
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ data.email }}</td>
           <td class="relative whitespace-nowrap py-4 pl-3 text-right text-sm font-medium ">

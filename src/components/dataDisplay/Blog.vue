@@ -5,8 +5,8 @@
             <p class="text-base font-semibold leading-7 text-indigo-600 text-xs	">{{ formatDate(publishDate, 'MMM Do, YYYY') }}</p>
             <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ props.title}}</h1>
             <p class="mt-2 text-xl leading-8"> {{ props.subtitle }}</p>
-            <div class="mt-10 max-w-2xl" v-html="props.content">
-            </div>
+            <br>
+            <div> <span class="mt-10 max-w-2xl" v-html="props.content"></span> </div>
         </div>
     </div>
 </template>

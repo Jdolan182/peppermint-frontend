@@ -1,7 +1,10 @@
 <template>
     <div class="bg-gray-900 pr-6 h-20 flex md:items-center md:justify-between">
       <div class="px-4 py-6 sm:px-6 bg-gray-900">
-          <h2 class="text-2xl leading-7 text-white sm:truncate sm:text-2xl sm:tracking-tight"> {{ props.title }}</h2>
+          <HeaderTwo
+            :header="props.title"
+            :style=2
+          />
           <p v-if="props.subtitle" class="mt-1 max-w-2xl text-sm leading-6 text-gray-300">{{ props.subtitle }}</p>
 
         </div>
@@ -12,6 +15,9 @@
 </template>
 
 <script setup>
+
+  import HeaderTwo from '@/components/labels/HeaderTwo.vue'
+
   const props = defineProps({
     title: {
       type: [String, Number],

@@ -109,7 +109,9 @@
 <script setup>
     import { useEditor, EditorContent } from '@tiptap/vue-3'
     import StarterKit from '@tiptap/starter-kit'
-    import Underline from '@tiptap/extension-underline'
+    import Underline from '@tiptap/extension-underline' 
+    import BulletList  from '@tiptap/extension-bullet-list'
+
 
     import BoldIcon from 'vue-material-design-icons/FormatBold.vue'
     import ItalicIcon from 'vue-material-design-icons/FormatItalic.vue'
@@ -133,21 +135,25 @@
     const editor = useEditor({
         content: props.modelValue,
         onUpdate: ({ editor }) => {
-            // console.log(editor.getHTML())
             emit('update:modelValue', editor.getHTML())
         },
         extensions: [
             StarterKit.configure({
-            // Disable an included extension
-            CodeBlock: {
-                class: 'pre code',
-            },
-        }),
-            Underline            
+              // Disable an included extension
+              CodeBlock: {
+                  class: 'pre code',
+              },
+            }),
+            Underline,
+            BulletList.configure({
+              HTMLAttributes: {
+                class: 'list-disc',
+              },
+            })
         ],
         editorProps: {
             attributes: {
-                class: 'prose content-none block w-full min-h-[12rem] max-h-[20rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
+                class: 'prose [&_ol]:list-decimal [&_ul]:list-disc content-none block w-full min-h-[12rem] max-h-[20rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
             },
             transformPastedText(text) {
                 return text.toUpperCase()

@@ -41,7 +41,7 @@
     const isChecked = ref(props.checked ?? 0);
     const defaultValue = computed(() => isChecked.value);
     const inputValue = () => {
-        emits("inputValue", isChecked.value);
+        emits("inputValue", isChecked.value ? 1 : 0);
     };
     const updateCheckAll = (value) => {
         isChecked.value = value;

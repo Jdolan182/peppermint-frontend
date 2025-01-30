@@ -10,11 +10,11 @@
             <article v-for="blog in props.blogs" :key="blog.slug" class="flex max-w-xl flex-col items-start justify-between">
             <div class="flex items-center gap-x-4 text-xs">
                 <p class="text-gray-500">{{ formatDate(blog.created_at, 'MMM Do, YYYY') }}</p>
-                <a v-if="blog.category" class="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">{{ blog.category.category }}</a>
+                <a v-if="blog.category" class="relative blog z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200">{{ blog.category.category }}</a>
             </div>
             <div class="group relative">
                 <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                <router-link :to="{ name: 'Blog View', params: {slug: blog.slug } }">{{ blog.title }}</router-link>
+                <router-link :to="{ name: 'Blog View', params: {slug: blog.slug } }" class="blog">{{ blog.title }}</router-link>
                 </h3>
                 <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ blog.subtitle }}</p>
             </div>
