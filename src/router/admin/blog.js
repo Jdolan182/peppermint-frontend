@@ -19,7 +19,7 @@ export const BlogRoutes = [
         meta: {
           breadcrumbs: (route) => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
-              {title: 'Consumers', current: true},
+              {title: 'Blogs', to: {name: 'Blogs List'}, current: true}
           ])
         }
       },
@@ -30,7 +30,7 @@ export const BlogRoutes = [
         meta: {
           breadcrumbs: (route) => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
-              {title: 'Blogs', to: {name: 'Blogs'}},
+              {title: 'Blogs', to: {name: 'Blogs List'}},
               {title: 'Blog Details', current: true}
           ])
         }

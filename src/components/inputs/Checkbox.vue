@@ -1,51 +1,53 @@
 <template>
-    <div>
-      <label
-        v-if="$attrs['label']"
-        :for="$attrs['name']"
-        class="block text-sm text-gray-700 text-left capitalize"
-      >
-        {{ $attrs["label"] }}
-      </label>
-      <div :class="$attrs['label'] ? 'mt-1' : ''">
-        <input
-          v-bind="$attrs"
-          v-model="isChecked"
-          type="checkbox"
-          :required="false"
-          class="h-4 w-4 rounded-xs text-[#79A2D6] first-line:appearance-none focus:ring-[#79A2D6] focus:border-[#79A2D6] block px-1 py-1 border-1 shadow-xs sm:text-sm border-[#79A2D6]"
-          @change="inputValue"
-        />
-      </div>
-    </div>
+      <input
+        v-model.checked="isChecked"
+        :checked="isChecked"
+        :disabled="props.disabled"
+        type="checkbox"
+        class="h-4 w-4 rounded-xs text-[#79A2D6] first-line:appearance-none focus:ring-[#79A2D6] focus:border-[#79A2D6] block px-1 py-1 border-1 shadow-xs sm:text-sm border-[#79A2D6]"
+        :class="
+          [$attrs.error
+            ? 'border-red-500 placeholder-red-500 '
+            : 'border-gray-300  placeholder-gray-500 ',
+          props.disabled
+            ? 'text-gray-500'
+            : 'text-gray-900'
+          ]
+        "
+        v-bind="$attrs"
+        @change="inputValue"
+      />
+      <InputErrorMessage
+        v-if="$attrs['error'] !== undefined"
+        :error="$attrs['error']"
+        :error-message="$attrs['error-message']"
+      />
 </template>
   
 <script setup>
     import { ref, watch, computed } from "vue";
-    //Vue Components
     import InputErrorMessage from "@/components/inputs/InputErrorMessage.vue";
-    // eslint-disable-next-line no-undef
-    const props = defineProps({
-      name: "Checkbox",
-      props: {
-          checked: {
-              type: Boolean,
-              required: false,
-              default: false,
-          },
-      },
-    })
-    // eslint-disable-next-line no-undef
 
-    const emits = defineEmits(["inputValue", "updateCheckAll"]);
-    const isChecked = ref(props.checked ?? 0);
-    const defaultValue = computed(() => isChecked.value);
+    const props = defineProps({
+      checked: {
+        type: Number,
+        required: false,
+        default: () => 0,
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    });
+
+    const emits = defineEmits(["inputValue"]);
+    const isChecked = ref(props.checked ? true : false);
+    const defaultValue = computed(() => props.checked  ? true : false);
+    
     const inputValue = () => {
         emits("inputValue", isChecked.value ? 1 : 0);
     };
-    const updateCheckAll = (value) => {
-        isChecked.value = value;
-    };
+    
     watch(defaultValue, () => {
       isChecked.value = defaultValue.value;
     });

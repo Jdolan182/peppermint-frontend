@@ -44,12 +44,14 @@
       },
     });
     // eslint-disable-next-line no-undef
-    const emits = defineEmits(["inputValue", "clearInput"]);
-    const value = ref(props.defaultValue ?? "");
+    const emits = defineEmits(["inputValue"]);
+    const value = ref(props.defaultValue);
     const defaultValue = computed(() => props.defaultValue);
+
     const inputValue = () => {
         emits("inputValue", value.value);
     };
+
     watch(defaultValue, () => {
       value.value = defaultValue.value;
     });

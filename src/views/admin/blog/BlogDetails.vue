@@ -110,7 +110,7 @@
             <div class="mt-1">
               <Checkbox 
                   name="is_active"
-                  :default-value="form.is_active.value"
+                  :checked="form.is_active.value"
                   @input-value="(value) => (form.is_active.value = value)"
                   :error="form.is_active.error"
                   :error-message="form.is_active.errorMessage"
