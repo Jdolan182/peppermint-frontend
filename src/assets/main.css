@@ -50,3 +50,8 @@ a.blog,
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.resize-horizontal { 
+  resize: vertical;
+}
+

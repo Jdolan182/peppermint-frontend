@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-900 pr-6 h-20 flex md:items-center md:justify-between">
       <div class="px-4 py-6 sm:px-6 bg-gray-900">
-          <HeaderTwo
+          <HeaderThree
             :header="props.title"
             :style=2
           />
@@ -16,7 +16,7 @@
 
 <script setup>
 
-  import HeaderTwo from '@/components/labels/HeaderTwo.vue'
+  import HeaderThree from '@/components/labels/HeaderThree.vue'
 
   const props = defineProps({
     title: {

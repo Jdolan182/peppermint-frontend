@@ -96,21 +96,28 @@
       </button>
       <button
         type="button"
-        @click="editor.chain().focus().redo().run()"
-        :disabled="!editor.can().chain().focus().redo().run()"
-        class="p-1 disabled:text-gray-400"
+        @click="addImage"
       >
         <RedoIcon title="Redo" />
+      </button>
+      <button
+        type="button"
+        @click="addImage"
+         class="p-1"
+      >
+        <HorizontalRuleIcon title="Image" />
       </button>
     </section>
     <EditorContent :editor="editor" />
 </template>
   
 <script setup>
-    import { useEditor, EditorContent } from '@tiptap/vue-3'
+    import { useEditor, EditorContent, Extension  } from '@tiptap/vue-3'
     import StarterKit from '@tiptap/starter-kit'
     import Underline from '@tiptap/extension-underline' 
     import BulletList  from '@tiptap/extension-bullet-list'
+    import OrderedList  from '@tiptap/extension-ordered-list'
+    import Image from '@tiptap/extension-image'
 
 
     import BoldIcon from 'vue-material-design-icons/FormatBold.vue'
@@ -139,25 +146,42 @@
         },
         extensions: [
             StarterKit.configure({
-              // Disable an included extension
               CodeBlock: {
                   class: 'pre code',
               },
             }),
             Underline,
+            Image.configure({
+              inline: true,
+              allowBase64: true
+            }),
             BulletList.configure({
               HTMLAttributes: {
                 class: 'list-disc',
+              },
+            }),
+            OrderedList.configure({
+              HTMLAttributes: {
+                class: 'list-decimal',
               },
             })
         ],
         editorProps: {
             attributes: {
-                class: 'prose [&_ol]:list-decimal [&_ul]:list-disc content-none block w-full min-h-[12rem] max-h-[20rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
+                class: 'resize-horizontal prose content-none block w-full min-h-[12rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
             },
             transformPastedText(text) {
                 return text.toUpperCase()
             }
         }
     })
+
+    
+    const addImage = async () => {
+      const url = window.prompt('URL')
+
+      if (url) {
+        editor.value.chain().focus().setImage({ src: url }).run()
+      }
+    }
 </script>

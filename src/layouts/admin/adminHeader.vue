@@ -22,7 +22,7 @@
         </div>
         <div class="mt-2 md:flex md:items-center md:justify-between">
             <div class="min-w-0 flex-1">
-                <HeaderTwo
+                <HeaderThree
                     :header="title"
                     :bold=true
                     :style=2
@@ -55,7 +55,7 @@
     import  DropdownMenu  from '@/components/menus/DropdownMenu.vue'
     import { logout } from "@/composables/logout";
     import { MenuItem } from '@headlessui/vue'
-    import HeaderTwo from '@/components/labels/HeaderTwo.vue'
+    import HeaderThree from '@/components/labels/HeaderThree.vue'
 
 
     const router = useRouter();

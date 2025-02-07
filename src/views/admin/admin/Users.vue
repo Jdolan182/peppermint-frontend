@@ -43,7 +43,7 @@
     >
       <template v-slot:content>
 
-        <Form class="space-y-6"
+        <Form class="space-y-6" @keydown.enter.prevent @keyup.enter.prevent
         >
             <div class="text-center">
               <ErrorLabel

@@ -24,7 +24,7 @@
     >
     <template v-slot:content>
 
-      <Form class="space-y-6"
+      <Form class="space-y-6" @keydown.enter.prevent @keyup.enter.prevent
       >
           <div class="text-center">
             <ErrorLabel
@@ -90,7 +90,7 @@
                 label="Go Live Date"
             />
             <div class="mt-1">
-              <Input 
+              <DateInput 
                   name="live_date"
                   placeholder="Live Date"
                   type="date"
@@ -187,6 +187,7 @@
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
+  import DateInput from '@/components/inputs/DateInput.vue'
   import Select from "@/components/inputs/Select.vue";
   import Textarea from '@/components/inputs/Textarea.vue'
   import Label from '@/components/labels/Label.vue'
