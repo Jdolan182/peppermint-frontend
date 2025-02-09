@@ -109,6 +109,12 @@
       </button>
     </section>
     <EditorContent :editor="editor" />
+
+    <Input 
+      ref="image"
+      type="file"
+      hidden
+    />
 </template>
   
 <script setup>
@@ -132,6 +138,12 @@
     import HorizontalRuleIcon from 'vue-material-design-icons/Minus.vue'
     import UndoIcon from 'vue-material-design-icons/Undo.vue'
     import RedoIcon from 'vue-material-design-icons/Redo.vue'
+
+    import Input from '@/components/inputs/Input.vue'
+    import { ref, onMounted } from 'vue'
+
+    const image = ref(null)
+
 
     const props = defineProps({
         modelValue: String,
@@ -178,10 +190,11 @@
 
     
     const addImage = async () => {
-      const url = window.prompt('URL')
+      console.log(image.value)
+      //const url = window.prompt('URL')
 
-      if (url) {
-        editor.value.chain().focus().setImage({ src: url }).run()
-      }
+      // if (url) {
+      //   editor.value.chain().focus().setImage({ src: url }).run()
+      // }
     }
 </script>
