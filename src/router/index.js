@@ -40,7 +40,7 @@ import { useNavigationStore } from "@/store/navigation";
     }
 
     //To put admin at the bottom of the sidebar. Works for now.
-    //TODO add way to order list or something?
+    //TODO add way to order list or something
     adminRoutesArr.push(...AdminRoutes);
   }
 
