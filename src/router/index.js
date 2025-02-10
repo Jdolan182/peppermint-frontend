@@ -28,11 +28,17 @@ import { useNavigationStore } from "@/store/navigation";
     adminRoutesArr = [
       ...DashboardRoutes,
       ...PeppermintRoutes,
-      ...ConsumerRoutes,
-      ...BlogRoutes,
       ...AdminRoutes,
       ...UserRoutes,
     ]
+
+    if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
+      adminRoutesArr.push(...ConsumerRoutes);
+    }
+
+    if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
+      adminRoutesArr.push(...BlogRoutes);
+    }
   }
 
   //frontend
@@ -41,12 +47,19 @@ import { useNavigationStore } from "@/store/navigation";
   if(import.meta.env.VITE_MODULE_FRONTEND === 'true'){
     frontendRoutesArr = [
       ...HomeRoutes,
-      ...RegisterRoutes,
-      ...LoginRoutes,
-      ...ProfileRoutes,
-      ...BlogFrontendRoutes
-
     ]
+
+    if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
+      frontendRoutesArr.push( 
+        ...RegisterRoutes,
+        ...LoginRoutes,
+        ...ProfileRoutes,
+      );
+    }
+
+    if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
+      frontendRoutesArr.push(...BlogFrontendRoutes);
+    }
   }
 
 
