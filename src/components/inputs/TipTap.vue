@@ -7,7 +7,7 @@
         type="button"
         @click="editor.chain().focus().toggleBold().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('bold') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <BoldIcon title="Bold" />
       </button>
@@ -15,7 +15,7 @@
         type="button"
         @click="editor.chain().focus().toggleItalic().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('italic') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <ItalicIcon title="Italic" />
       </button>
@@ -23,7 +23,7 @@
         type="button"
         @click="editor.chain().focus().toggleUnderline().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('underline') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <UnderlineIcon title="Underline" />
       </button>
@@ -33,7 +33,7 @@
         :class="{
           'bg-gray-200 rounded-sm': editor.isActive('heading', { level: 1 }),
         }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <H1Icon title="H1" />
       </button>
@@ -43,7 +43,7 @@
         :class="{
           'bg-gray-200 rounded-sm': editor.isActive('heading', { level: 2 }),
         }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <H2Icon title="H2" />
       </button>
@@ -51,7 +51,7 @@
         type="button"
         @click="editor.chain().focus().toggleBulletList().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('bulletList') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <ListIcon title="Bullet List" />
       </button>
@@ -59,7 +59,7 @@
         type="button"
         @click="editor.chain().focus().toggleOrderedList().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('orderedList') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <OrderedListIcon title="Ordered List" />
       </button>
@@ -67,7 +67,7 @@
         type="button"
         @click="editor.chain().focus().toggleBlockquote().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('blockquote') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <BlockquoteIcon title="Blockquote" />
       </button>
@@ -75,20 +75,20 @@
         type="button"
         @click="editor.chain().focus().toggleCodeBlock().run()"
         :class="{ 'bg-gray-200 rounded-sm': editor.isActive('codeBlock') }"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <CodeIcon title="Code" />
       </button>
       <button
         type="button"
         @click="editor.chain().focus().setHorizontalRule().run()"
-        class="p-1"
+        class="p-1 cursor-pointer"
       >
         <HorizontalRuleIcon title="Horizontal Rule" />
       </button>
       <button
         type="button"
-        class="p-1 disabled:text-gray-400"
+        class="p-1 disabled:text-gray-400 cursor-pointer"
         @click="editor.chain().focus().undo().run()"
         :disabled="!editor.can().chain().focus().undo().run()"
       >
@@ -96,24 +96,27 @@
       </button>
       <button
         type="button"
-        @click="addImage"
+        class="p-1 disabled:text-gray-400 cursor-pointer"
+        @click="editor.chain().focus().undo().run()"
+        :disabled="!editor.can().chain().focus().undo().run()"
       >
         <RedoIcon title="Redo" />
       </button>
       <button
         type="button"
-        @click="addImage"
-         class="p-1"
+        @click="chooseImage"
+        class="p-1 cursor-pointer"
       >
-        <HorizontalRuleIcon title="Image" />
+        <ImageAlbumIcon title="Image" />
       </button>
     </section>
     <EditorContent :editor="editor" />
 
-    <Input 
-      ref="image"
+    <input 
+      ref="imageInput"
       type="file"
       hidden
+      @change="addImage"
     />
 </template>
   
@@ -138,11 +141,12 @@
     import HorizontalRuleIcon from 'vue-material-design-icons/Minus.vue'
     import UndoIcon from 'vue-material-design-icons/Undo.vue'
     import RedoIcon from 'vue-material-design-icons/Redo.vue'
+    import ImageAlbumIcon from 'vue-material-design-icons/ImageAlbum.vue'
 
-    import Input from '@/components/inputs/Input.vue'
-    import { ref, onMounted } from 'vue'
+    import { useTemplateRef } from 'vue'
+    import { uploadImage } from "@/composables/uploadImage";
 
-    const image = ref(null)
+    const image = useTemplateRef('imageInput')
 
 
     const props = defineProps({
@@ -187,14 +191,18 @@
             }
         }
     })
-
     
-    const addImage = async () => {
-      console.log(image.value)
-      //const url = window.prompt('URL')
+   
+    const chooseImage = async () => {
+      image.value.click()
+    }
 
-      // if (url) {
-      //   editor.value.chain().focus().setImage({ src: url }).run()
-      // }
+    const addImage = async (event) => {
+      
+      const image = await uploadImage(event.target.files[0])
+
+      if (image) {
+        editor.value.chain().focus().setImage({ src: import.meta.env.VITE_API_ASSET_URL + image }).run()
+      }
     }
 </script>

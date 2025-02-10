@@ -2,7 +2,6 @@
 export const LoginRoutes = [
   {
     path: '/login',
-    name: 'Login',
     meta: {
       module: 'frontend',
       frontendLayout: true,

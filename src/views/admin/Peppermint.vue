@@ -14,10 +14,13 @@
 
         const res = await useAxios.post('/api/auth/login', params, form)
 
-        if(res.status != 200 && res.response.status == 401)
+        if(res.status != 200 && res.status == 400)
         {
           form.value.login.error = true
-          form.value.login.errorMessage = res.response.data.message
+          form.value.login.errorMessage = res.data.message
+        }
+        else if(res.status == 401) {
+          showErrorBanner("Unauthorized", "You don't have access to this");
         }
         if (res) {
           userStore.setUser(res.data)

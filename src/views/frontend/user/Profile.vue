@@ -189,18 +189,21 @@ import Form from '@/components/forms/Form.vue'
 
         const res = await useAxios.patch(`/api/consumer/updateDetails/${router.currentRoute.value.params.id}`, params, form)
 
-        if(res.status != 200 && res.response.status == 401)
+        if(res.status != 200 && res.status == 400)
         {
           form.value.update.error = true
-          form.value.update.errorMessage = res.response.data.message
+          form.value.update.errorMessage = res.data.message
         }
         if (res.status == 200) {
           consumerStore.setUser(res.data)
           removeErrors(form)
           showSuccessBanner("Edited Successfully", "You details have been updated");
-      }
+        }
         else if(res.status == 404) {
           showErrorBanner("Error", "Error");
+        }
+          else if(res.status == 401) {
+          showErrorBanner("Unauthorized", "You don't have access to this");
         }
       } catch (e) {
       }
@@ -218,10 +221,10 @@ import Form from '@/components/forms/Form.vue'
 
         const res = await useAxios.patch(`/api/consumer/updatePassword/${router.currentRoute.value.params.id}`, params, passwordForm)
 
-        if(res.status != 200 && res.response.status == 401)
+        if(res.status != 200 && res.status == 400)
         {
           passwordForm.value.update.error = true
-          passwordForm.value.update.errorMessage = res.response.data.message
+          passwordForm.value.update.errorMessage = res.data.message
         }
         if (res.status == 200) {
           removeErrors(passwordForm)
@@ -229,6 +232,9 @@ import Form from '@/components/forms/Form.vue'
         }
         else if(res.status == 404) {
           showErrorBanner("Error", "Error");
+        }
+        else if(res.status == 401) {
+          showErrorBanner("Unauthorized", "You don't have access to this");
         }
 
       } catch (e) {

@@ -53,6 +53,35 @@ const useAxios = {
         return error
       }
     },
+
+        /**
+     *
+     * Make a post request
+     *
+     * @param {string} url
+     * @param {object} data
+     * @param {ref|reactive|object} form
+     * @returns
+     */
+        postImage: async (
+          url,
+          data = {},
+          config,
+        ) => {
+          try {
+            return  await axios.post(
+              url, 
+              data, 
+              config
+            );
+          } catch (error) {
+            if (form) {
+                displayFormErrors(form, error);
+            }
+            useAxios.processError(error)
+            return error
+          }
+        },
   
     /**
      *

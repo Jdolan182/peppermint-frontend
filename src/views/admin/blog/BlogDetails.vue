@@ -85,6 +85,27 @@
           </div>
 
           <div>
+              <Label
+                  for="image_filename" 
+                  label="Blog Image"
+              />
+            <div class="mt-1">
+              <FileInput 
+                  name="image_filename"
+                  type="file"
+                  @change="uploadBlogImage"   
+                  :error="form.image_filename.error"
+                  :error-message="form.image_filename.errorMessage"               
+              />
+            </div>
+
+            <div class="mt-1 mb-1">
+              <img v-bind:src="url" class="max-w-48 max-h-48">
+            </div>
+
+          </div>
+
+          <div>
             <Label
                 for="live_date" 
                 label="Go Live Date"
@@ -187,6 +208,7 @@
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
+  import FileInput from '@/components/inputs/FileInput.vue'
   import DateInput from '@/components/inputs/DateInput.vue'
   import Select from "@/components/inputs/Select.vue";
   import Textarea from '@/components/inputs/Textarea.vue'
@@ -200,7 +222,7 @@
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
   import Checkbox from '@/components/inputs/Checkbox.vue'
   import Tiptap from '@/components/inputs/TipTap.vue'
-
+  import { uploadImage } from "@/composables/uploadImage";
 
   const router = useRouter();
   const data = ref({});
@@ -208,10 +230,13 @@
   const blogCategories = ref({});
   const showEditBlog = ref(false);
 
+  const url = ref({})
+
   const form = createForm([
     'title', 
     'subtitle', 
     'slug', 
+    'image_filename',
     'description', 
     'category_id', 
     'live_date',
@@ -227,6 +252,7 @@
         title: form.value.title.value,
         subtitle: form.value.subtitle.value,
         slug: form.value.slug.value,
+        image_filename: form.value.image_filename.value,
         description: form.value.description.value,
         category_id: form.value.category_id.value,
         live_date: form.value.live_date.value,
@@ -236,19 +262,23 @@
 
       const res = await useAxios.patch(`/api/blog/edit/${router.currentRoute.value.params.slug}`, params, form)
 
-      if(res.status != 200 && res.response.status == 401)
+      if(res.status != 200 && res.status == 400)
       {
         form.value.edit.error = true
-        form.value.edit.errorMessage = res.response.data.message
+        form.value.edit.errorMessage = res.data.message
       }
       if (res.status == 200) {
         showEditBlog.value = false
         data.value = res.data.data
         populateForm(form, res.data.data)
+        url.value = import.meta.env.VITE_API_ASSET_URL + data.value.image_filename
         showSuccessBanner("Edited Successfully", "This blog has been edited");
       }
       else if(res.status == 404) {
         showErrorBanner("Error", "Error");
+      }
+      else if(res.status == 401) {
+        showErrorBanner("Unauthorized", "You don't have access to this");
       }
     
     } catch (e) {
@@ -269,7 +299,9 @@
 
       if(res.status == 200){
         data.value = res.data.data
+        url.value = import.meta.env.VITE_API_ASSET_URL + data.value.image_filename
         populateForm(form, res.data.data)
+       
       }
 
     } catch (e) {
@@ -292,5 +324,16 @@
 
   const showEditBlogModal = async () => {
     showEditBlog.value = true
+  };
+
+  const uploadBlogImage = async (event) => {
+
+    const image = await uploadImage(event.target.files[0])
+
+    url.value = import.meta.env.VITE_API_ASSET_URL + image
+    if (image) {
+      form.value.image_filename.value = image
+
+    }
   };
 </script>

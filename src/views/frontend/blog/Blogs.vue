@@ -5,6 +5,9 @@
       <ContentList
         :blogs="blogs"
         :data="paginationData"
+        :dataCount="blogs.length"
+        :pageLimit="pageLimit"
+        @getData="getData"
       />
     </div>
   </div>
@@ -17,7 +20,7 @@
 
   const blogs = ref({});
   const paginationData = ref({});
-  const pageLimit = 30
+  const pageLimit = 9
 
   
   onMounted(async () => {

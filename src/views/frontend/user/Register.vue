@@ -143,10 +143,10 @@
 
           const res = await useAxios.post('/api/consumer/signup', params, form)
 
-          if(res.status != 200 && res.response.status == 401)
+          if(res.status != 200 && res.status == 400)
           {
             form.value.register.error = true
-            form.value.register.errorMessage = res.response.data.message
+            form.value.register.errorMessage = res.data.message
           }
           if (res.status == 200) {
             router.push({ name: "Home" })

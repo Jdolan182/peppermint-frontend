@@ -2,7 +2,6 @@
 export const RegisterRoutes = [
   {
     path: '/register',
-    name: 'Register',
     meta: {
       module: 'frontend',
       frontendLayout: true,
