@@ -28,7 +28,6 @@ import { useNavigationStore } from "@/store/navigation";
     adminRoutesArr = [
       ...DashboardRoutes,
       ...PeppermintRoutes,
-      ...AdminRoutes,
       ...UserRoutes,
     ]
 
@@ -39,12 +38,17 @@ import { useNavigationStore } from "@/store/navigation";
     if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
       adminRoutesArr.push(...BlogRoutes);
     }
+
+    //To put admin at the bottom of the sidebar. Works for now.
+    //TODO add way to order list or something?
+    adminRoutesArr.push(...AdminRoutes);
   }
 
   //frontend
   let frontendRoutesArr = []
 
   if(import.meta.env.VITE_MODULE_FRONTEND === 'true'){
+   
     frontendRoutesArr = [
       ...HomeRoutes,
     ]
