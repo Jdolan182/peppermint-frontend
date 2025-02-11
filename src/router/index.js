@@ -8,14 +8,12 @@ import { PeppermintRoutes } from "./admin/peppermint.js";
 import { ConsumerRoutes } from "./admin/consumer.js";
 import { AdminRoutes } from "./admin/admin.js";
 import { UserRoutes } from "./admin/user.js";
-import { BlogRoutes } from "./admin/blog.js";
 
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
 import { RegisterRoutes } from "./frontend/register.js";
 import { LoginRoutes } from "./frontend/login.js";
 import { ProfileRoutes } from "./frontend/profile.js";
-import { BlogFrontendRoutes } from "./frontend/blog.js";
 
 import { createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
@@ -33,10 +31,6 @@ import { useNavigationStore } from "@/store/navigation";
 
     if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
       adminRoutesArr.push(...ConsumerRoutes);
-    }
-
-    if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
-      adminRoutesArr.push(...BlogRoutes);
     }
 
     //To put admin at the bottom of the sidebar. Works for now.
@@ -59,10 +53,6 @@ import { useNavigationStore } from "@/store/navigation";
         ...LoginRoutes,
         ...ProfileRoutes,
       );
-    }
-
-    if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
-      frontendRoutesArr.push(...BlogFrontendRoutes);
     }
   }
 
