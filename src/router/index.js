@@ -5,15 +5,11 @@ import { useConsumerAuthStore } from '@/store/frontend/consumerAuth';
 //admin
 import { DashboardRoutes } from "./admin/dashboard.js";
 import { PeppermintRoutes } from "./admin/peppermint.js";
-import { ConsumerRoutes } from "./admin/consumer.js";
 import { AdminRoutes } from "./admin/admin.js";
 import { UserRoutes } from "./admin/user.js";
 
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
-import { RegisterRoutes } from "./frontend/register.js";
-import { LoginRoutes } from "./frontend/login.js";
-import { ProfileRoutes } from "./frontend/profile.js";
 
 import { createNavigation } from "@/composables/navigation";
 import { useBreadcrumbStore } from "@/store/breadcrumbs";
@@ -29,10 +25,6 @@ import { useNavigationStore } from "@/store/navigation";
       ...UserRoutes,
     ]
 
-    if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
-      adminRoutesArr.push(...ConsumerRoutes);
-    }
-
     //To put admin at the bottom of the sidebar. Works for now.
     //TODO add way to order list or something
     adminRoutesArr.push(...AdminRoutes);
@@ -46,14 +38,6 @@ import { useNavigationStore } from "@/store/navigation";
     frontendRoutesArr = [
       ...HomeRoutes,
     ]
-
-    if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
-      frontendRoutesArr.push( 
-        ...RegisterRoutes,
-        ...LoginRoutes,
-        ...ProfileRoutes,
-      );
-    }
   }
 
 
