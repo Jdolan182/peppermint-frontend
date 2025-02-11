@@ -31,13 +31,7 @@
 </template>
 
 <script setup>
-  import {
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel
-  } from '@headlessui/vue'
 
-  import { ChevronRightIcon } from '@heroicons/vue/20/solid'
   import { useRouter } from 'vue-router'
   const router = useRouter();
 
