@@ -31,8 +31,6 @@ export const useUserStore = defineStore('user', {
         const res = await useAxios.get('api/user/getUser')
         let data = res.data.data
 
-        console.log(data)
-
         localStorage.setItem("userId", data.id)
         this.userId = res.data.id
         localStorage.setItem("userName", data.name)
