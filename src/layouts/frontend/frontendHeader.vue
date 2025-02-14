@@ -1,6 +1,6 @@
 <template>
 
-    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+    <Disclosure as="nav" :class="[this.$bgColour]" v-slot="{ open }">
       <div class="mx-auto max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
@@ -10,7 +10,7 @@
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <router-link v-for="item in navigation" :key="item.name"  :to="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</router-link>
+                <router-link v-for="item in navigation" :key="item.name"  :to="item.href" :class="[item.current ? [this.$secondBgColour, this.$textColour] : [this.$thirdTextColour, this.$secondBgHoverColour, this.$textHoverColour], 'rounded-md px-3 py-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</router-link>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
             </div>
             <div v-else>
               <div class="ml-10 flex items-baseline space-x-4">
-                <router-link to="login" :class="[title == 'register' || title == 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
+                <router-link to="login" :class="[title == 'register' || title == 'login' ? [this.$secondBgColour, this.$textColour] : [this.$thirdTextColour, this.$secondBgHoverColour, this.$textHoverColour], 'rounded-md px-3 py-2 text-sm font-medium']">Login/Register</router-link>
               </div>
             </div>
           </div>

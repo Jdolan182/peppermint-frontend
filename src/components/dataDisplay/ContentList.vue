@@ -10,7 +10,7 @@
                 <article v-for="blog in props.blogs" :key="blog.slug" class="flex max-w-xl flex-col items-start justify-between">
                 <div class="flex items-center gap-x-4 text-xs">
                     <p class="text-gray-500">{{ formatDate(blog.created_at, 'MMM Do, YYYY') }}</p>
-                    <a v-if="blog.category" class="relative text-indigo-600 z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium hover:bg-gray-200">{{ blog.category.category }}</a>
+                    <a v-if="blog.category" class="relative text-z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium hover:bg-gray-200" :class="[this.$secondBgTextColour]">{{ blog.category.category }}</a>
                 </div>
                 <div class="mt-3">
                     <router-link :to="{ name: 'Blog View', params: {slug: blog.slug } }">
@@ -20,7 +20,7 @@
                 </div>
                 <div v-if="blog.author" class="relative mt-1 flex items-center gap-x-4">
                     <h3 class="mt-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <router-link :to="{ name: 'Blog View', params: {slug: blog.slug } }" class="text-indigo-600">{{ blog.title }}</router-link>
+                        <router-link :to="{ name: 'Blog View', params: {slug: blog.slug } }" :class="[this.$secondBgTextColour]">{{ blog.title }}</router-link>
                     </h3>
                 </div>
                 </article>

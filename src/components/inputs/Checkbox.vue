@@ -4,15 +4,15 @@
         :checked="isChecked"
         :disabled="props.disabled"
         type="checkbox"
-        class="h-4 w-4 rounded-xs text-[#79A2D6] first-line:appearance-none focus:ring-[#79A2D6] focus:border-[#79A2D6] block px-1 py-1 border-1 shadow-xs sm:text-sm border-[#79A2D6]"
+        class="h-4 w-4 rounded-xs first-line:appearance-none block px-1 py-1 border-1 shadow-xs sm:text-sm"
         :class="
           [$attrs.error
             ? 'border-red-500 placeholder-red-500 '
             : 'border-gray-300  placeholder-gray-500 ',
           props.disabled
             ? 'text-gray-500'
-            : 'text-gray-900'
-          ]
+            : 'text-gray-900',
+            this.$secondFocusColour, this.$bgTextColour]
         "
         v-bind="$attrs"
         @change="inputValue"

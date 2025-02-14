@@ -1,8 +1,7 @@
 <template>
     <section
       v-if="editor"
-      class="buttons text-gray-700 flex items-center flex-wrap gap-x-3 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900"
-    >
+      class="buttons text-gray-700 flex items-center flex-wrap gap-x-3 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:outline-hidden sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900">
       <button
         type="button"
         @click="editor.chain().focus().toggleBold().run()"
@@ -110,7 +109,7 @@
         <ImageAlbumIcon title="Image" />
       </button>
     </section>
-    <EditorContent :editor="editor" />
+    <EditorContent :editor="editor"  />
 
     <input 
       ref="imageInput"
@@ -184,7 +183,7 @@
         ],
         editorProps: {
             attributes: {
-                class: 'resize-horizontal prose content-none block w-full min-h-[12rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-indigo-500 focus:outline-hidden focus:ring-indigo-500 sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
+                class: 'resize-horizontal prose content-none block w-full min-h-[12rem] max-w-none overflow-y-auto appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:border-black focus:outline-hidden focus:ring-black sm:text-sm border-gray-300  placeholder-gray-500 text-gray-900',
             },
             transformPastedText(text) {
                 return text.toUpperCase()

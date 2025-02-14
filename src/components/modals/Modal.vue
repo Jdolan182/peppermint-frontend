@@ -15,7 +15,7 @@
                             <ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
                         </div>
                         <div class="mt-3 w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
-                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">{{ props.title }}</DialogTitle>
+                            <DialogTitle as="h3" class="text-base font-semibold leading-6" :class="[this.$secondTextColour]">{{ props.title }}</DialogTitle>
                             <slot name="content"></slot>
                         </div>
                     </div>
