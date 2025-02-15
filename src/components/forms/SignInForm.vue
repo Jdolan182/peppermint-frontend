@@ -75,7 +75,7 @@
           </Form>
 
 
-          <p v-if="props.register" class="mt-8 text-sm font-medium text-gray-400"> Or <router-link :to="props.registerRoute" :class="[this.$secondFocusColour]">Sign up</router-link> here </p>
+          <p v-if="props.register" class="mt-8 text-sm font-medium text-gray-400"> Or <router-link :to="props.registerRoute" :class="[$theme.secondFocusColour]">Sign up</router-link> here </p>
 
         </div>
       </div>

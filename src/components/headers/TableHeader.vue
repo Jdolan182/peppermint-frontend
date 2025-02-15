@@ -1,16 +1,16 @@
 <template>
-    <div class="pr-6 h-20 flex md:items-center md:justify-between" :class="[this.$bgColour]">
-      <div class="px-4 py-6 sm:px-6" :class="[this.$bgColour]">
+    <div class="pr-6 h-20 flex md:items-center md:justify-between" :class="[$theme.bgColour]">
+      <div class="px-4 py-6 sm:px-6" :class="[$theme.bgColour]">
           <HeaderThree
             :header="props.title"
             :style=2
           />
-          <p v-if="props.subtitle" class="mt-1 max-w-2xl text-sm leading-6" :class="[this.$bgColour, this.$thirdTextColour]">{{ props.subtitle }}</p>
+          <p v-if="props.subtitle" class="mt-1 max-w-2xl text-sm leading-6" :class="[$theme.bgColour, $theme.thirdTextColour]">{{ props.subtitle }}</p>
 
         </div>
         <div v-if="props.button" class="mt-4 flex md:ml-4 md:mt-0">
             <button v-on:click="$emit(props.emitFunction)" type="button" class="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black shadow-xs" 
-              :class="[this.$mainButtonColour, this.$mainButtonHoverColour]">
+              :class="[$theme.mainButtonColour, $theme.mainButtonHoverColour]">
               {{ props.buttonText }}
           </button>
         </div>

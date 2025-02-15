@@ -32,11 +32,11 @@ export const useUserStore = defineStore('user', {
         let data = res.data.data
 
         localStorage.setItem("userId", data.id)
-        this.userId = res.data.id
+        this.userId = data.id
         localStorage.setItem("userName", data.name)
-        this.name = res.data.name
+        this.name = data.name
         localStorage.setItem("userEmail", data.email)
-        this.email = res.data.email
+        this.email = data.email
     },
     removeUser() {
       localStorage.removeItem("userId")

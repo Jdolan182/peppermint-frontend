@@ -2,7 +2,7 @@
   <TransitionRoot as="template" :show="sidebarOpen">
     <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
       <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0" :class="[this.$bgColour]" />
+        <div class="fixed inset-0" :class="[$theme.bgColour]" />
       </TransitionChild>
 
       <div class="fixed inset-0 flex">
@@ -17,7 +17,7 @@
               </div>
             </TransitionChild>
             <!-- Sidebar component, swap this element with another sidebar if you like -->
-            <div class="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 ring-1 ring-white/10" :class="[this.$bgColour]">
+            <div class="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 ring-1 ring-white/10" :class="[$theme.bgColour]">
               <!-- TODO logo -->
              <div class="flex h-16 shrink-0 items-center">
                 <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> -->
@@ -27,7 +27,7 @@
                   <li>
                     <ul role="list" class="-mx-2 space-y-1">
                       <li v-for="item in navigation" :key="item.name">
-                        <router-link :to="item.href" :class="[item.current ? [this.$secondBgColour, this.$textColour] : [this.$thirdTextColour, this.$secondBgHoverColour, this.$textHoverColour], 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                        <router-link :to="item.href" :class="[item.current ? [$theme.secondBgColour, $theme.textColour] : [$theme.thirdTextColour, $theme.secondBgHoverColour, $theme.thirdTextHoverColour], 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                           <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                           {{ item.name }}
                         </router-link>
@@ -45,7 +45,7 @@
 
   <!-- Static sidebar for desktop -->
   <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-    <div class="flex grow flex-col gap-y-5 overflow-y-auto px-12" :class="[this.$bgColour]">
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto px-12" :class="[$theme.bgColour]">
       <!-- TODO logo -->
       <div class="flex h-16 shrink-0 items-center">
         <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" /> -->
@@ -55,7 +55,7 @@
           <li>
             <ul role="list" class="-mx-2 space-y-1">
               <li v-for="item in navigation" :key="item.name">
-                <router-link :to="item.href" :class="[item.current ? [this.$secondBgColour, this.$textColour] : [this.$thirdTextColour, this.$secondBgHoverColour, this.$textHoverColour], 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                <router-link :to="item.href" :class="[item.current ? [$theme.secondBgColour, $theme.textColour] : [$theme.thirdTextColour, $theme.secondBgHoverColour, $theme.textHoverColour], 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                   <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                   {{ item.name }}
                 </router-link>
@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="sticky top-0 z-40 flex items-center gap-x-6 px-4 py-4 shadow-xs sm:px-6 lg:hidden"  :class="[this.$bgColour]">
+  <div class="sticky top-0 z-40 flex items-center gap-x-6 px-4 py-4 shadow-xs sm:px-6 lg:hidden"  :class="[$theme.bgColour]">
     <button type="button" class="-m-2.5 p-2.5 text-white lg:hidden" @click="sidebarOpen = true">
       <span class="sr-only">Open sidebar</span>
       <Bars3Icon class="h-6 w-6" aria-hidden="true" />

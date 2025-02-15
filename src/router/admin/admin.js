@@ -39,6 +39,14 @@ export const AdminRoutes = [
               headerTitle: 'Admin'
             }
           },
+          {
+            path: '',
+            name: 'Admin Theme',
+            component: () => import('@/views/admin/admin/Theme.vue'),
+            meta: {
+              headerTitle: 'Admin'
+            }
+          },
         ],
       },
       {

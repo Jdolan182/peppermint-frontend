@@ -13,7 +13,7 @@
       props.icon
         ? 'pl-10' 
         : '',
-        this.$secondFocusColour]"
+        $theme.secondFocusColour]"
     v-bind="$attrs"
     @change="inputValue"
   >

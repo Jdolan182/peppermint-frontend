@@ -12,7 +12,7 @@
           props.disabled
             ? 'text-gray-500'
             : 'text-gray-900',
-            this.$secondFocusColour, this.$bgTextColour]
+            $theme.secondFocusColour, $theme.bgTextColour]
         "
         v-bind="$attrs"
         @change="inputValue"

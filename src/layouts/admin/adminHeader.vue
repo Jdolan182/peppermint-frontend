@@ -1,12 +1,12 @@
 <template>
     <div 
     class="p-4 h-24"
-    :class="[this.$bgColour]"
+    :class="[$theme.bgColour]"
     >
         <div>
         <nav class="sm:hidden" aria-label="Back">
-            <a href="#" class="flex items-center text-sm font-medium" :class="[this.$thirdTextColour, this.$textHoverColour]">
-            <ChevronLeftIcon class="-ml-1 mr-1 h-5 w-5 shrink-0 " :class="[this.$thirdTextColour]" aria-hidden="true" />
+            <a href="#" class="flex items-center text-sm font-medium" :class="[$theme.thirdTextColour, $theme.textHoverColour]">
+            <ChevronLeftIcon class="-ml-1 mr-1 h-5 w-5 shrink-0 " :class="[$theme.thirdTextColour]" aria-hidden="true" />
             Back
             </a>
         </nav>
@@ -14,9 +14,9 @@
             <ol role="list" class="flex items-center space-x-4">
             <li v-for="crumb in breadcrumbs">
                 <div class="flex items-center">
-                    <router-link v-if="!crumb.current" :to="{ name: crumb.to.name }" class="mr-4 text-sm font-medium" :class="[this.$thirdTextColour, this.$textHoverColour]">{{  crumb.title }}</router-link>
-                    <span v-else class="mr-4 text-sm font-medium" :class="[this.$textColour]">{{  crumb.title }}</span>
-                    <ChevronRightIcon v-if="!crumb.current" class="h-5 w-5  shrink-0"  :class="[this.$thirdTextColour]" aria-hidden="true" />
+                    <router-link v-if="!crumb.current" :to="{ name: crumb.to.name }" class="mr-4 text-sm font-medium" :class="[$theme.thirdTextColour, $theme.textHoverColour]">{{  crumb.title }}</router-link>
+                    <span v-else class="mr-4 text-sm font-medium" :class="[$theme.textColour]">{{  crumb.title }}</span>
+                    <ChevronRightIcon v-if="!crumb.current" class="h-5 w-5  shrink-0"  :class="[$theme.thirdTextColour]" aria-hidden="true" />
 
                 </div>
             </li>
@@ -39,7 +39,7 @@
                 :options=menuOptions
             >
                 <MenuItem>
-                    <a href="#" @click="logout(router)" class="block px-3 py-1 text-sm leading-6" :class="[this.$secondTextColour, this.$textBgHoverColour]">Sign Out</a>
+                    <a href="#" @click="logout(router)" class="block px-3 py-1 text-sm leading-6" :class="[$theme.secondTextColour, $theme.textBgHoverColour]">Sign Out</a>
                 </MenuItem>
             </DropdownMenu>
             

@@ -214,7 +214,7 @@
         form.value.add.error = true
         form.value.add.errorMessage = res.data.message
       }
-      if (res.status == 201) {
+      if (res.status == 200) {
         showAddConsumer.value = false
         showSuccessBanner("Saved Successfully", "A new consumer has been added");
         getData(1)
@@ -249,7 +249,6 @@
       if(res.status == 200){
         tableData.value = res.data.data
         paginationData.value = res.data
-        console.log(res)
       }
 
     } catch (e) {

@@ -15,5 +15,6 @@
   const tabs = ref([
     { name: 'Settings', route: 'Admin Settings' },
     { name: 'Users', route: 'Admin Users' },
+    { name: 'Theme', route: 'Admin Theme' },
   ])
 </script>

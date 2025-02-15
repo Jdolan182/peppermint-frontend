@@ -2,11 +2,11 @@
   <div class="mt-2 flex">
 
     <div class="cursor-pointer flex shrink-0 items-center rounded-l-md px-3 text-base text-white outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6" 
-      :class="[this.$bgColour, this.$secondBgHoverColour]"
+      :class="[$theme.bgColour, $theme.secondBgHoverColour]"
       @click="chooseFile">Choose File</div>
     <input 
       class="block w-full cursor-pointer appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-xs focus:outline-hidden sm:text-sm" 
-      :class="[this.$secondFocusColour]"
+      :class="[$theme.secondFocusColour]"
       type="file"
       ref="fileInput"
     >
