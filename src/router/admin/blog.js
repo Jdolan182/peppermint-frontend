@@ -17,7 +17,7 @@ export const BlogRoutes = [
         name: 'Blogs List',
         component: () => import('@/views/admin/blog/BlogList.vue'),
         meta: {
-          breadcrumbs: (route) => ([
+          breadcrumbs: () => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
               {title: 'Blogs', to: {name: 'Blogs List'}, current: true}
           ])
@@ -28,7 +28,7 @@ export const BlogRoutes = [
         name: 'Blog Details',
         component: () => import('@/views/admin/blog/BlogDetails.vue'),
         meta: {
-          breadcrumbs: (route) => ([
+          breadcrumbs: () => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
               {title: 'Blogs', to: {name: 'Blogs List'}},
               {title: 'Blog Details', current: true}

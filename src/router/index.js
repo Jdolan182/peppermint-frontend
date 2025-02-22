@@ -9,6 +9,7 @@ import { ConsumerRoutes } from "./admin/consumer.js";
 import { AdminRoutes } from "./admin/admin.js";
 import { UserRoutes } from "./admin/user.js";
 import { BlogRoutes } from "./admin/blog.js";
+import { ContentManagementRoutes } from "./admin/contentManagement.js";
 
 //frontend
 import { HomeRoutes } from "./frontend/home.js";
@@ -31,6 +32,10 @@ import { useNavigationStore } from "@/store/navigation";
       ...UserRoutes,
     ]
 
+    if(import.meta.env.VITE_MODULE_CMS_ENABLED  === 'true'){
+      adminRoutesArr.push(...ContentManagementRoutes);
+    }
+
     if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
       adminRoutesArr.push(...ConsumerRoutes);
     }
@@ -38,6 +43,8 @@ import { useNavigationStore } from "@/store/navigation";
     if(import.meta.env.VITE_MODULE_BLOG_ENABLED  === 'true'){
       adminRoutesArr.push(...BlogRoutes);
     }
+
+
 
     //To put admin at the bottom of the sidebar. Works for now.
     //TODO add way to order list or something

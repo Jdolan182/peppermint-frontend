@@ -17,7 +17,7 @@ export const ConsumerRoutes = [
         name: 'Consumers',
         component: () => import('@/views/admin/consumer/Consumer.vue'),
         meta: {
-          breadcrumbs: (route) => ([
+          breadcrumbs: () => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
               {title: 'Consumers', current: true},
           ])
@@ -28,7 +28,7 @@ export const ConsumerRoutes = [
         name: 'Consumer Details',
         component: () => import('@/views/admin/consumer/ConsumerDetails.vue'),
         meta: {
-          breadcrumbs: (route) => ([
+          breadcrumbs: () => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
               {title: 'Consumers', to: {name: 'Consumers'}},
               {title: 'Consumer Details', current: true}

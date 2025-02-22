@@ -17,7 +17,7 @@ export const AdminRoutes = [
         name: 'Admin',
         component: () => import('@/views/admin/admin/Admin.vue'),
         meta: {
-          breadcrumbs: (route) => ([
+          breadcrumbs: () => ([
               {title: 'Dashboard', to: {name: 'Dashboard'}},
               {title: 'Admin', current: true},
           ])
@@ -39,14 +39,14 @@ export const AdminRoutes = [
               headerTitle: 'Admin'
             }
           },
-          {
-            path: '',
-            name: 'Admin Theme',
-            component: () => import('@/views/admin/admin/Theme.vue'),
-            meta: {
-              headerTitle: 'Admin'
-            }
-          },
+          // {
+          //   path: '',
+          //   name: 'Admin Theme',
+          //   component: () => import('@/views/admin/admin/Theme.vue'),
+          //   meta: {
+          //     headerTitle: 'Admin'
+          //   }
+          // },
         ],
       },
       {
