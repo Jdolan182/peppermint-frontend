@@ -1,7 +1,7 @@
 <template>
     <div 
     class="p-4 h-24"
-    :class="[$theme.bgColour]"
+    :class="[$theme.secondBgColour]"
     >
         <div>
         <nav class="sm:hidden" aria-label="Back">

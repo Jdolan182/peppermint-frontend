@@ -30,8 +30,7 @@
                   <th 
                     v-for="header in props.headers" 
                     :key="header.id" 
-                    scope="col" 
-                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    class="px-3 py-4 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                   >
                     {{ header.name }}
                   </th>

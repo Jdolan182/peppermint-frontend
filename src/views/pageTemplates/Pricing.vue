@@ -79,7 +79,7 @@
 
   const props = defineProps({
         data: {
-            type: Object,
+            type: String,
             required: true,
         },
     });

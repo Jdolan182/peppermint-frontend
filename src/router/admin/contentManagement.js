@@ -23,18 +23,18 @@ export const ContentManagementRoutes = [
           ])
         }
       },
-    //   {
-    //     path: ':slug',
-    //     name: 'Blog Details',
-    //     component: () => import('@/views/admin/blog/BlogDetails.vue'),
-    //     meta: {
-    //       breadcrumbs: () => ([
-    //           {title: 'Dashboard', to: {name: 'Dashboard'}},
-    //           {title: 'Blogs', to: {name: 'Blogs List'}},
-    //           {title: 'Blog Details', current: true}
-    //       ])
-    //     }
-    //   }
+      {
+        path: ':id',
+        name: 'Page Details',
+        component: () => import('@/views/admin/contentManagement/PageDetails.vue'),
+        meta: {
+          breadcrumbs: () => ([
+              {title: 'Dashboard', to: {name: 'Dashboard'}},
+              {title: 'Content Management', to: {name: 'Content'}},
+              {title: 'Page Details', current: true}
+          ])
+        }
+      }
     ],
   },
 ];

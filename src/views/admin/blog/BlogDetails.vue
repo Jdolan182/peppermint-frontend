@@ -248,6 +248,7 @@
     try {
 
       const params = {
+        id: router.currentRoute.value.params.id,
         title: form.value.title.value,
         subtitle: form.value.subtitle.value,
         slug: form.value.slug.value,
@@ -259,7 +260,7 @@
         content: form.value.content.value
       };
 
-      const res = await useAxios.patch(`/api/blog/edit/${router.currentRoute.value.params.slug}`, params, form)
+      const res = await useAxios.patch(`/api/blog/edit/${router.currentRoute.value.params.id}`, params, form)
 
       if(res.status != 200 && res.status == 400)
       {
@@ -294,7 +295,7 @@
   const getData = async () => {
     try {
 
-      const res = await useAxios.get(`/api/blog/show/${router.currentRoute.value.params.slug}`)
+      const res = await useAxios.get(`/api/blog/show/${router.currentRoute.value.params.id}`)
 
       if(res.status == 200){
         data.value = res.data.data

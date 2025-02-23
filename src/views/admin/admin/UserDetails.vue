@@ -162,6 +162,7 @@
     try {
 
       const params = {
+        id: router.currentRoute.value.params.id,
         name: form.value.name.value,
         email: form.value.email.value,
         password: form.value.password.value,

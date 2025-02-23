@@ -27,6 +27,9 @@ export const createForm = (fields) => {
 export const populateForm = (form, data) => {
 
     for (let key in data) {
-        if (form.value[key]) form.value[key].value = data[key];
+        if (form.value[key]) {
+            form.value[key].value = data[key]
+            form.value[key].error = null
+        };
     }
 };

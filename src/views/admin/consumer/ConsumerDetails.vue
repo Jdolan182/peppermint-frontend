@@ -163,6 +163,7 @@
     try {
 
       const params = {
+        id: router.currentRoute.value.params.id,
         name: form.value.name.value,
         email: form.value.email.value,
         password: form.value.password.value,
@@ -173,8 +174,8 @@
 
       if(res.status != 200 && res.status == 400)
       {
-        form.value.register.error = true
-        form.value.register.errorMessage = res.data.message
+        form.value.edit.error = true
+        form.value.edit.errorMessage = res.data.message
       }
       if (res.status == 200) {
         showEditConsumer.value = false
