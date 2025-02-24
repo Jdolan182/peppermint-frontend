@@ -1,6 +1,6 @@
 <template>
     <div class="pr-6 h-20 flex md:items-center md:justify-between" :class="[$theme.secondBgColour]">
-      <div class="px-4 py-6 sm:px-6" :class="[$theme.secondBgColour]">
+      <div class="px-4 sm:px-6" :class="[$theme.secondBgColour]">
           <HeaderThree
             :header="props.title"
             :style=2
@@ -40,5 +40,4 @@
     },
   });
 
-  console.log(props.buttons)
 </script>

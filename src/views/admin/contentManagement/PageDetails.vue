@@ -8,29 +8,42 @@
       @editPage="showEditPageModal()"
       @previewPage="previewPage()"
     />
-    <DataDisplay>
-      <div class="border-t border-gray-100">
-        <dl class="divide-y divide-gray-100">
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Title</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.title }}</dd>
+    <Tabs>
+      <Tab title="Page">
+        <DataDisplay>
+          <div class="border-t border-gray-100">
+            <dl class="divide-y divide-gray-100">
+              <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-900">Title</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.title }}</dd>
+              </div>
+              <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-900">Slug</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.slug }}</dd>
+              </div>
+              <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-900">Show Footer</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.show_footer }}</dd>
+              </div>
+              <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-900">Active?</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.is_active }}</dd>
+              </div>
+            </dl>
           </div>
-          <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Slug</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.slug }}</dd>
+        </DataDisplay>
+      </Tab>
+      <Tab title="Sections">
+        <div class="border-t border-gray-100">
+          <div v-for="section in data.sections" class="px-4 pt-6 sm:gap-4 sm:px-6">
+            <Accordion  :title="section.page_section_template.template">
+              {{ section.data }}
+            </Accordion>
           </div>
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Show Footer</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.show_footer }}</dd>
-          </div>
-          <div class="bg-gray-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-900">Active?</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ data.is_active }}</dd>
-          </div>
-        </dl>
-      </div>
-    </DataDisplay>
-
+        </div>
+      </Tab>
+    </Tabs>
+  
     <Modal 
       :show="showEditPage" 
       @hideModal="showEditPage = false"
@@ -145,6 +158,8 @@
   import { useRouter } from "vue-router";
   import { showSuccessBanner, showErrorBanner } from "@/composables/banners";
   import Accordion from '@/components/dataDisplay/Accordion.vue'
+  import Tabs from "@/components/tabs/Tabs2.vue"
+  import Tab from "@/components/tabs/Tab.vue"
 
 
 
@@ -157,8 +172,6 @@
     { buttonText: 'Edit', emitFunction: 'editPage' },
     { buttonText: 'Preview Page', emitFunction: 'previewPage' }
   ])
-
-  console.log(buttons)
 
   const form = createForm([
     'title', 
