@@ -3,7 +3,7 @@
   <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <TableHeader 
       title="Consumers"
-      emitFunction="addConsumer"
+      :buttons="buttons"
       @addConsumer="showAddConsumerModal()"
     />
     <div class="flex p-4">
@@ -180,6 +180,11 @@
   const showAddConsumer = ref(false);
   const showDeleteConsumer = ref(false)
   const deleteConsumerID = ref({})
+
+  let buttons = reactive([
+    { buttonText: 'Add', emitFunction: 'addConsumer' },
+  ])
+
 
   let headers = reactive([
     { id: 1, name: "ID" },

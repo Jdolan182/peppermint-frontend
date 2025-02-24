@@ -3,7 +3,7 @@
   <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <TableHeader 
       title="Blogs"
-      emitFunction="addBlog"
+      :buttons="buttons"
       @addBlog="showAddBlogModal()"
     />
     <div class="flex p-4">
@@ -276,6 +276,11 @@
 
   const url = ref()
   url.value = ''
+
+  let buttons = reactive([
+    { buttonText: 'Add', emitFunction: 'addBlog' },
+  ])
+
 
   let headers = reactive([
     { id: 1, name: "ID" },

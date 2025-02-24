@@ -4,9 +4,9 @@
     <TableHeader 
       :title="data.name"
       subtitle="Page Details"
-      buttonText="Edit"
-      emitFunction="editPage"
+      :buttons="buttons"
       @editPage="showEditPageModal()"
+      @previewPage="previewPage()"
     />
     <DataDisplay>
       <div class="border-t border-gray-100">
@@ -131,7 +131,7 @@
 
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
@@ -152,6 +152,13 @@
   const data = ref({});
 
   const showEditPage = ref(false);
+
+  let buttons = reactive([
+    { buttonText: 'Edit', emitFunction: 'editPage' },
+    { buttonText: 'Preview Page', emitFunction: 'previewPage' }
+  ])
+
+  console.log(buttons)
 
   const form = createForm([
     'title', 
@@ -218,5 +225,10 @@
 
   const showEditPageModal = async () => {
     showEditPage.value = true
+  };
+
+  const previewPage = async () => {
+    const route = router.resolve({ name: form.value.title.value }); 
+    window.open(route.href, '_blank');
   };
 </script>

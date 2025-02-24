@@ -3,7 +3,7 @@
   <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
     <TableHeader 
       title="Pages"
-      emitFunction="addPage"
+      :buttons="buttons"
       @addPage="showAddPageModal()"
     />
     <div class="flex p-4">
@@ -184,6 +184,9 @@
 
   const router = useRouter();
 
+  let buttons = reactive([
+    { buttonText: 'Add', emitFunction: 'addPage' },
+  ])
 
   let headers = reactive([
     { id: 1, name: "ID" },

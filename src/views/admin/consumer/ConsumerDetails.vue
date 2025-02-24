@@ -4,8 +4,7 @@
     <TableHeader 
       :title="data.name"
       subtitle="Consumer Details"
-      buttonText="Edit"
-      emitFunction="editConsumer"
+      :buttons="buttons"
       @editConsumer="showEditConsumerModal()"
     />
     <DataDisplay>
@@ -130,7 +129,7 @@
 
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
@@ -150,6 +149,11 @@
   const data = ref({});
 
   const showEditConsumer = ref(false);
+
+  let buttons = reactive([
+    { buttonText: 'Edit', emitFunction: 'editConsumer' },
+  ])
+
 
   const form = createForm([
     'name', 

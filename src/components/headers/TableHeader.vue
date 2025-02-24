@@ -9,9 +9,9 @@
 
         </div>
         <div v-if="props.button" class="mt-4 flex md:ml-4 md:mt-0">
-            <button v-on:click="$emit(props.emitFunction)" type="button" class="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black shadow-xs" 
+            <button v-for="button in props.buttons" :key="button.buttonText"  v-on:click="$emit(button.emitFunction)" type="button" class="inline-flex items-center rounded-md px-3 py-2 ml-3 text-sm font-semibold text-black shadow-xs" 
               :class="[$theme.mainButtonColour, $theme.mainButtonHoverColour]">
-              {{ props.buttonText }}
+              {{ button.buttonText }}
           </button>
         </div>
     </div>
@@ -30,17 +30,15 @@
       type: [String, Number],
       required: false
     },
-    buttonText: {
-      type: [String, Number],
-      default: 'Add',
+    buttons: {
+      type:  Array,
+      required: false
     },
     button: {
       type: Boolean,
       default: true
     },
-    emitFunction : {
-      type: String,
-      required: false
-    }
   });
+
+  console.log(props.buttons)
 </script>

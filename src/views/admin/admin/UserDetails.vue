@@ -4,8 +4,7 @@
     <TableHeader 
       :title="data.name"
       subtitle="Consumer Details"
-      buttonText="Edit"
-      emitFunction="editUser"
+      :buttons="buttons"
       @editUser="showEditUserModal()"
     />
     <DataDisplay>
@@ -149,6 +148,10 @@
   const data = ref({});
 
   const showEditUser = ref(false);
+
+  let buttons = reactive([
+    { buttonText: 'Edit', emitFunction: 'editUser' },
+  ])
 
   const form = createForm([
     'name', 

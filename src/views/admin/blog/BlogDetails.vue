@@ -4,8 +4,7 @@
     <TableHeader 
       :title="data.title"
       subtitle="Blog Preview"
-      buttonText="Edit"
-      emitFunction="editBlog"
+      :buttons="buttons"
       @editBlog="showEditBlogModal()"
     />
 
@@ -203,7 +202,7 @@
 
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
@@ -230,6 +229,10 @@
   const showEditBlog = ref(false);
 
   const url = ref({})
+
+  let buttons = reactive([
+    { buttonText: 'Edit', emitFunction: 'editBlog' },
+  ])
 
   const form = createForm([
     'title', 
