@@ -37,7 +37,8 @@
         <div class="border-t border-gray-100">
           <div v-for="section in data.sections" class="px-4 pt-6 sm:gap-4 sm:px-6">
             <Accordion  :title="section.page_section_template.template">
-              {{ section.data }}
+              <TemplateForm :section="section" @getPage="getData"/>
+
             </Accordion>
           </div>
         </div>
@@ -160,6 +161,7 @@
   import Accordion from '@/components/dataDisplay/Accordion.vue'
   import Tabs from "@/components/tabs/Tabs2.vue"
   import Tab from "@/components/tabs/Tab.vue"
+  import TemplateForm from "./TemplateForm.vue"
 
 
 
