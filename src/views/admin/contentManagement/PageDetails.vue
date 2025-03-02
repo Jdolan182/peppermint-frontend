@@ -61,7 +61,11 @@
 
               <div  :key="element.order" class="px-4 pt-4 pb-4 sm:gap-4 sm:px-6 draggable-list-group-item cursor-move">
                 <Accordion  :title="element.page_section_template.template">
+                  <div class="inline-flex ml-350 mr-12">
+                    <XMarkIcon @click="showDeleteSectionModel(element.id)" class="-ml-1 h-5 w-5 mt-3 ml-3 shrink-0 text-red-500 cursor-pointer" />
+                  </div>
                   <TemplateForm :section="element" @getPage="getData"/>
+                  
 
                 </Accordion>
               </div>
@@ -208,6 +212,28 @@
 
     </Modal>
 
+    <Modal 
+      :show="showDeleteSection" 
+      @hideModal="showDeleteSection = false"
+      title="Delete Blog"
+      :warning=true   
+    >
+      <template v-slot:content>
+        <div class="mt-2">
+          <p class="text-sm text-gray-500">Are you sure you want to delete this section? This action cannot be undone.</p>
+        </div>
+      </template>
+
+      <template v-slot:button>
+        <div>
+          <Error 
+            label="Delete"
+            @click="deleteSection()"
+          />
+        </div>
+      </template>
+    </Modal>
+
   </div>
 </template>
 
@@ -233,6 +259,8 @@
   import Draggable from 'vuedraggable'
   import Button from "@/components/buttons/Button.vue";
   import Select from "@/components/inputs/Select.vue";
+  import { XMarkIcon} from '@heroicons/vue/20/solid'
+  import Error from '@/components/buttons/Error.vue'
 
   const router = useRouter();
   const data = ref({});
@@ -243,6 +271,8 @@
 
   const showEditPage = ref(false);
   const showAddSection = ref(false);
+  const showDeleteSection = ref(false);
+  const deleteSectionID = ref({})
 
   let buttons = reactive([
     { buttonText: 'Edit', emitFunction: 'editPage' },
@@ -400,7 +430,7 @@
         getData()
         showAddSection.value = false
         selectedTemplate.value = templates.value[0].id
-        showSuccessBanner("Edited Successfully", "This page has been edited");
+        showSuccessBanner("Edited Successfully", "The page section has been added");
       }
       else if(res.status == 404) {
         showErrorBanner("Error", "Error");
@@ -414,5 +444,40 @@
 
     }
   };
+
+  const showDeleteSectionModel = (id) => {
+    deleteSectionID.value = id
+    showDeleteSection.value = true
+  }
+
+  const deleteSection = async () => {
+
+    try {
+
+      const res = await useAxios.delete(`/api/pages/deleteSection/${deleteSectionID.value}`)
+
+      if(res.status != 200 && res.status == 400)
+      {
+        form.value.edit.error = true
+        form.value.edit.errorMessage = res.data.message
+      }
+      if (res.status == 200) {
+        getData()
+        showDeleteSection.value = false
+        showSuccessBanner("Edited Successfully", "The page section has been deleted");
+      }
+      else if(res.status == 404) {
+        showErrorBanner("Error", "Error");
+      }
+      else if(res.status == 401) {
+        showErrorBanner("Unauthorized", "You don't have access to this");
+      }
+
+    } catch (e) {
+      showErrorBanner("Error", "Error");
+
+    }
+  };
+
   
 </script>
