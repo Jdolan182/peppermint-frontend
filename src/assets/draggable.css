@@ -1,0 +1,28 @@
+.draggable-button {
+    margin-top: 35px;
+  }
+  
+.draggable-flip-list-move {
+transition: transform 0.5s;
+}
+
+.draggable-no-move {
+transition: transform 0s;
+}
+
+.draggable-ghost {
+opacity: 0.5;
+background: #c8ebfb;
+}
+
+.draggable-list-group {
+min-height: 20px;
+}
+
+.draggable-list-group-item {
+cursor: move;
+}
+
+.draggable-list-group-item i {
+cursor: pointer;
+}

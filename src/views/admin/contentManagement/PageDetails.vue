@@ -35,12 +35,30 @@
       </Tab>
       <Tab title="Sections">
         <div class="border-t border-gray-100">
-          <div v-for="section in data.sections" class="px-4 pt-6 sm:gap-4 sm:px-6">
-            <Accordion  :title="section.page_section_template.template">
-              <TemplateForm :section="section" @getPage="getData"/>
+          <Draggable
+            class="draggable-list-group "
+            :component-data="{
+              tag: 'ul',
+              type: 'transition-group',
+              name: !drag ? 'flip-list' : null
+            }"
+            v-model="sections"
+            v-bind="dragOptions"
+            @start="drag = true"
+            @end="drag = false, updateOrder()"
+            item-key="order">
+          >
+          <template #item="{ element }">
 
-            </Accordion>
-          </div>
+              <div  :key="element.order" class="px-4 pt-4 pb-4 sm:gap-4 sm:px-6 draggable-list-group-item cursor-move">
+                <Accordion  :title="element.page_section_template.template">
+                  <TemplateForm :section="element" @getPage="getData"/>
+
+                </Accordion>
+              </div>
+            </template>
+
+          </Draggable>
         </div>
       </Tab>
     </Tabs>
@@ -145,7 +163,7 @@
 
 <script setup>
   import { useAxios } from "@/composables/request.js";
-  import { ref, onMounted, reactive } from 'vue'
+  import { ref, onMounted, reactive, computed } from 'vue'
   import Modal from '@/components/modals/Modal.vue'
   import Form from '@/components/forms/Form.vue'
   import Input from '@/components/inputs/Input.vue'
@@ -162,7 +180,7 @@
   import Tabs from "@/components/tabs/Tabs2.vue"
   import Tab from "@/components/tabs/Tab.vue"
   import TemplateForm from "./TemplateForm.vue"
-
+  import Draggable from 'vuedraggable'
 
 
   const router = useRouter();
@@ -174,6 +192,16 @@
     { buttonText: 'Edit', emitFunction: 'editPage' },
     { buttonText: 'Preview Page', emitFunction: 'previewPage' }
   ])
+
+  const sections = ref([])
+
+  const drag = ref(false)
+  const dragOptions = computed(() => ({
+    animation: 200,
+    group: "description",
+    disabled: false,
+    ghostClass: "draggable-ghost"
+  }))
 
   const form = createForm([
     'title', 
@@ -204,6 +232,7 @@
       if (res.status == 200) {
         showEditPage.value = false
         data.value = res.data.data
+        sections.value = data.value.sections
         populateForm(form, res.data.data)
         showSuccessBanner("Edited Successfully", "This page has been edited");
       }
@@ -231,6 +260,7 @@
 
       if(res.status == 200){
         data.value = res.data.data
+        sections.value = data.value.sections
         populateForm(form, res.data.data)
       }
 
@@ -240,10 +270,37 @@
 
   const showEditPageModal = async () => {
     showEditPage.value = true
-  };
+  }
 
   const previewPage = async () => {
     const route = router.resolve({ name: form.value.title.value }); 
     window.open(route.href, '_blank');
-  };
+  }
+
+  const updateOrder = async () => {
+
+    sections.value.forEach((value, index) => {
+  
+      if(value.order != index+1)
+      {
+        value.order = index+1
+      }
+    })
+
+    try {
+
+      const params = {
+        sections: sections.value,
+      };
+
+      const res = await useAxios.post(`/api/pages/updateSectionOrder`, params)
+
+      if(res.status == 200){
+        showSuccessBanner("Order Updated", "This pages sections have been reorder successfully");
+
+      }
+
+    } catch (e) {
+    }
+  }
 </script>

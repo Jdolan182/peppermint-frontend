@@ -1,4 +1,5 @@
 @import './base.css' layer(base);
+@import './draggable.css';
 @import 'tailwindcss';
 
 @config '../../tailwind.config.js';
@@ -54,3 +55,4 @@ a.blog,
 .resize-horizontal { 
   resize: vertical;
 }
+
