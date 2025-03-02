@@ -35,6 +35,15 @@
       </Tab>
       <Tab title="Sections">
         <div class="border-t border-gray-100">
+          <div class="inline-flex flex items-center px-3 py-2 text-sm font-semibold text-black hover:bg-white/70">
+
+              <Button 
+                  @click="showAddSectionModal" 
+                  class="mr-4"
+                  label="Add Section"
+
+              />
+          </div>
           <Draggable
             class="draggable-list-group "
             :component-data="{
@@ -42,7 +51,7 @@
               type: 'transition-group',
               name: !drag ? 'flip-list' : null
             }"
-            v-model="sections"
+            v-model="pageSections"
             v-bind="dragOptions"
             @start="drag = true"
             @end="drag = false, updateOrder()"
@@ -158,6 +167,47 @@
 
     </Modal>
 
+    <Modal 
+      :show="showAddSection" 
+      @hideModal="showAddSection = false"
+      title="Add Section"
+    >
+      <template v-slot:content>
+
+        <Form class="space-y-6 mt-5" @keydown.enter.prevent @keyup.enter.prevent
+        >
+          <div>
+            <Label
+                for="section" 
+                label="Select Section"
+            />
+            <div class="mt-1">
+              <Select 
+                width="w-20"
+                name="category"
+                :defaultValue="templates[0]['id']"
+                v-model="selectedTemplate"
+              >   
+                <option v-for="option in templates" :key="option.id" :value="option.id"> {{ option.template }}</option>
+              </Select>     
+
+            </div>
+          </div>
+
+        </Form>
+      </template>
+
+      <template v-slot:button>
+        <div>
+          <Submit 
+            label="Add"
+            @click="addSection()"
+          />
+        </div>
+      </template>
+
+    </Modal>
+
   </div>
 </template>
 
@@ -181,19 +231,25 @@
   import Tab from "@/components/tabs/Tab.vue"
   import TemplateForm from "./TemplateForm.vue"
   import Draggable from 'vuedraggable'
-
+  import Button from "@/components/buttons/Button.vue";
+  import Select from "@/components/inputs/Select.vue";
 
   const router = useRouter();
   const data = ref({});
+  const templates = ref({})
+
+  const selectedTemplate = ref(0)
+
 
   const showEditPage = ref(false);
+  const showAddSection = ref(false);
 
   let buttons = reactive([
     { buttonText: 'Edit', emitFunction: 'editPage' },
     { buttonText: 'Preview Page', emitFunction: 'previewPage' }
   ])
 
-  const sections = ref([])
+  const pageSections = ref([])
 
   const drag = ref(false)
   const dragOptions = computed(() => ({
@@ -210,6 +266,8 @@
     'is_active', 
     'edit'
   ])
+
+
 
   const submit = async () => {
     try {
@@ -232,7 +290,7 @@
       if (res.status == 200) {
         showEditPage.value = false
         data.value = res.data.data
-        sections.value = data.value.sections
+        pageSections.value = data.value.sections
         populateForm(form, res.data.data)
         showSuccessBanner("Edited Successfully", "This page has been edited");
       }
@@ -251,6 +309,7 @@
   
   onMounted(async () => {
     getData()
+    getTemplates()
   })
  
   const getData = async () => {
@@ -260,8 +319,22 @@
 
       if(res.status == 200){
         data.value = res.data.data
-        sections.value = data.value.sections
+        pageSections.value = data.value.sections
         populateForm(form, res.data.data)
+      }
+
+    } catch (e) {
+    }
+  }
+
+  const getTemplates = async () => {
+    try {
+
+      const res = await useAxios.get(`/api/pages/getTemplates`)
+
+      if(res.status == 200){
+        templates.value = res.data.data
+        selectedTemplate.value = templates.value[0].id
       }
 
     } catch (e) {
@@ -272,6 +345,10 @@
     showEditPage.value = true
   }
 
+  const showAddSectionModal = async () => {
+    showAddSection.value = true
+  }
+
   const previewPage = async () => {
     const route = router.resolve({ name: form.value.title.value }); 
     window.open(route.href, '_blank');
@@ -279,7 +356,7 @@
 
   const updateOrder = async () => {
 
-    sections.value.forEach((value, index) => {
+    pageSections.value.forEach((value, index) => {
   
       if(value.order != index+1)
       {
@@ -290,7 +367,7 @@
     try {
 
       const params = {
-        sections: sections.value,
+        sections: pageSections.value,
       };
 
       const res = await useAxios.post(`/api/pages/updateSectionOrder`, params)
@@ -303,4 +380,39 @@
     } catch (e) {
     }
   }
+
+  const addSection = async () => {
+
+    try {
+
+      const params = {
+        template_id: selectedTemplate.value,
+      };
+
+      const res = await useAxios.post(`/api/pages/addSection/${router.currentRoute.value.params.id}`, params)
+
+      if(res.status != 200 && res.status == 400)
+      {
+        form.value.edit.error = true
+        form.value.edit.errorMessage = res.data.message
+      }
+      if (res.status == 200) {
+        getData()
+        showAddSection.value = false
+        selectedTemplate.value = templates.value[0].id
+        showSuccessBanner("Edited Successfully", "This page has been edited");
+      }
+      else if(res.status == 404) {
+        showErrorBanner("Error", "Error");
+      }
+      else if(res.status == 401) {
+        showErrorBanner("Unauthorized", "You don't have access to this");
+      }
+    
+    } catch (e) {
+      showErrorBanner("Error", "Error");
+
+    }
+  };
+  
 </script>
