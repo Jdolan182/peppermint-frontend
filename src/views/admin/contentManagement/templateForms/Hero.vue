@@ -17,10 +17,10 @@
         </div>
 
         <div>
-            <Label
-                for="subtitle" 
-                label="Subtitle"
-            />
+          <Label
+              for="subtitle" 
+              label="Subtitle"
+          />
           <div class="mt-1">
             <Input 
                 name="subtitle"
@@ -32,57 +32,58 @@
         </div>
 
         <div>
-            <Label
-                for="subtitle" 
-                label="Subtitle"
-            />
+          <Label
+              for="latestBlog" 
+              label="Show Latest Blog"
+          />
           <div class="mt-1">
-            <Input 
-                name="subtitle"
-                placeholder="Subtitle"
-                :default-value="form.subtitle.value"
-                @input-value="(value) => (form.subtitle.value = value)"
+            <Checkbox 
+                name="latestBlog"
+                :checked="form.latestBlog.value"
+                @input-value="(value) => (form.latestBlog.value = value)"
+                :error="form.latestBlog.error"
+                :error-message="form.latestBlog.errorMessage"
             />
           </div>
         </div>
 
         <div>
-            <Label
-                for="button" 
-                label="Show Button"
+          <Label
+              for="button" 
+              label="Show Button"
+          />
+          <div class="mt-1">
+            <Checkbox 
+                name="button"
+                :checked="form.button.value"
+                @input-value="(value) => (form.button.value = value,  toggleButton(value))"
+                :error="form.button.error"
+                :error-message="form.button.errorMessage"
             />
-            <div class="mt-1">
-              <Checkbox 
-                  name="button"
-                  :checked="form.button.value"
-                  @input-value="(value) => (form.button.value = value)"
-                  :error="form.button.error"
-                  :error-message="form.button.errorMessage"
-                  @change="enableButton($event)"
-              />
-            </div>
           </div>
+        </div>
 
-        <div>
-            <Label
-                for="buttonText" 
-                label="Button Text"
-            />
+        <div :hidden="disabledButton">
+          <Label
+              for="buttonText" 
+              label="Button Text"
+          />
           <div class="mt-1">
             <Input 
                 name="buttonText"
                 placeholder="Button Text"
                 :default-value="form.buttonText.value"
                 @input-value="(value) => (form.buttonText.value = value)"
+                :disabled="disabledButton"
             />
           </div>
         </div>
 
-        <div>
-            <Label
-                for="buttonDestination" 
-                label="Button Destination"
-            />
+        <div :hidden="disabledButton">
+          <Label
+              for="buttonDestination" 
+              label="Button Destination"
+          />
           <div class="mt-1">
             <Select 
                 width="w-20"
@@ -90,10 +91,25 @@
                 :defaultValue="form.buttonDestination.value"
                 :error="form.buttonDestination.error"
                 @input-value="(value) => (form.buttonDestination.value = value)"
+                :disabled="disabledButton"
               >    
-                <option value=""> None </option>
                 <option v-for="page in pages" :key="page.id" :value="page.id"> {{ page.title }}</option>
               </Select>     
+          </div>
+        </div>
+
+        <div >
+          <Label
+              for="extraText" 
+              label="Extra Text"
+          />
+          <div class="mt-1">
+            <Input 
+                name="extraText"
+                placeholder="Extra Text"
+                :default-value="form.extraText.value"
+                @input-value="(value) => (form.extraText.value = value)"
+            />
           </div>
         </div>
 
@@ -132,11 +148,14 @@
     { key: 'button', default: 0 },
     { key: 'buttonText', default: '' },
     { key: 'buttonDestination', default: '' },
+    { key: 'latestBlog', default: 0 },
+    { key: 'extraText', default: '' },
   ])
 
   const emit = defineEmits(['submit'])
 
   const pages = ref({});
+  const disabledButton = ref(true)
 
   
   const props = defineProps({
@@ -148,10 +167,9 @@
 
   onMounted(async () => {
     populateForm(form, props.data.params)
-
-    if(form.value.button.value == '')
+    if(form.value.button.value == 1)
     {
-      form.value.button.value = 0
+      disabledButton.value = false
     }
     getPages()
   })
@@ -165,11 +183,6 @@
 
       if(res.status == 200){
         pages.value = res.data.data
-        // if(form.value.buttonDestination.value == '')
-        // {
-        //   form.value.buttonDestination.value = pages.value[0]['id']
-        // }
-
       }
 
     } catch (e) {
@@ -177,12 +190,18 @@
     }
   }
 
-  const enableButton = () => {
+  const toggleButton = (value) => {
 
-    
-
-      console.log(form.value.button.value)
-      console.log(form)
+      if(value == 1)
+      {
+        disabledButton.value = false
+        form.value.buttonDestination.value = pages.value[0]['id']
+      }
+      else {
+        disabledButton.value = true
+        form.value.buttonText.value = ''
+        form.value.buttonDestination.value = ''
+      }
   }
 
   const submit = (form) => {
@@ -192,6 +211,8 @@
       button: form.button.value,
       buttonText: form.buttonText.value,
       buttonDestination: form.buttonDestination.value,
+      latestBlog: form.latestBlog.value,
+      extraText: form.extraText.value,
     }
     emit('submit', params);
   }

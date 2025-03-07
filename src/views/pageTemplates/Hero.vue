@@ -10,16 +10,16 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-              <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
+              <div v-if="data.params.latestBlog" class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
                 Announcing our next round of funding. <a href="#" class="font-semibold text-white"><span class="absolute inset-0" aria-hidden="true" />Read more <span aria-hidden="true">&rarr;</span></a>
               </div>
             </div>
             <div class="text-center">
               <h1 class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl">{{ data.params.title }}</h1>
               <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"> {{ data.params.subtitle }} </p>
-              <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</a>
-                <a href="#" class="text-sm/6 font-semibold text-white">Learn more <span aria-hidden="true">→</span></a>
+              <div v-if="data.params.button" class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"> {{ data.params.buttonText }} </a>
+                <a href="#" v-if="data.params.extraText" class="text-sm/6 font-semibold text-white">{{ data.params.extraText }} <span aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
@@ -32,16 +32,6 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-  import { Dialog, DialogPanel } from '@headlessui/vue'
-  import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-  
-  const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
-  ]
 
     const props = defineProps({
         data: {
@@ -52,7 +42,4 @@
 
     const data = JSON.parse(props.data)
 
-    console.log(data)
-
-  
   </script>
