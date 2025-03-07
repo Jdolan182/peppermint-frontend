@@ -56,7 +56,7 @@
   const themes = ref({});
 
   const form = createForm([
-    'theme', 
+    { key: 'theme', default: '' }, 
   ])
   const themeStore = useThemeStore();
 

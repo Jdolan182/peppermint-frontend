@@ -37,7 +37,7 @@
     const data = ref(JSON.parse(props.section.data));
 
     const form = createForm([
-        'edit',
+        { key: 'edit', default: '' }
     ])
 
     const section = defineAsyncComponent(() => 

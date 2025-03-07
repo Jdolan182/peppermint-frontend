@@ -65,8 +65,8 @@
     const maintenanceStore = useMaintenanceStore();
 
     const form = createForm([
-      'password', 
-      'maintenance', 
+      { key: 'password', default: '' }, 
+      { key: 'maintenance', default: '' },
     ])
 
     const props = defineProps({

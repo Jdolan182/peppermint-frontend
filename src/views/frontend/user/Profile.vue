@@ -160,9 +160,9 @@ import Form from '@/components/forms/Form.vue'
 
 
     const form = createForm([
-      'name', 
-      'email', 
-      'update'
+      { key: 'name', default: '' }, 
+      { key: 'email', default: '' }, 
+      { key: 'update', default: '' },
     ])
 
     console.log(form.value)
@@ -171,10 +171,10 @@ import Form from '@/components/forms/Form.vue'
     form.value['email'].value = consumerStore.getEmail;
 
     const passwordForm = createForm([
-      'current_password', 
-      'password',
-      'confirmPassword',
-      'update'
+      { key: 'current_password', default: '' }, 
+      { key: 'password', default: '' },
+      { key: 'confirmPassword', default: '' },
+      { key: 'update', default: '' },
     ])
 
     const updateDetails = async () => {

@@ -189,11 +189,11 @@
   ])
 
   const form = createForm([
-    'name', 
-    'email', 
-    'password', 
-    'confirmPassword', 
-    'add'
+    { key: 'name', default: '' }, 
+    { key: 'email', default: '' }, 
+    { key: 'password', default: '' }, 
+    { key: 'confirmPassword', default: '' }, 
+    { key: 'add', default: '' },
   ])
 
   const submit = async () => {

@@ -121,11 +121,11 @@
     const router = useRouter();
 
     const form = createForm([
-      'name', 
-      'email', 
-      'password', 
-      'confirmPassword', 
-      'register'
+      { key: 'name', default: '' }, 
+      { key: 'email', default: '' }, 
+      { key: 'password', default: '' }, 
+      { key: 'confirmPassword', default: '' }, 
+      { key: 'register', default: '' },
     ])
     
     const submit = async () => {

@@ -290,11 +290,11 @@
   }))
 
   const form = createForm([
-    'title', 
-    'slug', 
-    'show_footer', 
-    'is_active', 
-    'edit'
+    { key: 'title', default: '' },
+    { key: 'slug', default: '' }, 
+    { key: 'show_footer', default: 0 },
+    { key: 'is_active', default: 0 },
+    { key: 'edit', default: '' },
   ])
 
 

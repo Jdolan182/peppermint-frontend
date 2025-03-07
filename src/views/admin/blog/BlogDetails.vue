@@ -235,16 +235,16 @@
   ])
 
   const form = createForm([
-    'title', 
-    'subtitle', 
-    'slug', 
-    'image_filename',
-    'description', 
-    'category_id', 
-    'live_date',
-    'is_active',
-    'content', 
-    'edit'
+    { key: 'title', default: '' },
+    { key: 'subtitle', default: '' },
+    { key: 'slug', default: '' }, 
+    { key: 'image_filename', default: '' },
+    { key: 'description', default: '' }, 
+    { key: 'category_id', default: 0 }, 
+    { key: 'live_date', default: 0 },
+    { key: 'is_active', default: 0 },
+    { key: 'content', default: '' },
+    { key: 'edit', default: '' },
   ])
 
   const submit = async () => {

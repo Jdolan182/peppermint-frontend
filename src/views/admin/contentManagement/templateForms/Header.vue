@@ -56,8 +56,8 @@ import { watch } from 'vue'
 
 
 const form = createForm([
-  'title',
-  'subtitle'
+  { key: 'title', default: '' },
+  { key: 'subtitle', default: '' },
 ])
 
 const emit = defineEmits(['submit'])

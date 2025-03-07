@@ -9,13 +9,13 @@ export const createForm = (fields) => {
 
     const form = ref({});
 
-    for (let key in fields) {
-        form.value[fields[key]] = {
-            value:"",
+    fields.forEach ((value, index) => {
+          form.value[value.key] = {
+            value: value.default,
             error: false,
             errorMessage: "",
         }
-    }
+      })
     
     return form
 };

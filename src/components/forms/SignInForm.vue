@@ -108,9 +108,9 @@
     });
 
     const form = createForm([
-      'email', 
-      'password', 
-      'login', 
+      { key: 'email', default: '' }, 
+      { key: 'password', default: '' }, 
+      { key: 'login', default: '' }, 
     ])
 
     const emit = defineEmits(['login'])

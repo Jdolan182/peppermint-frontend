@@ -156,11 +156,11 @@
 
 
   const form = createForm([
-    'name', 
-    'email', 
-    'password', 
-    'confirmPassword', 
-    'edit'
+    { key: 'name', default: '' },  
+    { key: 'email', default: '' },  
+    { key: 'password', default: '' },  
+    { key: 'confirmPassword', default: '' }, 
+    { key: 'edit', default: '' }, 
   ])
 
   const submit = async () => {
