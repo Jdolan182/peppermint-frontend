@@ -14,6 +14,7 @@ axios.defaults.withCredentials = true
 axios.defaults.withXSRFToken = true
 axios.defaults.headers.common['Access-Control-Allow-Origin', '*#']
 
+
 //store
 const pinia = createPinia()
 

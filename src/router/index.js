@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/store/admin/auth';
 import { useConsumerAuthStore } from '@/store/frontend/consumerAuth';
+import { useAxios } from "@/composables/request.js";
 
 //admin
 import { DashboardRoutes } from "./admin/dashboard.js";
@@ -59,6 +60,38 @@ import { useNavigationStore } from "@/store/navigation";
     frontendRoutesArr = [
       ...HomeRoutes,
     ]
+
+    if(import.meta.env.VITE_MODULE_CMS_ENABLED  === 'true'){
+
+      try {
+  
+        const res = await useAxios.get(import.meta.env.VITE_API_URL + `api/pages/getPages`)
+
+        if(res.status == 200){
+
+          const pages = res.data.data
+
+          pages.forEach((value) => {
+
+            frontendRoutesArr.push(
+              { 
+                path: '/'+value.slug, 
+                name: value.slug, 
+                component: () => import('@/views/frontend/pages/PageTemplate.vue'), 
+                meta: {
+                  module: 'frontend',
+                  frontendLayout: true,
+                  nav: value.title
+                }
+              })
+          })
+        }
+  
+      } catch (e) {
+      }
+     
+
+    }
 
     if(import.meta.env.VITE_MODULE_CONSUMER_ENABLED  === 'true'){
       frontendRoutesArr.push( 

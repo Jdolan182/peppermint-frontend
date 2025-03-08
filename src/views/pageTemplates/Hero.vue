@@ -18,8 +18,8 @@
               <h1 class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl">{{ data.params.title }}</h1>
               <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"> {{ data.params.subtitle }} </p>
               <div v-if="data.params.button" class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="#" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"> {{ data.params.buttonText }} </a>
-                <a href="#" v-if="data.params.extraText" class="text-sm/6 font-semibold text-white">{{ data.params.extraText }} <span aria-hidden="true">→</span></a>
+                <router-link :to="{ name: data.params.buttonDestination }" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"> {{ data.params.buttonText }} </router-link>
+                <router-link :to="{ name: data.params.buttonDestination }" v-if="data.params.showExtraText" class="text-sm/6 font-semibold text-white">{{ data.params.extraText }} <span aria-hidden="true">→</span></router-link>
               </div>
             </div>
           </div>

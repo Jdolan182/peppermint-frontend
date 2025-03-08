@@ -93,12 +93,28 @@
                 @input-value="(value) => (form.buttonDestination.value = value)"
                 :disabled="disabledButton"
               >    
-                <option v-for="page in pages" :key="page.id" :value="page.id"> {{ page.title }}</option>
+                <option v-for="page in pages" :key="page.slug" :value="page.slug"> {{ page.title }}</option>
               </Select>     
           </div>
         </div>
 
-        <div >
+        <div>
+          <Label
+              for="button" 
+              label="Show Button"
+          />
+          <div class="mt-1">
+            <Checkbox 
+                name="button"
+                :checked="form.showExtraText.value"
+                @input-value="(value) => (form.showExtraText.value = value,  toggleExtraText(value))"
+                :error="form.showExtraText.error"
+                :error-message="form.showExtraText.errorMessage"
+            />
+          </div>
+        </div>
+
+        <div :hidden="disabledExtraText">
           <Label
               for="extraText" 
               label="Extra Text"
@@ -109,6 +125,7 @@
                 placeholder="Extra Text"
                 :default-value="form.extraText.value"
                 @input-value="(value) => (form.extraText.value = value)"
+                :disabled="disabledExtraText"
             />
           </div>
         </div>
@@ -149,6 +166,7 @@
     { key: 'buttonText', default: '' },
     { key: 'buttonDestination', default: '' },
     { key: 'latestBlog', default: 0 },
+    { key: 'showExtraText', default: '' },
     { key: 'extraText', default: '' },
   ])
 
@@ -156,6 +174,7 @@
 
   const pages = ref({});
   const disabledButton = ref(true)
+  const disabledExtraText = ref(true)
 
   
   const props = defineProps({
@@ -204,6 +223,18 @@
       }
   }
 
+  const toggleExtraText = (value) => {
+
+    if(value == 1)
+    {
+      disabledExtraText.value = false
+    }
+    else {
+      disabledExtraText.value = true
+      form.value.extraText.value = ''
+    }
+  }
+
   const submit = (form) => {
     const params = {
       title: form.title.value,
@@ -212,6 +243,7 @@
       buttonText: form.buttonText.value,
       buttonDestination: form.buttonDestination.value,
       latestBlog: form.latestBlog.value,
+      showExtraText: form.showExtraText.value,
       extraText: form.extraText.value,
     }
     emit('submit', params);
