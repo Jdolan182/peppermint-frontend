@@ -1,30 +1,23 @@
 <template>
-    <form @submit.prevent="submit">
-      <slot></slot>
-    </form>
+  <form @submit.prevent="submit">
+    <slot></slot>
+  </form>
 </template>
-  
-<script>
-  import { ref } from "@vue/reactivity";
 
-  export default {
-    name: "Form",
-    emits: ["submit"],
-    setup(props, ctx) {
-      const delay = ref(false);
-      const submit = () => {
-        if (!delay.value) {
-          delay.value = true;
-          emitSubmit();
-        }
-      };
-      const emitSubmit = async () => {
-        ctx.emit("submit");
-        setTimeout(() => {
-          delay.value = false;
-        }, 2500);
-      };
-      return { submit };
-    },
-  };
+<script setup>
+import { ref } from "vue"
+
+const emit = defineEmits(["submit"])
+const submitting = ref(false)
+
+const submit = async () => {
+  if (submitting.value) return
+  submitting.value = true
+
+  try {
+    await emit("submit")
+  } finally {
+    submitting.value = false
+  }
+}
 </script>
